@@ -34,8 +34,9 @@ test_expr         :  '?' expression ':' expression
 // Value Expressions
 value_expr   :    '(' expression ')' 
                  | atomic_value 
-				 | list_value 
+				         | list_value 
                  | case_value
+                 | call
 ;
 atomic_value : id | number | bool 
 ;
@@ -49,6 +50,15 @@ list_expr    :  expression ( ','  expression)*
 case_value   :  '{' case_expr? '}'
 ;
 case_expr    :  lambda_expr ( ','  lambda_expr)*
+;
+
+call         :  id signature
+;
+
+signature    : '(' args? ')'
+;
+
+args         : expression( ',' expression)*
 ;
 
 // Patterns
@@ -65,6 +75,7 @@ rest_body_pat : '|' (id | list_pat)
 
 id : ID
 ;
+
 number : NUMBER
 ;
 bool : TRUE | FALSE
