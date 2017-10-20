@@ -1,4 +1,4 @@
-// Generated from grammar/KoKoslan.g4 by ANTLR 4.5.3
+// Generated from grammar/KoKoslan.g4 by ANTLR 4.7
 package kokoslan.parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -71,11 +71,40 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTest_expr(KoKoslanParser.Test_exprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link KoKoslanParser#value_expr}.
+	 * Visit a parse tree produced by the {@code ParentValueExpr}
+	 * labeled alternative in {@link KoKoslanParser#value_expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitValue_expr(KoKoslanParser.Value_exprContext ctx);
+	T visitParentValueExpr(KoKoslanParser.ParentValueExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CallValueExpr}
+	 * labeled alternative in {@link KoKoslanParser#value_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCallValueExpr(KoKoslanParser.CallValueExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListValueExpr}
+	 * labeled alternative in {@link KoKoslanParser#value_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListValueExpr(KoKoslanParser.ListValueExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CaseValueExpr}
+	 * labeled alternative in {@link KoKoslanParser#value_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCaseValueExpr(KoKoslanParser.CaseValueExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomicValueExpr}
+	 * labeled alternative in {@link KoKoslanParser#value_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomicValueExpr(KoKoslanParser.AtomicValueExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link KoKoslanParser#atomic_value}.
 	 * @param ctx the parse tree
@@ -107,23 +136,11 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCase_expr(KoKoslanParser.Case_exprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link KoKoslanParser#call}.
+	 * Visit a parse tree produced by {@link KoKoslanParser#call_args}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCall(KoKoslanParser.CallContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link KoKoslanParser#signature}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSignature(KoKoslanParser.SignatureContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link KoKoslanParser#args}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArgs(KoKoslanParser.ArgsContext ctx);
+	T visitCall_args(KoKoslanParser.Call_argsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link KoKoslanParser#pattern}.
 	 * @param ctx the parse tree

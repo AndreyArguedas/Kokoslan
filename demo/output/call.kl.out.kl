@@ -1,2 +1,2 @@
-let f  = x + 1.0 
-let r  = f 
+let x  = 666.0 
+f  (x ) 

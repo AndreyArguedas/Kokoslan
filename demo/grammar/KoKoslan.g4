@@ -13,7 +13,7 @@ program      : definition* expression
 
 definition   : 'let' id '=' expression
 ;
-expression   : part_expr (part_expr)*
+expression   : part_expr (',' part_expr)*
 ;
 part_expr    :  lambda_expr | evaluable_expr 
 ;
@@ -32,11 +32,11 @@ mult_expr         :  value_expr (('*' | '/') value_expr)*
 test_expr         :  '?' expression ':' expression
 ;
 // Value Expressions
-value_expr   :    '(' expression ')' 
-                 | atomic_value 
-				         | list_value 
-                 | case_value
-                 | call
+value_expr   :    '(' expression ')'          #ParentValueExpr
+                 | atomic_value               #AtomicValueExpr
+				         | list_value                 #ListValueExpr
+                 | case_value                 #CaseValueExpr
+                 | value_expr call_args       #CallValueExpr
 ;
 atomic_value : id | number | bool 
 ;
@@ -52,14 +52,9 @@ case_value   :  '{' case_expr? '}'
 case_expr    :  lambda_expr ( ','  lambda_expr)*
 ;
 
-call         :  id signature
+call_args         :  '(' list_expr? ')'
 ;
 
-signature    : '(' args? ')'
-;
-
-args         : expression( ',' expression)*
-;
 
 // Patterns
 pattern      :  atomic_pat | list_pat

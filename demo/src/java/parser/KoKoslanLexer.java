@@ -1,4 +1,4 @@
-// Generated from grammar/KoKoslan.g4 by ANTLR 4.5.3
+// Generated from grammar/KoKoslan.g4 by ANTLR 4.7
 package kokoslan.parser;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class KoKoslanLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.5.3", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.7", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -21,6 +21,10 @@ public class KoKoslanLexer extends Lexer {
 		LEFT_PAR=9, RIGHT_PAR=10, LEFT_CURLY=11, RIGHT_CURLY=12, LEFT_BRACKET=13, 
 		RIGHT_BRACKET=14, LET=15, NOT=16, EQ=17, NEQ=18, LEQ=19, OR=20, TRUE=21, 
 		FALSE=22, MUL=23, DIV=24, ADD=25, SUB=26, ID=27, SLC=28, MLC=29, WS=30;
+	public static String[] channelNames = {
+		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
+	};
+
 	public static String[] modeNames = {
 		"DEFAULT_MODE"
 	};
@@ -92,13 +96,16 @@ public class KoKoslanLexer extends Lexer {
 	public String getSerializedATN() { return _serializedATN; }
 
 	@Override
+	public String[] getChannelNames() { return channelNames; }
+
+	@Override
 	public String[] getModeNames() { return modeNames; }
 
 	@Override
 	public ATN getATN() { return _ATN; }
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\2 \u00bf\b\1\4\2\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2 \u00bf\b\1\4\2\t"+
 		"\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -115,8 +122,8 @@ public class KoKoslanLexer extends Lexer {
 		"\u00bb\3 \3 \4\u00a0\u00ae\2!\3\3\5\4\7\2\t\5\13\6\r\7\17\b\21\t\23\n"+
 		"\25\13\27\f\31\r\33\16\35\17\37\20!\21#\22%\23\'\24)\25+\26-\27/\30\61"+
 		"\31\63\32\65\33\67\349\35;\36=\37? \3\2\7\3\2\62;\3\2$$\4\2C\\c|\6\2\62"+
-		";C\\aac|\5\2\13\f\17\17\"\"\u00c6\2\3\3\2\2\2\2\5\3\2\2\2\2\t\3\2\2\2"+
-		"\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2\2\2\2\25"+
+		";C\\aac|\5\2\13\f\17\17\"\"\2\u00c6\2\3\3\2\2\2\2\5\3\2\2\2\2\t\3\2\2"+
+		"\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2\2\2\2\25"+
 		"\3\2\2\2\2\27\3\2\2\2\2\31\3\2\2\2\2\33\3\2\2\2\2\35\3\2\2\2\2\37\3\2"+
 		"\2\2\2!\3\2\2\2\2#\3\2\2\2\2%\3\2\2\2\2\'\3\2\2\2\2)\3\2\2\2\2+\3\2\2"+
 		"\2\2-\3\2\2\2\2/\3\2\2\2\2\61\3\2\2\2\2\63\3\2\2\2\2\65\3\2\2\2\2\67\3"+

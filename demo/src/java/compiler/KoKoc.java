@@ -47,8 +47,9 @@ public class KoKoc {
 		   System.out.println(">>> KoKoc Reading from console (enter CTRL-Z+ENTER to finish <<<");
 		}
 		 // Setup Lexer/Parser
-        ANTLRInputStream input = new ANTLRInputStream(is);
-        KoKoslanLexer lexer = new KoKoslanLexer(input);
+        //ANTLRInputStream input = new ANTLRInputStream(is);
+        CharStream input = CharStreams.fromStream(is);
+		KoKoslanLexer lexer = new KoKoslanLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         KoKoslanParser parser = new KoKoslanParser(tokens);
 		

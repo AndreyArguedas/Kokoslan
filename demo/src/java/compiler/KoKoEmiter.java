@@ -53,7 +53,17 @@ public interface KoKoEmiter{
        return new KoKoId(value);
    }
    
-   
+   default KoKoList LIST(List<KoKoAst> expressions){ //Arguments with expressions
+       return new KoKoList(expressions);
+   }
+
+   default KoKoList LIST(){ //Empty arguments
+        return new KoKoList();
+   }
+
+   default KoKoAst CALL(KoKoAst head, KoKoList args){
+       return new KoKoCall(head, args);
+   }
    
    
 }

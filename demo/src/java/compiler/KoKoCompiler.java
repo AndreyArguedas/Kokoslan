@@ -119,7 +119,35 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
    public KoKoAst visitBool(KoKoslanParser.BoolContext ctx){
       return ( ctx.TRUE() != null ) ? TRUE : FALSE;
    }
+
+   @Override
+   public KoKoAst visitMult_expr(KoKoslanParser.Mult_exprContext ctx){
+      System.err.format("Visiting %s (STILL INCOMPLETE!!) %n", "visitMult_expr");
+	  return visit( ctx.value_expr(0) );
+   }
    
+   @Override
+   public KoKoAst visitCallValueExpr(KoKoslanParser.CallValueExprContext ctx){
+      KoKoAst head = visit(ctx.value_expr());
+	  KoKoList args = (KoKoList)visit(ctx.call_args());
+	  return CALL( head, args );
+   }
+
+   @Override
+   public KoKoAst visitCall_args(KoKoslanParser.Call_argsContext ctx){
+      if( ctx.list_expr() != null )
+	  	return visit(ctx.list_expr());
+	  else return LIST();
+   }
    
+   @Override
+   public KoKoAst visitList_expr(KoKoslanParser.List_exprContext ctx){
+      List<KoKoAst> exprs = ctx.expression()
+	  						   .stream()
+							   .map(e -> visit(e))
+							   .collect(Collectors.toList());
+	  return LIST(exprs);
+   }
+
 }
   

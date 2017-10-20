@@ -1,3 +1,2 @@
-let f = \x.x+1
-let r = 999
-f(9)
+let x = 666.0
+f (x )
