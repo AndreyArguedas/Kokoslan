@@ -9,12 +9,14 @@ package kokoslan.ast;
 import java.util.*;
 import java.io.*;
 
+/* Evals KoKoslan lists who stores KoKoslan values */
+
 public class KoKoListValue extends ArrayList<KoKoValue> implements KoKoValue{
     public KoKoListValue(List<KoKoValue> list){
-        super(list);
+        super(list); //Super is ArrayList of KoKoValue
     }
 
     public KoKoListValue(){
-        super();
+        super(); //Super is ArrayList of KoKoValue
     }
 }

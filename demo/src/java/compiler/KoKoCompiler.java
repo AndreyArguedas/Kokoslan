@@ -18,9 +18,13 @@ import java.util.*;
 import java.util.stream.*;
 import java.io.*;
 
+/* THIS CLASS USES WHAT PARSER GENERATED AND GIVES AN IMPLEMENTATION 
+   PLEASE DO SOME RESEARCH OF VISISTOR PATTERN FIRST
+*/
+
 public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEmiter{
 	
-   protected String outputFile = null;
+   protected String outputFile = null; //the final result kl.out.kl
    protected KoKoAst program;
    
    public KoKoCompiler(){

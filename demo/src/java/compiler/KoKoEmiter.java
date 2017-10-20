@@ -12,6 +12,12 @@ package kokoslan.compile;
 import kokoslan.ast.*;
 import java.util.*;
 
+/* SEE THE GRAMMAR AND COMPARE IT WITH THIS, THIS INTERFACE
+   IS VERY IMPORTANT, GIVES GRAMMAR A SENSE, TURNS GRAMMAR WORDS
+   TO OBJECTS, EACH TIME SOMETHING IS CHANGED IN GRAMMAR
+   IS NECESSARY TO CHANGE IT OR IMPLEMENT IT HERE
+*/
+
 public interface KoKoEmiter{
 	
    final KoKoBool TRUE = new KoKoBool(true);
