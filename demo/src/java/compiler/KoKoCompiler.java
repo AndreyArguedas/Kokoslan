@@ -89,21 +89,10 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 	                               .stream()
 	                               .map( e -> visit(e) )
 								   .collect(Collectors.toList());
-								   
-	  /* 
-	  // Imperative
-	  KoKoAst result = operands.get(0);
-	  for(int i = 1; i < operands.size(); i++){
-		  result = BI_OPERATION(operators.get(i - 1), result, operands.get(i));
-	  }
-	  return result;
-	  */
-	  
       KoKoAst[] r = {operands.get(0)};
       java.util.stream.IntStream
 	                  .range(1, operands.size())
-	                  .forEach( i -> r[0] = BI_OPERATION(operators.get(i - 1), r[0], operands.get(i)))
-	  ;	  
+	                  .forEach( i -> r[0] = BI_OPERATION(operators.get(i - 1), r[0], operands.get(i)));	  
       return r[0];
    }
    @Override
@@ -126,8 +115,26 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 
    @Override
    public KoKoAst visitMult_expr(KoKoslanParser.Mult_exprContext ctx){
-      System.err.format("Visiting %s (STILL INCOMPLETE!!) %n", "visitMult_expr");
-	  return visit( ctx.value_expr(0) );
+      if ( ctx.mult_oper() == null ){
+		  return visit(ctx.value_expr(0));
+	  }
+	  
+	  List<KoKoAst> operators = ctx.mult_oper()
+	                               .stream()
+	                               .map( e -> visit(e) )
+								   .collect(Collectors.toList());
+								   
+	  List<KoKoAst> operands =  ctx.value_expr()
+	                               .stream()
+	                               .map( e -> visit(e) )
+								   .collect(Collectors.toList());
+	  System.out.println(operators);
+      System.out.println(operands);
+      KoKoAst[] r = {operands.get(0)};
+      java.util.stream.IntStream
+	                  .range(1, operands.size())
+	                  .forEach( i -> r[0] = BI_OPERATION(operators.get(i - 1), r[0], operands.get(i)));	  
+      return r[0];
    }
    
    @Override

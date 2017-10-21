@@ -26,7 +26,10 @@ add_expr          :  mult_expr (add_oper mult_expr)*
 ;
 add_oper          : oper=('+' | '-')
 ;
-mult_expr         :  value_expr (('*' | '/') value_expr)*
+mult_expr         :  value_expr (mult_oper value_expr)*
+;
+
+mult_oper         :  oper=('*' | '/')
 ;
 
 test_expr         :  '?' expression ':' expression
