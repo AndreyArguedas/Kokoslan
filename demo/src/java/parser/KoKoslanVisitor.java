@@ -65,6 +65,12 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMult_expr(KoKoslanParser.Mult_exprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#mult_oper}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMult_oper(KoKoslanParser.Mult_operContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link KoKoslanParser#test_expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -5,5 +5,6 @@
    Kimberly Olivas Delgado
 */
 
-let x = 6
-x * x * x
+let x = 60
+let y = 2
+x % 31

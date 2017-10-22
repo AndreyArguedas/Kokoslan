@@ -25,6 +25,7 @@ public class KoKoBiOperation extends KoKoOperation {
 			switch (operId.getValue()){
 				case "+" : return new KoKoNumValue(lv.getValue() + rv.getValue());
 				case "-" : return new KoKoNumValue(lv.getValue() - rv.getValue());
+				case "*" : return new KoKoNumValue(lv.getValue() * rv.getValue());
 				default  : throw new KoKoEvalException("KoKoBiOperation: unimpemented operator");
 			}
 			
