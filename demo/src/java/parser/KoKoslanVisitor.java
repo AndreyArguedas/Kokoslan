@@ -184,6 +184,12 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitId(KoKoslanParser.IdContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#string}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(KoKoslanParser.StringContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link KoKoslanParser#number}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

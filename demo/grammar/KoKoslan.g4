@@ -41,7 +41,7 @@ value_expr   :    '(' expression ')'          #ParentValueExpr
                  | case_value                 #CaseValueExpr
                  | value_expr call_args       #CallValueExpr
 ;
-atomic_value : id | number | bool 
+atomic_value : id | number | bool | string 
 ;
 // List expressions
 list_value   :  '[' list_expr? ']'
@@ -72,6 +72,9 @@ rest_body_pat : '|' (id | list_pat)
 ;
 
 id : ID
+;
+
+string : STRING
 ;
 
 number : NUMBER

@@ -4,7 +4,7 @@ import java.io.*;
 
 public class KoKoCall implements KoKoAst{
     protected KoKoList args; //Args is what is inside the parenthesis of a call to kokoslan function
-    protected KoKoAst head;  //Dont understand this yet
+    protected KoKoAst head;  //THE NAME OF THE CALL EXAMPLE THE PRINT
 
     public KoKoCall(KoKoAst head, KoKoList args){
         this.head = head;
