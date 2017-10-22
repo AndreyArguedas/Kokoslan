@@ -1,0 +1,10 @@
+/* 
+   Andrey Arguedas Espinoza
+   Daniela Armas Sanchez
+   Michael Chen Wang
+   Kimberly Olivas Delgado
+*/
+
+let x = 60
+let div = 3
+x / div / 2 * 10
