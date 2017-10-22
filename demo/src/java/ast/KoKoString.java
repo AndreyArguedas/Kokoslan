@@ -14,4 +14,9 @@ public class KoKoString extends KoKoAtom<String>{
    public KoKoString(String value){
       super(value);
    }
+
+   @Override
+   public KoKoValue eval(KoKoContext ctx){
+	   return new KoKoStringValue(getValue());  
+   }
 }

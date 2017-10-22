@@ -148,11 +148,6 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
    
    @Override
    public KoKoAst visitCallValueExpr(KoKoslanParser.CallValueExprContext ctx){
-      //The commented code is util for getting some properties
-      /*KoKoAst action = new KoKoId(ctx.value_expr().getText());
-      String name = ((KoKoId)action).getValue();
-      System.out.println(name);
-      System.out.println(ctx.call_args().getText());*/
       KoKoAst head = visit(ctx.value_expr());
 	  KoKoList args = (KoKoList)visit(ctx.call_args());
 	  return CALL( head, args );

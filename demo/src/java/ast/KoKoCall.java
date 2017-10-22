@@ -23,6 +23,15 @@ public class KoKoCall implements KoKoAst{
     }
 
     public KoKoValue eval(KoKoContext ctx){ //Evaluates the call, returns a value, context = id(args)
-        throw new KoKoEvalException("KoKoCall: eval not implemented");
+        String name = ((KoKoId)this.head).getValue();
+        if(name.equals("print")) 
+            printArguments(ctx);
+        throw new KoKoEvalException("Nothing to print!");
+    }
+
+    public void printArguments(KoKoContext ctx){
+        this.args
+            .stream()
+            .forEach( a -> System.out.println(a.eval(ctx)));
     }
 }
