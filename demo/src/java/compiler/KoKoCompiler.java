@@ -128,13 +128,17 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 	                               .stream()
 	                               .map( e -> visit(e) )
 								   .collect(Collectors.toList());
-	  System.out.println(operators);
-      System.out.println(operands);
+                                   
       KoKoAst[] r = {operands.get(0)};
       java.util.stream.IntStream
 	                  .range(1, operands.size())
 	                  .forEach( i -> r[0] = BI_OPERATION(operators.get(i - 1), r[0], operands.get(i)));	  
       return r[0];
+   }
+
+   @Override
+   public KoKoAst visitMult_oper(KoKoslanParser.Mult_operContext ctx){
+	   return OPERATOR(ctx.oper.getText());
    }
    
    @Override
