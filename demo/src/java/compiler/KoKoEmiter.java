@@ -27,6 +27,7 @@ public interface KoKoEmiter{
    final KoKoAst MINUS = new KoKoId("-");
    final KoKoAst MULT = new KoKoId("*");
    final KoKoAst DIV = new KoKoId("/");
+   final KoKoAst MODULUS = new KoKoId("%");
    final KoKoAst ERROR = new KoKoId("??");
    
    default KoKoProgram PROGRAM(List<KoKoAst> stmts){ 
@@ -50,6 +51,7 @@ public interface KoKoEmiter{
 		   case "-" : return new KoKoMINUS(operator, left, right);
            case "*" : return new KoKoMULT(operator, left, right);
            case "/" : return new KoKoDIV(operator, left, right);
+           case "%" : return new KoKoMODULUS(operator, left, right);
 		   default  : return new KoKoBiOperation(operator, left, right);
 	   }
        

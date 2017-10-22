@@ -29,7 +29,7 @@ add_oper          : oper=('+' | '-')
 mult_expr         :  value_expr (mult_oper value_expr)*
 ;
 
-mult_oper         :  oper=('*' | '/')
+mult_oper         :  oper=('*' | '/' | '%')
 ;
 
 test_expr         :  '?' expression ':' expression
