@@ -60,6 +60,10 @@ public interface KoKoEmiter{
    default KoKoNum NUM(double value){ 
        return new KoKoNum(value);
    }
+
+   default KoKoString STRING(String value){ 
+       return new KoKoString(value);
+   }
    
    default KoKoId ID(String value){ 
        return new KoKoId(value);

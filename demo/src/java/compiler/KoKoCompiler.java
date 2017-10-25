@@ -114,6 +114,11 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
    }
 
    @Override
+   public KoKoAst visitString(KoKoslanParser.StringContext ctx){
+	  return STRING(String.valueOf(ctx.STRING().getText()));
+   }
+
+   @Override
    public KoKoAst visitMult_expr(KoKoslanParser.Mult_exprContext ctx){
       if ( ctx.mult_oper() == null ){
 		  return visit(ctx.value_expr(0));

@@ -4,7 +4,7 @@ import java.io.*;
 
 public class KoKoCall implements KoKoAst{
     protected KoKoList args; //Args is what is inside the parenthesis of a call to kokoslan function
-    protected KoKoAst head;  //Dont understand this yet
+    protected KoKoAst head;  //THE NAME OF THE CALL EXAMPLE THE PRINT
 
     public KoKoCall(KoKoAst head, KoKoList args){
         this.head = head;
@@ -23,6 +23,15 @@ public class KoKoCall implements KoKoAst{
     }
 
     public KoKoValue eval(KoKoContext ctx){ //Evaluates the call, returns a value, context = id(args)
-        throw new KoKoEvalException("KoKoCall: eval not implemented");
+        String name = ((KoKoId)this.head).getValue();
+        if(name.equals("print")) 
+            printArguments(ctx);
+        throw new KoKoEvalException("Nothing to print!");
+    }
+
+    public void printArguments(KoKoContext ctx){
+        this.args
+            .stream()
+            .forEach( a -> System.out.println(a.eval(ctx)));
     }
 }
