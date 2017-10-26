@@ -193,10 +193,24 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
    
    @Override
    public KoKoAst visitList_expr(KoKoslanParser.List_exprContext ctx){
+      System.out.println("Estoy visitando lista");
       List<KoKoAst> exprs = ctx.expression()
 	  						   .stream()
 							   .map(e -> visit(e))
 							   .collect(Collectors.toList());
+      System.out.println(exprs);
+	  return LIST(exprs);
+   }
+
+   @Override
+   public KoKoAst visitListValueExpr(KoKoslanParser.ListValueExprContext ctx){
+      System.out.println("Estoy visitando lista value");
+      System.out.println(ctx);
+      List<KoKoAst> exprs = ctx.list_expr()   /*Preguntar al profe porque no se puede acceder list_expr */
+	  						   .stream()
+							   .map(e -> visit(e))
+							   .collect(Collectors.toList());
+      System.out.println(exprs);*/
 	  return LIST(exprs);
    }
 
