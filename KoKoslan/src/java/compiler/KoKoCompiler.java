@@ -79,7 +79,7 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 	  if ( ctx.add_oper() == null ){
 		  return visit(ctx.mult_expr(0));
 	  }
-	  
+
 	  List<KoKoAst> operators = ctx.add_oper()
 	                               .stream()
 	                               .map( e -> visit(e) )
@@ -143,6 +143,37 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 
    @Override
    public KoKoAst visitMult_oper(KoKoslanParser.Mult_operContext ctx){
+	   return OPERATOR(ctx.oper.getText());
+   }
+
+   @Override
+   public KoKoAst visitBool_expr(KoKoslanParser.Bool_exprContext ctx){
+      if ( ctx.bool_oper() == null ){
+		  return visit(ctx.value_expr(0));
+	  }
+	  
+	  List<KoKoAst> operators = ctx.bool_oper()
+	                               .stream()
+	                               .map( e -> visit(e) )
+								   .collect(Collectors.toList());
+								   
+	  List<KoKoAst> operands =  ctx.value_expr()
+	                               .stream()
+	                               .map( e -> visit(e) )
+								   .collect(Collectors.toList());
+                                   
+      System.out.println(operators);
+      System.out.println(operands);
+
+      KoKoAst[] r = {operands.get(0)};
+      java.util.stream.IntStream
+	                  .range(1, operands.size())
+	                  .forEach( i -> r[0] = BOOL_OPERATION(operators.get(i - 1), r[0], operands.get(i)));	  
+      return r[0];
+   }
+
+   @Override
+   public KoKoAst visitBool_oper(KoKoslanParser.Bool_operContext ctx){
 	   return OPERATOR(ctx.oper.getText());
    }
    

@@ -20,17 +20,26 @@ part_expr    :  lambda_expr | evaluable_expr
 lambda_expr  : '\\' pattern '.' expression
 ;
 
-evaluable_expr    :  add_expr test_expr?
+evaluable_expr    :  add_expr | bool_expr test_expr?
 ;
+
 add_expr          :  mult_expr (add_oper mult_expr)*
 ;
-add_oper          : oper=('+' | '-')
+
+add_oper          :  oper=('+' | '-')
 ;
 mult_expr         :  value_expr (mult_oper value_expr)*
 ;
 
-mult_oper         :  oper=('*' | '/' | '%')
+mult_oper         :  oper=('*' | '/' | '%' | '^')
 ;
+
+bool_expr         :  value_expr (bool_oper value_expr)*
+;
+
+bool_oper         :  oper=('>' | '<' | '==' | '<=' | '>=' | '!=')
+;
+
 
 test_expr         :  '?' expression ':' expression
 ;

@@ -15,7 +15,6 @@ public class KoKoEvaluator {
 	}
 
 	public KoKoValue evaluate(KoKoContext ctx){
-		System.out.println("Vine a evaluar todo");
 		String name = ((KoKoId)this.head).getValue();
         if(name.equals("print"))
             printArguments(ctx);
