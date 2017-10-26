@@ -22,14 +22,14 @@ class KoKoList : ArrayList<KoKoAst>, KoKoAst{
         super()
     }
 
-    fun genCode(out : PrintStream){
+    fun genCode(Out : PrintStream) : Unit {
         if(this.size() == 0) return
-        this.get(0).genCode(out)
+        this.get(0).genCode(Out)
         
         this.drop(1)
             .forEach( t -> {
-                            out.print(", ");
-                            t.genCode(out)
+                            Out.print(", ");
+                            t.genCode(Out)
             })
     }
 
