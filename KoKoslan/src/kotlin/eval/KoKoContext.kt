@@ -8,25 +8,15 @@
 package kokoslan.ast
 import java.util.*
 
-class KoKoContext : HashMap<String, KoKoValue>{
-	private var parent : KoKoContext
-
-	constructor KoKoContext(){
-		this(null)
-	}
-
-	constructor KoKoContext(parent: KoKoContext){
-		this.parent = parent
-	}
+class KoKoContext (private var parent: KoKoContext? = null) : HashMap<String, KoKoValue>(){
 
 	fun find(id: KoKoId): KoKoValue{
-		val value: KoKoValue = get(id.getValue())
-		if (value != null) return value
-		if (parent == null) throw KoKoNotFoundId(id)
-		return parent.find(id)
+		val value: KoKoValue? = get(id.value)
+		return value ?: return parent?.find(id) ?: throw KoKoNotFoundId(id)
 	}
+
 	fun assoc(id: KoKoId, value: KoKoValue): Unit{
-		put(id.getValue(), value);
+		put(id.value, value)
 	}
 
 	fun push(): KoKoContext{
@@ -34,8 +24,9 @@ class KoKoContext : HashMap<String, KoKoValue>{
 	}
 
 	fun pop(): KoKoContext{
-		if ( parent == null ) throw KoKoStackUnderflow()
-		return parent
+		return parent ?: throw KoKoStackUnderflow()
 	}
 	
 }
+
+return value ?: return 3 ?: null 

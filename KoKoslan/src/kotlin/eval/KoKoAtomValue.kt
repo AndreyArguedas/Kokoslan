@@ -8,18 +8,9 @@
 package kokoslan.ast
 import java.io.*
 
-class KoKoAtomValue<T> : KoKoValue{
-    private var value: T
+open class KoKoAtomValue<T>(private var value: T) : KoKoValue{
 
-    fun getValue(): T{
-        return this.value
-    }
-
-    constructor(value: T){
-        this.value = value
-    }
-
-    fun toString(): String{
-        return this.value.toString()
+    override fun toString(): String{
+        return value.toString()
     }
 }

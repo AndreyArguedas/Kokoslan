@@ -7,8 +7,5 @@
 
 package kokoslan.ast
 
-class KoKoBoolValue : KoKoAtomValue<Boolean>{
-    constructor(value: Boolean): this{
-        super(value)
-    }
+class KoKoBoolValue(value: Boolean) : KoKoAtomValue<Boolean>(value){
 }

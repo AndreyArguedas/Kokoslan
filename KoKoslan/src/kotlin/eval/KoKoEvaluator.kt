@@ -7,19 +7,11 @@
 
 package kokoslan.ast
 
-class KoKoEvaluator {
-
-	private var head: KoKoAst
-	protected var args: KoKoList
-
-	constructor(head: KoKoAst, args: KoKoList){
-		this.head = head
-		this.args = args
-	}
+class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
 
 	fun evaluate(ctx: KoKoContext): KoKoValue{
 		print("Vine a evaluar todo");
-		val name: String = ((KoKoId)this.head).getValue();
+		val name: String = ((KoKoId)this.head).value;
         if(name.equals("print"))
             printArguments(ctx);
 		return null;
