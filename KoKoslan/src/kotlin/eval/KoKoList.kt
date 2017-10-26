@@ -8,7 +8,6 @@
 package kokoslan.ast;
 import java.util.*;
 import java.io.*;
-import java.util.stream.IntStream;
 
 /*  Lists of KoKoAst objects
     KoKoAst : Generates code with PrintStream,
@@ -27,8 +26,7 @@ class KoKoList : ArrayList<KoKoAst>, KoKoAst{
         if(this.size() == 0) return
         this.get(0).genCode(out)
         
-        this.stream()
-            .skip(1)
+        this.drop(1)
             .forEach( t -> {
                             out.print(", ");
                             t.genCode(out)
@@ -37,9 +35,8 @@ class KoKoList : ArrayList<KoKoAst>, KoKoAst{
 
     fun eval(ctx : KoKoContext) : KoKoValue {
         val res = KoKoListValue()
-        IntStream.range(0, this.size()).forEach( i -> {
-            res.add(this.get(i).eval(ctx));
-        })
+        //for(i in 0 .. this.size()) res.add(this.get(i).eval(ctx))
+        (0 .. this.size()).forEach { res.add(this.get(it).eval(ctx)) }
         return res
     }
 
