@@ -1,0 +1,10 @@
+let x = 666
+let y = 999
+
+let ps = x + 7 + 5
+
+let pp = print("Printing......") /* Only this way works for now */
+
+x - 100 + y - ps
+
+
