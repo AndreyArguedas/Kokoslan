@@ -9,11 +9,7 @@ package kokoslan.ast
 import java.util.*
 import java.io.*
 
-class KoKoMINUS : KoKoBiOperation {
-	
-    constructor(Operator : KoKoAst, left : KoKoAst, right : KoKoAst) : this {
-		super(Operator, left, right)
-	}
+class KoKoMINUS(Operator : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoBiOperation(Operator, left, right) {
 	
 	override fun eval(ctx : KoKoContext) : KoKoValue{
 	   try {

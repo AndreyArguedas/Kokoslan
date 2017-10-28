@@ -7,8 +7,5 @@
 
 package kokoslan.ast;
 
-class KoKoStringValue : KoKoAtomValue<String>{
-	constructor(value : String) : this{
-      super(value)
-    }
+class KoKoStringValue(value : String) : KoKoAtomValue<String>(value) {
 }

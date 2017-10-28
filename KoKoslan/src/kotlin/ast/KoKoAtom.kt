@@ -9,14 +9,10 @@ package kokoslan.ast
 import java.io.*
 
 
-class KoKoAtom<T> : KoKoAst { //data class?
-   private var value : T
+class KoKoAtom<T>(private var value : T) : KoKoAst {
 
    fun getValue() : T {return this.value}
-   
-   constructor(value : T) : this {
-      this.value = value
-   }
+
    fun genCode(Out : PrintStream) : Unit{
       Out.print(this.value + " ")
    }

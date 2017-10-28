@@ -9,12 +9,8 @@ package kokoslan.ast
 import java.util.*
 import java.io.*
 
-class KoKoString : KoKoAtom<String>{
-   
-   constructor(value : String) : this {
-      super(value)
-   }
-
+class KoKoString(value : String) : KoKoAtom<String>(value) {
+    
    override fun eval(ctx : KoKoContext) : KoKoValue {
 	   return KoKoStringValue(getValue())  
    }

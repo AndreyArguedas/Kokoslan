@@ -7,8 +7,5 @@
 
 package kokoslan.ast;
 
-class KoKoNumValue : KoKoAtomValue<Double>{
-    constructor(value : Double) : this {
-        super(value)
-    }
+class KoKoNumValue(value : Double) : KoKoAtomValue<Double>(value){
 }

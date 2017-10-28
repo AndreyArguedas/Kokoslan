@@ -7,10 +7,8 @@
 
 package kokoslan.ast;
 
-class KoKoId : KoKoAtom<String>{
-   constructor(value : String) : this {
-      super(value)
-   }
+class KoKoId(value : String) : KoKoAtom<String>(value) {
+
    override fun eval(ctx : KoKoContext) : KoKoValue {
 	   return ctx.find(this)
    }

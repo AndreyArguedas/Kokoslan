@@ -9,14 +9,7 @@ package kokoslan.ast
 import java.util.*
 import java.io.*
 
-class KoKoCall : KoKoAst{
-    protected var args : KoKoList //Args is what is inside the parenthesis of a call to kokoslan function
-    protected var head : KoKoAst //THE NAME OF THE CALL EXAMPLE THE PRINT
-
-    constructor(head : KoKoAst, args : KoKoList) : this {
-        this.head = head
-        this.args = args
-    }
+class KoKoCall(protected var args : KoKoList, protected var head : KoKoAst) : KoKoAst{
 
     constructor(head : KoKoAst) : this {
         this(head, KoKoList())

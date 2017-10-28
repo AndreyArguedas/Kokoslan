@@ -10,11 +10,7 @@ import java.util.*
 import java.io.*
 
 
-class KoKoBiOperation : KoKoOperation {
-	
-    constructor(Operator : KoKoAst, left : KoKoAst, right : KoKoAst) : this {
-		super(Operator, Arrays.asList(left, right))
-	}
+class KoKoBiOperation (Operator : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoOperation(Operation, Arrays.asList(left, right)) {
 	
 	fun left() : KoKoAst {return this.operands.get(0)}
 	fun right() : KoKoAst {return this.operands.get(1)}
