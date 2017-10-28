@@ -37,14 +37,14 @@ test_expr         :  '?' expression ':' expression
 // Value Expressions
 value_expr   :    '(' expression ')'          #ParentValueExpr
                  | atomic_value               #AtomicValueExpr
-				         | list_value                 #ListValueExpr
+				 | list_value                 #ListValueExpr
                  | case_value                 #CaseValueExpr
                  | value_expr call_args       #CallValueExpr
-                 | unary_expr value_expr      #UnaryPreExpr (i.e: ++i, --i)
-                 | value_expr unary_expr      #UnaryPosExpr (i.e: i++, i--)
+                 | unary_expr value_expr      #UnaryPreExpr
+                 | value_expr unary_expr      #UnaryPosExpr
 ;
 
-atomic_value : id | number | bool | string 
+atomic_value : id | number | bool | string
 ;
 // List expressions
 list_value   :  '[' list_expr? ']'
@@ -59,7 +59,7 @@ case_value   :  '{' case_expr? '}'
 case_expr    :  lambda_expr ( ','  lambda_expr)*
 ;
 
-call_args         :  '(' list_expr? ')'
+call_args    :  '(' list_expr? ')'
 ;
 
 unary_expr   : oper=('++'|'--')
