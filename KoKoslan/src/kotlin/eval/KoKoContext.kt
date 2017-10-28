@@ -28,5 +28,3 @@ class KoKoContext (private var parent: KoKoContext? = null) : HashMap<String, Ko
 	}
 	
 }
-
-return value ?: return 3 ?: null 

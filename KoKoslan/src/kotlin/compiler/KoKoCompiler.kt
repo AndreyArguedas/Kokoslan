@@ -16,7 +16,7 @@ import java.io.*
 
 class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisitor<KoKoAst>, KoKoEmiter{
 	
-   protected var program: KoKoAst;
+   protected var program: KoKoAst
    protected var statements: List<KoKoAst> = ArrayList<>()
 
    fun getProgram(): KoKoProgram{
@@ -25,15 +25,14 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
    
    fun genCode(): Unit{
 	   try {
-		   genCode(outputFile?. PrintStream(outputFile) ?: System.out)
+		   genCode(outputFile?.let{ PrintStream(outputFile) } ?: System.out)
 	   } catch (e: Exception){
 		   throw RuntimeException(e.getMessage())
 	   }     
    }
 
    fun genCode(out: PrintStream): Unit{
-      statements.stream()
-	                 .forEach( t -> t.genCode(out))
+      statements.forEach{ it.genCode(out) }
    }
 
    fun eval(): KoKoValue{
@@ -46,9 +45,8 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 
    override fun visitProgram(ctx: KoKoslanParser.ProgramContext): KoKoAst{
 	   ctx.definition()
-	          .stream()
-	          .map(fun -> visit(fun))
-	          .forEach( fun -> statements.add(fun) )
+	          .map{ visit(it) }
+	          .forEach{ statements.add(it) }
 	   program = PROGRAM(statements)
 	   val expr: KoKoAst = visit(ctx.expression())
 	   statements.add(expr)
@@ -68,18 +66,12 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 	  }
 	  
 	  val operators: List<KoKoAst> = ctx.add_oper()
-	                               .stream()
-	                               .map( e -> visit(e) )
-								   .collect(Collectors.toList())
+	                               .map{ visit(it) }
 								   
 	  val operands: List<KoKoAst> = ctx.mult_expr()
-	                               .stream()
-	                               .map( e -> visit(e) )
-								   .collect(Collectors.toList())
+                                   .map{ visit(it) }
       val r: KoKoAst[] = {operands.get(0)}
-      java.util.stream.IntStream
-	                  .range(1, operands.size())
-	                  .forEach( i -> r[0] = BI_OPERATION(operators.get(i - 1), r[0], operands.get(i)))  
+      (1 .. operands.size()).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }
       return r[0]
    }
 
@@ -96,7 +88,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
    }
 
    override fun visitBool(ctx: KoKoslanParser.BoolContext): KoKoAst{
-      return ( ctx.TRUE() != null ) ? TRUE : FALSE
+	  return ctx.TRUE()?.let{ TRUE } ?: FALSE
    }
 
    override fun visitString(ctx: KoKoslanParser.StringContext): KoKoAst{
@@ -119,9 +111,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 								   .collect(Collectors.toList())
                                    
       val r: KoKoAst[] = {operands.get(0)};
-      java.util.stream.IntStream
-	                  .range(1, operands.size())
-	                  .forEach( i -> r[0] = BI_OPERATION(operators.get(i - 1), r[0], operands.get(i)))  
+	  (1 .. operands.size()).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }  
       return r[0]
    }
 
@@ -136,16 +126,12 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
    }
 
    override fun visitCall_args(ctx: KoKoslanParser.Call_argsContext): KoKoAst{
-      if( ctx.list_expr() != null )
-	  	return visit(ctx.list_expr())
-	  else return LIST()
+      return ctx.list_expr()?.let{ visit(ctx.list_expr()) } ?: LIST()
    }
 
    override fun visitList_expr(ctx: KoKoslanParser.List_exprContext): KoKoAst{
       val exprs: List<KoKoAst> = ctx.expression()
-	  						   .stream()
-							   .map(e -> visit(e))
-							   .collect(Collectors.toList())
+							   		.map{ visit(it) }
 	  return LIST(exprs)
    }
 
