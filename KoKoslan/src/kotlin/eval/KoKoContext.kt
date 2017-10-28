@@ -20,7 +20,7 @@ class KoKoContext (private var parent: KoKoContext? = null) : HashMap<String, Ko
 	}
 
 	fun push(): KoKoContext{
-		return KoKoContext(this);
+		return KoKoContext(this)
 	}
 
 	fun pop(): KoKoContext{
