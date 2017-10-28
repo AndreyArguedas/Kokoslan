@@ -2,5 +2,8 @@
 .classpath
 .idea
 KoKoslan/.idea
-KoKoslan/classes/*
 KoKoslan/src/java/parser/*
+
+
+#Ignore any .class
+**/*.class
