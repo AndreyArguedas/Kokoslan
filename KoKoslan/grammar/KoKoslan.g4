@@ -40,12 +40,16 @@ value_expr   :    '(' expression ')'          #ParentValueExpr
 				         | list_value                 #ListValueExpr
                  | case_value                 #CaseValueExpr
                  | value_expr call_args       #CallValueExpr
+                 | unary_expr value_expr      #UnaryPreExpr (i.e: ++i, --i)
+                 | value_expr unary_expr      #UnaryPosExpr (i.e: i++, i--)
 ;
+
 atomic_value : id | number | bool | string 
 ;
 // List expressions
 list_value   :  '[' list_expr? ']'
 ; 
+
 list_expr    :  expression ( ','  expression)*
 ;
 
@@ -58,6 +62,8 @@ case_expr    :  lambda_expr ( ','  lambda_expr)*
 call_args         :  '(' list_expr? ')'
 ;
 
+unary_expr   : oper=('++'|'--')
+;
 
 // Patterns
 pattern      :  atomic_pat | list_pat
