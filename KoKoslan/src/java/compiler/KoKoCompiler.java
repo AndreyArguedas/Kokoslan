@@ -17,6 +17,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.*;
 import java.util.stream.*;
 import java.io.*;
+import java.lang.reflect.*;
 
 /* THIS CLASS USES WHAT PARSER GENERATED AND GIVES AN IMPLEMENTATION 
    PLEASE DO SOME RESEARCH OF VISISTOR PATTERN FIRST
@@ -106,6 +107,7 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
    
    @Override
    public KoKoAst visitNumber(KoKoslanParser.NumberContext ctx){
+      System.out.println("hola soy numero :" + Double.valueOf(ctx.NUMBER().getText()));
 	  return NUM(Double.valueOf(ctx.NUMBER().getText()));
    }
    @Override
@@ -193,25 +195,35 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
    
    @Override
    public KoKoAst visitList_expr(KoKoslanParser.List_exprContext ctx){
-      System.out.println("Estoy visitando lista");
-      List<KoKoAst> exprs = ctx.expression()
-	  						   .stream()
-							   .map(e -> visit(e))
-							   .collect(Collectors.toList());
-      System.out.println(exprs);
-	  return LIST(exprs);
+      System.out.println("Estoy visitando lista expr");
+      Class c = KoKoslanParser.List_exprContext.class;
+      Method [] m = c.getDeclaredMethods();
+      for (int i = 0; i < m.length; i++)
+            System.out.println(m[i].toString());
+      System.out.println(ctx.expression());
+      List<KoKoAst> exprs;  ctx.expression()
+	                        .stream()
+	                        .map(e -> visit(e))
+	                        .forEach(System.out::println);
+
+      /*System.out.println(exprs.size());
+      for(KoKoAst exs : exprs){
+          System.out.println(exs);
+      }*/
+	  return LIST();
    }
 
    @Override
    public KoKoAst visitListValueExpr(KoKoslanParser.ListValueExprContext ctx){
       System.out.println("Estoy visitando lista value");
-      System.out.println(ctx);
-      List<KoKoAst> exprs = ctx.list_expr()   /*Preguntar al profe porque no se puede acceder list_expr */
-	  						   .stream()
-							   .map(e -> visit(e))
-							   .collect(Collectors.toList());
-      System.out.println(exprs);*/
-	  return LIST(exprs);
+      Class c = KoKoslanParser.ListValueExprContext.class;
+      Method [] m = c.getDeclaredMethods();
+      for (int i = 0; i < m.length; i++)
+            System.out.println(m[i].toString());
+      KoKoList listValue = (KoKoList)visit(ctx.list_value());
+
+      System.out.println(listValue);
+	  return LIST(listValue);
    }
 
 }
