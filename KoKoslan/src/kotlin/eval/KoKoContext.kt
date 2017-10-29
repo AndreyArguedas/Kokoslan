@@ -12,7 +12,7 @@ class KoKoContext (private var parent: KoKoContext? = null) : HashMap<String, Ko
 
 	fun find(id: KoKoId): KoKoValue{
 		val value: KoKoValue? = get(id.getValue())
-		return value ?: return parent?.find(id) ?: throw KoKoNotFoundId(id)
+		return value ?: parent?.find(id) ?: throw KoKoNotFoundId(id)
 	}
 
 	fun assoc(id: KoKoId, value: KoKoValue?): Unit{

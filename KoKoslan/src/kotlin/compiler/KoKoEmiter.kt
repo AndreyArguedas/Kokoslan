@@ -27,7 +27,7 @@ public interface KoKoEmiter{
    val MODULUS : KoKoId get() = KoKoId("%")
    val ERROR : KoKoId get() = KoKoId("??")
    
-   fun PROGRAM(stmts : List<KoKoAst>) : KoKoProgram {  //DEFAULT?
+   fun PROGRAM(stmts : MutableList<KoKoAst>) : KoKoProgram {  //DEFAULT?
        return KoKoProgram(stmts)
    }
    
@@ -37,7 +37,7 @@ public interface KoKoEmiter{
    fun OPERATOR(oper : String) : KoKoAst { //DEFAULT
 	   return KoKoId(oper)
    }
-   fun OPERATION(oper : KoKoAst, operands : List<KoKoAst>) : KoKoAst { //DEFAULT
+   fun OPERATION(oper : KoKoAst, operands : MutableList<KoKoAst>) : KoKoAst { //DEFAULT
        return KoKoOperation(oper, operands)
    }
    
