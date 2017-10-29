@@ -85,13 +85,11 @@ public interface KoKoEmiter{
        return new KoKoId(value);
    }
    
-   default KoKoList LIST(List<KoKoAst> expressions){ //Arguments with expressions
-       System.out.println("Me creo como lista con" + expressions);
-       return new KoKoList(expressions);
+   default KoKoList LIST(List<KoKoAst> expressions, boolean nat){ //Arguments with expressions
+       return new KoKoList(expressions, nat);
    }
 
    default KoKoList LIST(){ //Empty arguments
-        System.out.println("Me creo como lista vacia");
         return new KoKoList();
    }
 
