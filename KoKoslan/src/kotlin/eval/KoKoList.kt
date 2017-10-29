@@ -22,14 +22,14 @@ class KoKoList(list : List<KoKoAst>? = null) : ArrayList<KoKoAst>(list), KoKoAst
             .forEach{Out.print(", "); it.genCode(Out);}
     }
 
-    override fun eval(ctx : KoKoContext) : KoKoValue {
+    override fun eval(ctx : KoKoContext) : KoKoValue? {
         val res = KoKoListValue()
         for(i in 0 .. this.size) res.add(this.get(i).eval(ctx))
         //(0 .. this.size).forEach { res.add(this.get(it).eval(ctx)) }
         return res
     }
 
-    fun eval() : KoKoValue {
+    fun eval() : KoKoValue? {
         return eval(KoKoContext())
     }
 } 

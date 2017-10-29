@@ -9,17 +9,16 @@ package kokoslan.ast
 import java.util.*
 import java.io.*
 
-class KoKoMULT(oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoBiOperation(oper, left, right) {
+class KoKoPLUS(oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoBiOperation(oper, left, right) {
 	
-	override fun eval(ctx : KoKoContext) : KoKoValue{
+    override fun eval(ctx : KoKoContext) : KoKoValue {
 	   try {
 		     val lv = left().eval(ctx) as KoKoNumValue
 			 val rv = right().eval(ctx) as KoKoNumValue
-	         return KoKoNumValue(lv.getValue() * rv.getValue())
+	         return KoKoNumValue(lv.getValue() + rv.getValue())
 	   } catch (e : Exception) {
 			throw KoKoEvalException(e.message!!)
-	   }
-	   
+	   } 
    }
 	
 }

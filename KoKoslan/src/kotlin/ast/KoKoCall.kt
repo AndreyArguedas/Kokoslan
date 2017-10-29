@@ -18,7 +18,7 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
         Out.print(") ")
     }
 
-    override fun eval(ctx : KoKoContext) : KoKoValue { //Evaluates the call, returns a value, context = id(args)
+    override fun eval(ctx : KoKoContext) : KoKoValue? { //Evaluates the call, returns a value, context = id(args)
         return KoKoEvaluator(this.head, this.args).evaluate(ctx)
     }
     

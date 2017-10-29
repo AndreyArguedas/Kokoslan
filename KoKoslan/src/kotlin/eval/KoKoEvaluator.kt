@@ -9,18 +9,16 @@ package kokoslan.ast
 
 class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
 
-	fun evaluate(ctx: KoKoContext): KoKoValue{
-		print("Vine a evaluar todo");
-		val name: String = ((KoKoId)this.head).value;
+	fun evaluate(ctx: KoKoContext): KoKoValue?{
+		print("Vine a evaluar todo")
+		val name: String = (this.head as KoKoId).getValue()
         if(name.equals("print"))
-            printArguments(ctx);
-		return null;
+            printArguments(ctx)
+		return null
 	}
 
 	fun printArguments(ctx: KoKoContext): Unit{
-        this.args
-            .stream()
-            .forEach( a -> print(a.eval(ctx)));
+        args.forEach{ print(it.eval(ctx)) }
     }
 
 	/*
