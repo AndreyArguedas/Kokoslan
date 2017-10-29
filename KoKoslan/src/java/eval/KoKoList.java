@@ -15,8 +15,12 @@ import java.util.stream.IntStream;
     and can evaluate context and pass it to kokovalues
  */
 public class KoKoList extends ArrayList<KoKoAst> implements KoKoAst{
-    public KoKoList(List<KoKoAst> list){
+
+    private boolean kokoNativeList = false; //To separate list of expressions and this kind of list -> []
+
+    public KoKoList(List<KoKoAst> list, boolean nat){
         super(list); //KoKoList is ArrayList
+        kokoNativeList = nat;
     }
 
     public KoKoList(){
@@ -25,6 +29,8 @@ public class KoKoList extends ArrayList<KoKoAst> implements KoKoAst{
 
     public void genCode(PrintStream out){
         if(this.size() == 0) return;
+        if(this.kokoNativeList)
+            out.print("[ ");
         this.get(0).genCode(out); //First KoKoAST gens code
         this.stream()
             .skip(1)              //The first does not gen
@@ -32,6 +38,8 @@ public class KoKoList extends ArrayList<KoKoAst> implements KoKoAst{
                             out.print(", ");
                             t.genCode(out); //KoKoAST gens code
             });
+        if(this.kokoNativeList)
+            out.print("] ");
     }
 
     public KoKoValue eval(KoKoContext ctx){

@@ -28,6 +28,7 @@ public interface KoKoEmiter{
    final KoKoAst MULT = new KoKoId("*");
    final KoKoAst DIV = new KoKoId("/");
    final KoKoAst MODULUS = new KoKoId("%");
+   final KoKoAst POW = new KoKoId("%");
    final KoKoAst ERROR = new KoKoId("??");
    
    default KoKoProgram PROGRAM(List<KoKoAst> stmts){ 
@@ -52,6 +53,21 @@ public interface KoKoEmiter{
            case "*" : return new KoKoMULT(operator, left, right);
            case "/" : return new KoKoDIV(operator, left, right);
            case "%" : return new KoKoMODULUS(operator, left, right);
+           case "^" : return new KoKoPOW(operator, left, right);
+		   default  : return new KoKoBiOperation(operator, left, right);
+	   }
+       
+   }
+
+   default KoKoAst BOOL_OPERATION(KoKoAst operator, KoKoAst left, KoKoAst right){ 
+       KoKoId id = (KoKoId)operator;
+	   switch( id.getValue() ){ //I think we can put all the operators in a hash or list and use contains
+		   case "<" : return new KoKoBoolOperation(operator, left, right);
+           case ">" : return new KoKoBoolOperation(operator, left, right);
+           case "<=" : return new KoKoBoolOperation(operator, left, right);
+           case ">=" : return new KoKoBoolOperation(operator, left, right);
+           case "==" : return new KoKoBoolOperation(operator, left, right);
+           case "!=" : return new KoKoBoolOperation(operator, left, right);
 		   default  : return new KoKoBiOperation(operator, left, right);
 	   }
        
@@ -69,8 +85,8 @@ public interface KoKoEmiter{
        return new KoKoId(value);
    }
    
-   default KoKoList LIST(List<KoKoAst> expressions){ //Arguments with expressions
-       return new KoKoList(expressions);
+   default KoKoList LIST(List<KoKoAst> expressions, boolean nat){ //Arguments with expressions
+       return new KoKoList(expressions, nat);
    }
 
    default KoKoList LIST(){ //Empty arguments
