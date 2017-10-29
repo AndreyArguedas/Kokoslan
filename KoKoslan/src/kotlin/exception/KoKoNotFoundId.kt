@@ -6,5 +6,6 @@
 */
 
 package kokoslan.kt.exception
+import kokoslan.kt.ast.*
 
 class KoKoNotFoundId(id: KoKoId) : RuntimeException("*** Id ${id.getValue()} is not defined! ***") { }

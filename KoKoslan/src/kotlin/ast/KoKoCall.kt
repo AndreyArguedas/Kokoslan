@@ -8,6 +8,8 @@
 package kokoslan.kt.ast
 import java.util.*
 import java.io.*
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoKoList()) : KoKoAst {
 

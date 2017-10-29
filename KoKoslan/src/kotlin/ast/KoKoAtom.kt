@@ -6,7 +6,10 @@
 */
 
 package kokoslan.kt.ast
+
 import java.io.*
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 
 open class KoKoAtom<T>(private var value : T) : KoKoAst {

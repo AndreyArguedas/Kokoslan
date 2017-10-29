@@ -8,6 +8,8 @@
 package kokoslan.kt.ast
 import java.util.*
 import java.io.*
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 class KoKoMODULUS(oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoBiOperation(oper, left, right) {
 	

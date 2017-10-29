@@ -7,6 +7,9 @@
 
 package kokoslan.kt.eval
 import java.util.*
+import kokoslan.kt.ast.*
+import kokoslan.kt.exception.*
+
 
 class KoKoContext (private var parent: KoKoContext? = null) : HashMap<String, KoKoValue?>(){
 

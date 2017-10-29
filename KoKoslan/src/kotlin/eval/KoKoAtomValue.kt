@@ -7,6 +7,9 @@
 
 package kokoslan.kt.eval
 import java.io.*
+import kokoslan.kt.ast.*
+import kokoslan.kt.exception.*
+
 
 open class KoKoAtomValue<T>(private var value: T) : KoKoValue{
     

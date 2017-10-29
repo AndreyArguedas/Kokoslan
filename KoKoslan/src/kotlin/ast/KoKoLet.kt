@@ -7,6 +7,8 @@
 
 package kokoslan.kt.ast
 import java.io.*
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 class KoKoLet(private var id : KoKoAst, private var expr : KoKoAst) : KoKoAst {
 

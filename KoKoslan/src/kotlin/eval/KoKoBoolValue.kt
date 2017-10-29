@@ -6,6 +6,8 @@
 */
 
 package kokoslan.kt.eval
+import kokoslan.kt.ast.*
+import kokoslan.kt.exception.*
 
 class KoKoBoolValue(value: Boolean) : KoKoAtomValue<Boolean>(value){
 }

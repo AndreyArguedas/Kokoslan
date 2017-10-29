@@ -5,6 +5,8 @@
 package kokoslan.kt.ast;
 import java.util.*;
 import java.io.*;
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 open class KoKoOperation(var oper: KoKoAst, var operands: MutableList<KoKoAst> = mutableListOf<KoKoAst>()) : KoKoAst {
     fun addOperand(x: KoKoAst) {

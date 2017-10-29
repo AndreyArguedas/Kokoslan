@@ -5,8 +5,11 @@
    Kimberly Olivas Delgado
 */
 
-package package kokoslan.kt.ast
+package kokoslan.kt.ast
+
 import java.io.*
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 interface KoKoAst {
    fun genCode() { //default void?

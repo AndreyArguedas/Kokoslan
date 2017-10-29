@@ -6,6 +6,9 @@
 */
 
 package kokoslan.kt.eval
+import kokoslan.kt.ast.*
+import kokoslan.kt.exception.*
+
 
 class KoKoStringValue(value : String) : KoKoAtomValue<String>(value) {
 }

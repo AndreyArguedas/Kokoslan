@@ -6,8 +6,10 @@
 */
 
 package kokoslan.kt.compile
-import kokoslan.ast.*
 import java.util.*
+import kokoslan.kt.ast.*
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 /* SEE THE GRAMMAR AND COMPARE IT WITH THIS, THIS INTERFACE
    IS VERY IMPORTANT, GIVES GRAMMAR A SENSE, TURNS GRAMMAR WORDS

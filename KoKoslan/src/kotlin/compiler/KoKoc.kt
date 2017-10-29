@@ -14,6 +14,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 import kokoslan.parser.*;
+import kokoslan.kt.ast.*
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 const val VERSION = "KoKoc v1.0 CR EIF400.II-2017"
 const val PROMPT = ">"

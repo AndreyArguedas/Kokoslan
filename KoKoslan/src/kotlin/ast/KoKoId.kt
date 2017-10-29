@@ -5,7 +5,9 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.ast;
+package kokoslan.kt.ast
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 class KoKoId(value : String) : KoKoAtom<String>(value) {
 

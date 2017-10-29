@@ -7,3 +7,6 @@ KoKoslan/src/java/parser/*
 
 #Ignore any .class
 **/*.class
+
+#Ignore Meta-inf
+KoKoslan/classes/META-INF
