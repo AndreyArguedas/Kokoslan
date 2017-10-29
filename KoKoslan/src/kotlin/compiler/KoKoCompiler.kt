@@ -22,15 +22,15 @@ import java.io.*
 */
 
 class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisitor<KoKoAst>(), KoKoEmiter{
-	
-   protected var program: KoKoAst = KoKoAst();
+
+   protected var program: KoKoAst? = null;
    protected var statements: MutableList<KoKoAst> = mutableListOf<KoKoAst>()
 
    fun getProgram(): KoKoProgram{
 	   return PROGRAM(statements)
    }
    
-   fun genCode(){
+   fun genCode() {
 	   try {
 		   genCode(outputFile?.let{ PrintStream(outputFile) } ?: System.out)
 	   } catch (e: Exception){
@@ -50,7 +50,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
       return visit(tree)
    }
 
-   override fun visitProgram(ctx: KoKoslanParser.ProgramContext): KoKoAst{
+   override fun visitProgram(ctx: KoKoslanParser.ProgramContext): KoKoAst?{
 	   ctx.definition()
 	          .map{ visit(it) }
 	          .forEach{ statements.add(it) }

@@ -8,7 +8,7 @@
 package kokoslan.ast
 import java.io.*
 
-interface KoKoAst{
+interface KoKoAst {
    fun genCode() { //default void?
       genCode(System.out) //'??
    }
