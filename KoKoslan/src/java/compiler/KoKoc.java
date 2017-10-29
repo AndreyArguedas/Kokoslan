@@ -44,7 +44,7 @@ public class KoKoc {
  		   is = new FileInputStream(inputFile);
 		   System.out.println(">>> KoKoc Reading from " + inputFile + " <<<");
 		} else{
-		   System.out.println(">>> KoKoc Reading from console (enter CTRL-Z+ENTER to finish <<<");
+		   System.out.println(">>> KoKoc Reading from console (enter CTRL-Z + ENTER to finish <<<");
 		}
 		 // Setup Lexer/Parser
         //ANTLRInputStream input = new ANTLRInputStream(is);
