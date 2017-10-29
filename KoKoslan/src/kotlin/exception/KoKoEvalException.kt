@@ -5,7 +5,7 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.ast
+package kokoslan.kt.exception
 
 class KoKoEvalException(msg : String) : RuntimeException (msg) {
 

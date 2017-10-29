@@ -5,9 +5,9 @@
     Kimberly Olivas Delgado
 */
 
-package kokoslan.compile
+package kokoslan.kt.compile
 
-import kokoslan.ast.*
+import kokoslan.kt.ast.*
 import kokoslan.parser.*
 
 import org.antlr.v4.runtime.*

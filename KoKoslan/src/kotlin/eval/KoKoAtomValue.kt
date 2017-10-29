@@ -5,7 +5,7 @@
     Kimberly Olivas Delgado
 */
 
-package kokoslan.ast
+package kokoslan.kt.eval
 import java.io.*
 
 open class KoKoAtomValue<T>(private var value: T) : KoKoValue{
