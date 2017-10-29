@@ -5,7 +5,7 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.ast;
+package kokoslan.java.ast;
 import java.util.*;
 import java.io.*;
 import java.util.stream.IntStream;

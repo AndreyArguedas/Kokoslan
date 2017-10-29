@@ -5,10 +5,11 @@
  @version EIF400.II-2017
  @since 0.0
 */
-package kokoslan.compile;
+package kokoslan.java.compile;
 
-import kokoslan.ast.*;
 import kokoslan.parser.*;
+import kokoslan.java.ast.*;
+import kokoslan.java.util.*;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -18,7 +19,6 @@ import java.util.stream.*;
 import java.io.*;
 import java.lang.reflect.*;
 
-import kokoslan.util.*;
 
 /* THIS CLASS USES WHAT PARSER GENERATED AND GIVES AN IMPLEMENTATION 
    PLEASE DO SOME RESEARCH OF VISISTOR PATTERN FIRST

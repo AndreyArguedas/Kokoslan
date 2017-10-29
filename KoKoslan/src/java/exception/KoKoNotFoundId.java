@@ -2,7 +2,7 @@
  @author loriacarlos@gmail.com
  
 */
-package kokoslan.ast;
+package kokoslan.java.ast;
 
 public class KoKoNotFoundId extends RuntimeException {
 	public KoKoNotFoundId(KoKoId id){

@@ -5,7 +5,7 @@
      Michael Chen Wang
      Kimberly Olivas Delgado
  */
-package kokoslan.util;
+package kokoslan.java.util;
 import java.lang.reflect.*;
 import java.util.*;
 import java.io.*;

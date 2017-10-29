@@ -2,7 +2,7 @@
  @author loriacarlos@gmail.com
  
 */
-package kokoslan.ast;
+package kokoslan.java.ast;
 
 public class KoKoNum extends KoKoAtom<Double>{
    public KoKoNum(Double value){

@@ -7,9 +7,9 @@
  @since 0.0
  
 */
-package kokoslan.compile;
+package kokoslan.java.compile;
 
-import kokoslan.ast.*;
+import kokoslan.java.ast.*;
 import java.util.*;
 
 /* SEE THE GRAMMAR AND COMPARE IT WITH THIS, THIS INTERFACE

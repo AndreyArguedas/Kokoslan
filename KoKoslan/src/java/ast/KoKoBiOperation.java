@@ -2,9 +2,9 @@
  @author loriacarlos@gmail.com
  
 */
-package kokoslan.ast;
+package kokoslan.java.ast;
 
-import kokoslan.util.*;
+import kokoslan.java.util.*;
 import java.util.*;
 import java.io.*;
 

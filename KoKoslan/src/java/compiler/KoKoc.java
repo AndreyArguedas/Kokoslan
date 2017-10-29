@@ -14,7 +14,7 @@
  @since 0.0
 */
 
-package kokoslan.compile;
+package kokoslan.java.compile;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
