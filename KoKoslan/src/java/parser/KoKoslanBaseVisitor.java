@@ -80,21 +80,14 @@ public class KoKoslanBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPrevalue_expr(KoKoslanParser.Prevalue_exprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPrefixUnary_expr(KoKoslanParser.PrefixUnary_exprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPrefixUnaryExpr(KoKoslanParser.PrefixUnaryExprContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitPosfixUnaryExpr(KoKoslanParser.PosfixUnaryExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPosfixUnary_expr(KoKoslanParser.PosfixUnary_exprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

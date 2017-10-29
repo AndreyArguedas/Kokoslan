@@ -133,7 +133,7 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
     @Override
     public KoKoAst visitMult_expr(KoKoslanParser.Mult_exprContext ctx) {
         if (ctx.mult_oper() == null) {
-            return visit(ctx.prevalue_expr(0));
+            return visit(ctx.prefixUnary_expr(0));
         }
 
         List<KoKoAst> operators = ctx.mult_oper()
@@ -141,7 +141,7 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
                                      .map(e -> visit(e))
                                      .collect(Collectors.toList());
 
-        List<KoKoAst> operands = ctx.prevalue_expr()
+        List<KoKoAst> operands = ctx.prefixUnary_expr()
                                     .stream()
                                     .map(e -> visit(e))
                                     .collect(Collectors.toList());
@@ -182,11 +182,19 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
     }
 
     @Override 
-    public KoKoAst visitPrevalue_expr(KoKoslanParser.Prevalue_exprContext ctx) { 
-
-        System.out.println("---- I am in visitPrevalue_expr ---");
+    public KoKoAst visitPrefixUnary_expr(KoKoslanParser.PrefixUnary_exprContext ctx) { 
         return visitChildren(ctx); 
-        
+    }
+
+    @Override 
+    public KoKoAst visitPosfixUnary_expr(KoKoslanParser.PosfixUnary_exprContext ctx) { 
+        if(ctx.unary_oper() == null) 
+            return visit(ctx.value_expr());
+        KoKoId unaryOper = (KoKoId)visit(ctx.unary_oper());
+        KoKoAst operand = visit(ctx.value_expr());
+        System.out.println("UnaryOper " + unaryOper);
+        System.out.println("Operand " + operand);
+        return visitChildren(ctx); 
     }
 
     @Override

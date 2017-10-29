@@ -9,23 +9,23 @@ import java.io.*;
 
 public class KoKoUnaryOperation extends KoKoOperation {
 	
-    public KoKoUnaryOperation(KoKoAst operator, KoKoAst left, KoKoAst right){
-		super(operator, Arrays.asList(left, right));
+    public KoKoUnaryOperation(KoKoAst operator, KoKoAst value, boolean isPrefix){
+		//Two values are being passed for a preValue, and posValue
+		super(operator, Arrays.asList(value, value));
 	}
 	
-	public KoKoAst left(){return this.operands.get(0);}
-	public KoKoAst right(){return this.operands.get(1);}
+	public KoKoAst preValue(){return this.operands.get(0);}
+	public KoKoAst posValue(){return this.operands.get(1);}
 	
 	@Override
 	public KoKoValue eval(KoKoContext ctx){
 	   try {
 	        KoKoId operId = (KoKoId)operator;
-			KoKoNumValue lv = (KoKoNumValue)(left().eval(ctx));
-			KoKoNumValue rv = (KoKoNumValue)(right().eval(ctx));
+			KoKoNumValue lv = (KoKoNumValue)(preValue().eval(ctx));
+			KoKoNumValue rv = (KoKoNumValue)(posValue().eval(ctx));
 			switch (operId.getValue()){
-				case "+" : return new KoKoNumValue(lv.getValue() + rv.getValue());
-				case "-" : return new KoKoNumValue(lv.getValue() - rv.getValue());
-				case "*" : return new KoKoNumValue(lv.getValue() * rv.getValue());
+				case "++" : return new KoKoNumValue(lv.getValue() + rv.getValue());
+				case "--" : return new KoKoNumValue(lv.getValue() - rv.getValue());
 				default  : throw new KoKoEvalException("KoKoUnaryOperation: unimpemented operator");
 			}
 			

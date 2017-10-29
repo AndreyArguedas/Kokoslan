@@ -28,28 +28,15 @@ add_expr          :  mult_expr (add_oper mult_expr)*
 
 add_oper          : oper=('+' | '-')
 ;
-/*
-mult_expr         : prefixUnaryExpr (mult_oper prefixUnaryExpr)*
-;
-*/
-mult_expr         : prevalue_expr (mult_oper prevalue_expr)*
+
+mult_expr         : prefixUnary_expr (mult_oper prefixUnary_expr)*
 ;
 
-prevalue_expr     : (prefixUnaryExpr|posfixUnaryExpr)? value_expr
+prefixUnary_expr  : /*unary_oper?*/ posfixUnary_expr 
 ;
 
-prefixUnaryExpr   : unary_oper id
+posfixUnary_expr   : value_expr unary_oper?
 ;
-
-posfixUnaryExpr   : id unary_oper
-;
-/*
-prefixUnaryExpr   : unary_oper? posfixUnaryExpr 
-;
-
-posfixUnaryExpr   : value_expr unary_oper?
-;
-*/
 
 /**
  * Assuming these are the only unary operators for prefix and posfix
@@ -64,11 +51,11 @@ mult_oper         : oper=('*' | '/' | '%')
 test_expr         :  '?' expression ':' expression
 ;
 // Value Expressions
-value_expr   :     '(' expression ')'         #ParentValueExpr
-                 | value_expr call_args       #CallValueExpr
-                 | atomic_value               #AtomicValueExpr
-                 | list_value                 #ListValueExpr
-                 | case_value                 #CaseValueExpr
+value_expr        : '(' expression ')'         #ParentValueExpr
+                  | value_expr call_args       #CallValueExpr
+                  | atomic_value               #AtomicValueExpr
+                  | list_value                 #ListValueExpr
+                  | case_value                 #CaseValueExpr
 ;
 
 atomic_value : id | number | bool | string
