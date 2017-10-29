@@ -12,6 +12,9 @@ interface KoKoAst{
    fun genCode() : Unit { //default void?
       genCode(System.out) //'??
    }
-   fun genCode(Out : PrintStream) : Unit {}//default void?
-   fun eval(ctx : KoKoContext) : KoKoValue {}
+   
+   //Default void?
+   fun genCode(Out : PrintStream) : Unit 
+   
+   fun eval(ctx : KoKoContext) : KoKoValue
 }

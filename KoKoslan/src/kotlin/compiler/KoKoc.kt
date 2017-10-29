@@ -28,20 +28,20 @@ class KoKoc {
         if (args.size > 0) 
 		  inputFile = args[0]
 
-        var  is : InputStream = System.`in`
+        var inputStream : InputStream = System.`in`
 		
         if (inputFile != null){
- 		   is = FileInputStream(inputFile)
+ 		   inputStream = FileInputStream(inputFile)
 		   println(">>> KoKoc Reading from $inputFile <<<")
 		} else{
 		   println(">>> KoKoc Reading from console (enter CTRL-Z+ENTER to finish <<<")
 		}
 		 // Setup Lexer/Parser
-        //val input = ANTLRInputStream(is)
-        val input = CharStreams.fromStream(is)
-        val lexer = FooLexer(input)
-        val tokens = CommonTokenStream(lexer)
-        val parser = FooParser(tokens)
+        //val input = ANTLRInputStream(inputStream)
+        val input = CharStreams.fromStream(inputStream);
+		val lexer = KoKoslanLexer(input);
+        val tokens = CommonTokenStream(lexer);
+        val parser = KoKoslanParser(tokens);
 		
 		// Parse, Compile and Generate code
 		// Starting point is rule (context) 'program' (See grammar KoKoslan.g4)

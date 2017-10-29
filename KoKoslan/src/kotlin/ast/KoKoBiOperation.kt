@@ -10,16 +10,16 @@ import java.util.*
 import java.io.*
 
 
-class KoKoBiOperation (Operator : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoOperation(Operation, Arrays.asList(left, right)) {
+class KoKoBiOperation (oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoOperation(oper, Arrays.asList(left, right)) {
 	
 	fun left() : KoKoAst {return this.operands.get(0)}
 	fun right() : KoKoAst {return this.operands.get(1)}
 	
 	override fun eval(ctx : KoKoContext) : KoKoValue {
 	   try {
-	        val operId = (KoKoId)operator_
-			val lv = (KoKoNumValue)(left().eval(ctx)) //Parsing??
-			val rv = (KoKoNumValue)(right().eval(ctx))
+	        val operId = oper as KoKoId
+			val lv = left().eval(ctx) as KoKoNumValue
+			val rv = right().eval(ctx) as KoKoNumValue
 			when (operId.getValue()){
 				"+" -> return KoKoNumValue(lv.getValue() + rv.getValue())
 				"-" -> return KoKoNumValue(lv.getValue() - rv.getValue())
