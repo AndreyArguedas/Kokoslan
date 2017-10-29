@@ -90,6 +90,7 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 	                               .stream()
 	                               .map( e -> visit(e) )
 								   .collect(Collectors.toList());
+
       KoKoAst[] r = {operands.get(0)};
       java.util.stream.IntStream
 	                  .range(1, operands.size())
@@ -107,7 +108,7 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
    
    @Override
    public KoKoAst visitNumber(KoKoslanParser.NumberContext ctx){
-      System.out.println("hola soy numero :" + Double.valueOf(ctx.NUMBER().getText()));
+        System.out.println("Hola soy el numero" + Double.valueOf(ctx.NUMBER().getText()));
 	  return NUM(Double.valueOf(ctx.NUMBER().getText()));
    }
    @Override
@@ -164,8 +165,6 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 	                               .map( e -> visit(e) )
 								   .collect(Collectors.toList());
                                    
-      System.out.println(operators);
-      System.out.println(operands);
 
       KoKoAst[] r = {operands.get(0)};
       java.util.stream.IntStream
@@ -193,38 +192,79 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 	  else return LIST();
    }
    
-   @Override
+   /*@Override
    public KoKoAst visitList_expr(KoKoslanParser.List_exprContext ctx){
       System.out.println("Estoy visitando lista expr");
-      Class c = KoKoslanParser.List_exprContext.class;
-      Method [] m = c.getDeclaredMethods();
-      for (int i = 0; i < m.length; i++)
-            System.out.println(m[i].toString());
-      System.out.println(ctx.expression());
-      List<KoKoAst> exprs;  ctx.expression()
-	                        .stream()
-	                        .map(e -> visit(e))
-	                        .forEach(System.out::println);
 
-      /*System.out.println(exprs.size());
-      for(KoKoAst exs : exprs){
-          System.out.println(exs);
-      }*/
-	  return LIST();
-   }
+      System.out.println(ctx.expression(0).getText());
+      List<KoKoAst> exprs = ctx.expression()
+	                        .stream()
+	                        .map( e -> visit(e) )
+	                        .collect(Collectors.toList());
+
+      System.out.println("My expressions are " + exprs);
+
+	return LIST(exprs);
+   }*/
+
+   /*@Override
+   public KoKoAst visitExpression(KoKoslanParser.ExpressionContext ctx){
+      System.out.println("Hola ahora estoy en un EXPRESSION");
+
+      List<KoKoAst> exprs = ctx.part_expr()
+	                        .stream()
+	                        .map( e -> visit(e) )
+	                        .collect(Collectors.toList());
+      System.out.println("Los numeros son: " + exprs);
+      return LIST(exprs);
+   }*/
 
    @Override
-   public KoKoAst visitListValueExpr(KoKoslanParser.ListValueExprContext ctx){
+   public KoKoAst visitList_value(KoKoslanParser.List_valueContext ctx){
       System.out.println("Estoy visitando lista value");
-      Class c = KoKoslanParser.ListValueExprContext.class;
+
+      Class c = KoKoslanParser.List_valueContext.class;
       Method [] m = c.getDeclaredMethods();
       for (int i = 0; i < m.length; i++)
             System.out.println(m[i].toString());
-      KoKoList listValue = (KoKoList)visit(ctx.list_value());
 
-      System.out.println(listValue);
-	  return LIST(listValue);
-   }
+      //KoKoList listValue = (KoKoList)visit(ctx.list_value());
+      System.out.println(ctx.list_expr().expression(0).part_expr());
+
+      List<KoKoAst> exprs = ctx.list_expr().expression(0).part_expr()
+	                        .stream()
+	                        .map( e -> visit(e) )
+	                        .collect(Collectors.toList());
+      System.out.println("Los numeros son: " + exprs);
+      
+	return LIST(exprs);
+}
+
+   /*@Override
+   public KoKoAst visitPart_expr(KoKoslanParser.Part_exprContext ctx){
+      System.out.println("Hola ahora estoy en un PART expression");
+      Class c = KoKoslanParser.Part_exprContext.class;
+      Method [] m = c.getDeclaredMethods();
+      for (int i = 0; i < m.length; i++)
+            System.out.println(m[i].toString());
+      System.out.println("Part esxpr es " + ctx.getText());
+      System.out.println("Evaluable expr es " + ctx.evaluable_expr().getText());
+      //KoKoList list = (KoKoList)visit(ctx.evaluable_expr());
+      //KoKoList listValue = (KoKoList)visit(ctx.list_value());
+	return LIST();
+   }*/
+
+   /*@Override
+   public KoKoAst visitEvaluable_expr(KoKoslanParser.Evaluable_exprContext ctx){
+      System.out.println("Hola ahora estoy en un EVALUABLE expression");
+      Class c = KoKoslanParser.Part_exprContext.class;
+      Method [] m = c.getDeclaredMethods();
+      for (int i = 0; i < m.length; i++)
+            System.out.println(m[i].toString());
+      KoKoList list = (KoKoList)visit(ctx.evaluable_expr());
+      //KoKoList listValue = (KoKoList)visit(ctx.list_value());
+	return LIST();
+   }*/
 
 }
   

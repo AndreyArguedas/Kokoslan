@@ -23,8 +23,16 @@ public class KoKoList extends ArrayList<KoKoAst> implements KoKoAst{
         super(); //KoKoList is ArrayList
     }
 
+    /*public void setList(List<KoKoAst> list){
+        this.clear(); //Clears list
+        list.stream().forEach(i -> this.add(i));
+    }*/
+
     public void genCode(PrintStream out){
+        System.out.println("Me imprimo " + this);
         if(this.size() == 0) return;
+        if(this.get(0) == null) return;
+        out.print("[ ");
         this.get(0).genCode(out); //First KoKoAST gens code
         this.stream()
             .skip(1)              //The first does not gen
@@ -32,6 +40,7 @@ public class KoKoList extends ArrayList<KoKoAst> implements KoKoAst{
                             out.print(", ");
                             t.genCode(out); //KoKoAST gens code
             });
+        out.print("] ");
     }
 
     public KoKoValue eval(KoKoContext ctx){
