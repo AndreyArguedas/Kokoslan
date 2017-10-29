@@ -188,9 +188,11 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
             return visit(ctx.value_expr());
         KoKoId unaryOper = (KoKoId)visit(ctx.unary_oper());
         KoKoAst operand = visit(ctx.value_expr());
+        KoKoAst result = UNARY_OPERATION(unaryOper, operand, false);
         System.out.println("UnaryOper " + unaryOper);
         System.out.println("Operand " + operand);
-        return visitChildren(ctx); 
+        System.out.println("Result " + result);
+        return result;
     }
 
     @Override

@@ -70,7 +70,15 @@ public interface KoKoEmiter{
            case "!=" : return new KoKoBoolOperation(operator, left, right);
 		   default  : return new KoKoBiOperation(operator, left, right);
 	   }
-       
+   }
+
+   default KoKoAst UNARY_OPERATION(KoKoAst operator, KoKoAst value, boolean isPrefix) {
+       KoKoId id = (KoKoId)operator;
+       switch(id.getValue()) {
+           case "++": return new KoKoUnaryOperation(operator, value, isPrefix);
+           case "--": return new KoKoUnaryOperation(operator, value, isPrefix);
+           default:   return new KoKoBiOperation(operator, value, value);
+       }
    }
    
    default KoKoNum NUM(double value){ 
