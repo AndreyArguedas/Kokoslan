@@ -26,9 +26,10 @@ evaluable_expr    :  add_expr | bool_expr test_expr?
 add_expr          :  mult_expr (add_oper mult_expr)*
 ;
 
-add_oper          :  oper=('+' | '-')
+add_oper          : oper=('+' | '-')
 ;
-mult_expr         :  value_expr (mult_oper value_expr)*
+
+mult_expr         : prefixUnary_expr (mult_oper prefixUnary_expr)*
 ;
 
 mult_oper         :  oper=('*' | '/' | '%' | '^')
@@ -37,6 +38,20 @@ mult_oper         :  oper=('*' | '/' | '%' | '^')
 bool_expr         :  value_expr (bool_oper value_expr)*
 ;
 
+prefixUnary_expr  : /*unary_oper?*/ posfixUnary_expr 
+;
+
+posfixUnary_expr   : value_expr unary_oper?
+;
+
+/**
+ * Assuming these are the only unary operators for prefix and posfix
+ * If there are any differences, they must be changed.
+ */
+unary_oper        : oper=('++'|'--')
+;
+
+
 bool_oper         :  oper=('>' | '<' | '==' | '<=' | '>=' | '!=')
 ;
 
@@ -44,17 +59,19 @@ bool_oper         :  oper=('>' | '<' | '==' | '<=' | '>=' | '!=')
 test_expr         :  '?' expression ':' expression
 ;
 // Value Expressions
-value_expr   :    '(' expression ')'          #ParentValueExpr
-                 | atomic_value               #AtomicValueExpr
-				         | list_value                 #ListValueExpr
-                 | case_value                 #CaseValueExpr
-                 | value_expr call_args       #CallValueExpr
+value_expr        : '(' expression ')'         #ParentValueExpr
+                  | value_expr call_args       #CallValueExpr
+                  | atomic_value               #AtomicValueExpr
+                  | list_value                 #ListValueExpr
+                  | case_value                 #CaseValueExpr
 ;
-atomic_value : id | number | bool | string 
+
+atomic_value : id | number | bool | string
 ;
 // List expressions
 list_value   :  '[' list_expr? ']'
 ; 
+
 list_expr    :  expression ( ','  expression)*
 ;
 
@@ -64,9 +81,8 @@ case_value   :  '{' case_expr? '}'
 case_expr    :  lambda_expr ( ','  lambda_expr)*
 ;
 
-call_args         :  '(' list_expr? ')'
+call_args    :  '(' list_expr? ')'
 ;
-
 
 // Patterns
 pattern      :  atomic_pat | list_pat

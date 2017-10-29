@@ -7,7 +7,6 @@
 */
 package kokoslan.compile;
 
-
 import kokoslan.ast.*;
 import kokoslan.parser.*;
 
@@ -18,6 +17,8 @@ import java.util.*;
 import java.util.stream.*;
 import java.io.*;
 import java.lang.reflect.*;
+
+import kokoslan.util.*;
 
 /* THIS CLASS USES WHAT PARSER GENERATED AND GIVES AN IMPLEMENTATION 
    PLEASE DO SOME RESEARCH OF VISISTOR PATTERN FIRST
@@ -121,27 +122,26 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
    }
 
    @Override
-   public KoKoAst visitMult_expr(KoKoslanParser.Mult_exprContext ctx){
-      if ( ctx.mult_oper() == null ){
-		  return visit(ctx.value_expr(0));
-	  }
-	  
-	  List<KoKoAst> operators = ctx.mult_oper()
-	                               .stream()
-	                               .map( e -> visit(e) )
-								   .collect(Collectors.toList());
-								   
-	  List<KoKoAst> operands =  ctx.value_expr()
-	                               .stream()
-	                               .map( e -> visit(e) )
-								   .collect(Collectors.toList());
-                                   
-      KoKoAst[] r = {operands.get(0)};
-      java.util.stream.IntStream
-	                  .range(1, operands.size())
-	                  .forEach( i -> r[0] = BI_OPERATION(operators.get(i - 1), r[0], operands.get(i)));	  
-      return r[0];
-   }
+    public KoKoAst visitMult_expr(KoKoslanParser.Mult_exprContext ctx) {
+        if (ctx.mult_oper() == null) {
+            return visit(ctx.prefixUnary_expr(0));
+        }
+
+        List<KoKoAst> operators = ctx.mult_oper()
+                                     .stream()
+                                     .map(e -> visit(e))
+                                     .collect(Collectors.toList());
+
+        List<KoKoAst> operands = ctx.prefixUnary_expr()
+                                    .stream()
+                                    .map(e -> visit(e))
+                                    .collect(Collectors.toList());
+
+        KoKoAst[] r = { operands.get(0) };
+        java.util.stream.IntStream.range(1, operands.size())
+                .forEach(i -> r[0] = BI_OPERATION(operators.get(i - 1), r[0], operands.get(i)));
+        return r[0];
+    }
 
    @Override
    public KoKoAst visitMult_oper(KoKoslanParser.Mult_operContext ctx){
@@ -176,6 +176,27 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
    public KoKoAst visitBool_oper(KoKoslanParser.Bool_operContext ctx){
 	   return OPERATOR(ctx.oper.getText());
    }
+
+   @Override 
+    public KoKoAst visitPrefixUnary_expr(KoKoslanParser.PrefixUnary_exprContext ctx) { 
+        return visitChildren(ctx); 
+    }
+
+    @Override 
+    public KoKoAst visitPosfixUnary_expr(KoKoslanParser.PosfixUnary_exprContext ctx) { 
+        if(ctx.unary_oper() == null) 
+            return visit(ctx.value_expr());
+        KoKoId unaryOper = (KoKoId)visit(ctx.unary_oper());
+        KoKoAst operand = visit(ctx.value_expr());
+        System.out.println("UnaryOper " + unaryOper);
+        System.out.println("Operand " + operand);
+        return visitChildren(ctx); 
+    }
+
+    @Override
+    public KoKoAst visitUnary_oper(KoKoslanParser.Unary_operContext ctx) {
+        return OPERATOR(ctx.oper.getText());
+    }
    
    @Override
    public KoKoAst visitCallValueExpr(KoKoslanParser.CallValueExprContext ctx){
@@ -215,4 +236,3 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 
 
 }
-  

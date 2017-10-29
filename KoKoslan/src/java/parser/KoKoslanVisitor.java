@@ -77,6 +77,24 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBool_expr(KoKoslanParser.Bool_exprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#prefixUnary_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrefixUnary_expr(KoKoslanParser.PrefixUnary_exprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#posfixUnary_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPosfixUnary_expr(KoKoslanParser.PosfixUnary_exprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#unary_oper}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnary_oper(KoKoslanParser.Unary_operContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link KoKoslanParser#bool_oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

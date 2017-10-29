@@ -3,6 +3,8 @@
  
 */
 package kokoslan.ast;
+
+import kokoslan.util.*;
 import java.util.*;
 import java.io.*;
 
@@ -22,6 +24,7 @@ public class KoKoBiOperation extends KoKoOperation {
 	        KoKoId operId = (KoKoId)operator;
 			KoKoNumValue lv = (KoKoNumValue)(left().eval(ctx));
 			KoKoNumValue rv = (KoKoNumValue)(right().eval(ctx));
+			Utils.getMethodsStr(KoKoContext.class);
 			switch (operId.getValue()){
 				case "+" : return new KoKoNumValue(lv.getValue() + rv.getValue());
 				case "-" : return new KoKoNumValue(lv.getValue() - rv.getValue());
