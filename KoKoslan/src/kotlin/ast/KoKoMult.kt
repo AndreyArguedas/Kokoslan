@@ -17,7 +17,7 @@ class KoKoMULT(oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoBiOperatio
 			 val rv = right().eval(ctx) as KoKoNumValue
 	         return KoKoNumValue(lv.getValue() * rv.getValue())
 	   } catch (e : Exception) {
-			throw KoKoEvalException(e.message)
+			throw KoKoEvalException(e.message!!)
 	   }
 	   
    }

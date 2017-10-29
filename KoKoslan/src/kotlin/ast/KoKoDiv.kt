@@ -17,7 +17,7 @@ class KoKoDIV(oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoBiOperation
 			 val rv = right().eval(ctx) as KoKoNumValue
 	         return KoKoNumValue(lv.getValue() / rv.getValue())
 	   } catch (e : Exception) {
-			throw KoKoEvalException(e.message)
+			throw KoKoEvalException(e.message!!)
 	   }   
    }
 	
