@@ -22,7 +22,7 @@ class KoKoLet(private var id : KoKoAst, private var expr : KoKoAst) : KoKoAst {
    }
    fun eval(ctx : KoKoContext) : KoKoValue{
 	   val value = expr.eval(ctx)
-	   ctx.assoc((KoKoId)id, value) //Parsing?
+	   ctx.assoc(id as KoKoId, value) //Parsing?
 	   return value;
    }
 }

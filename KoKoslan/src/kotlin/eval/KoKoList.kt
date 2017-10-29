@@ -15,21 +15,17 @@ import java.io.*;
  */
 class KoKoList(list : List<KoKoAst>? = null) : ArrayList<KoKoAst>(list), KoKoAst{
     
-    fun genCode(Out : PrintStream) : Unit {
+    override fun genCode(Out : PrintStream) : Unit {
         if(this.size == 0) return
         this.get(0).genCode(Out)
-        
         this.drop(1)
-            .forEach(i -> {
-                            Out.print(", ")
-                            i.genCode(Out)
-            })
+            .forEach{Out.print(", "); it.genCode(Out);}
     }
 
-    fun eval(ctx : KoKoContext) : KoKoValue {
+    override fun eval(ctx : KoKoContext) : KoKoValue {
         val res = KoKoListValue()
-        //for(i in 0 .. this.size()) res.add(this.get(i).eval(ctx))
-        (0 .. this.size).forEach { res.add(this.get(it).eval(ctx)) }
+        for(i in 0 .. this.size) res.add(this.get(i).eval(ctx))
+        //(0 .. this.size).forEach { res.add(this.get(it).eval(ctx)) }
         return res
     }
 

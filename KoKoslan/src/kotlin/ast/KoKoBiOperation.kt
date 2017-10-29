@@ -17,9 +17,9 @@ class KoKoBiOperation (oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoOp
 	
 	override fun eval(ctx : KoKoContext) : KoKoValue {
 	   try {
-	        val operId = (KoKoId)oper
-			val lv = (KoKoNumValue)(left().eval(ctx)) //Parsing??
-			val rv = (KoKoNumValue)(right().eval(ctx))
+	        val operId = oper as KoKoId
+			val lv = left().eval(ctx) as KoKoNumValue
+			val rv = right().eval(ctx) as KoKoNumValue
 			when (operId.getValue()){
 				"+" -> return KoKoNumValue(lv.getValue() + rv.getValue())
 				"-" -> return KoKoNumValue(lv.getValue() - rv.getValue())

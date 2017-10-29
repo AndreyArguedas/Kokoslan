@@ -38,10 +38,10 @@ class KoKoc {
 		}
 		 // Setup Lexer/Parser
         //val input = ANTLRInputStream(inputStream)
-        val input = CharStreams.fromStream(inputStream)
-        val lexer = FooLexer(input)
-        val tokens = CommonTokenStream(lexer)
-        val parser = FooParser(tokens)
+        val input = CharStreams.fromStream(inputStream);
+		val lexer = KoKoslanLexer(input);
+        val tokens = CommonTokenStream(lexer);
+        val parser = KoKoslanParser(tokens);
 		
 		// Parse, Compile and Generate code
 		// Starting point is rule (context) 'program' (See grammar KoKoslan.g4)

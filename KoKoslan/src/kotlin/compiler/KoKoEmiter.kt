@@ -17,15 +17,15 @@ import java.util.*
 
 public interface KoKoEmiter{
 	
-   val TRUE = KoKoBool(true) 
-   val FALSE = KoKoBool(false)
+   val TRUE : KoKoBool get() = KoKoBool(true) 
+   val FALSE : KoKoBool get() = KoKoBool(false)
    
-   val PLUS = KoKoId("+")
-   val MINUS = KoKoId("-")
-   val MULT = KoKoId("*")
-   val DIV = KoKoId("/")
-   val MODULUS = KoKoId("%")
-   val ERROR = KoKoId("??")
+   val PLUS : KoKoId get() = KoKoId("+")
+   val MINUS : KoKoId get() = KoKoId("-")
+   val MULT : KoKoId get() = KoKoId("*")
+   val DIV : KoKoId get() = KoKoId("/")
+   val MODULUS : KoKoId get() = KoKoId("%")
+   val ERROR : KoKoId get() = KoKoId("??")
    
    fun PROGRAM(stmts : List<KoKoAst>) : KoKoProgram {  //DEFAULT?
        return KoKoProgram(stmts)
@@ -34,22 +34,22 @@ public interface KoKoEmiter{
    fun LET(id : KoKoAst, expr : KoKoAst) : KoKoAst { //DEFAULT
 	   return KoKoLet(id, expr)
    }
-   fun OPERATOR(Operator : String) : KoKoAst { //DEFAULT
-	   return KoKoId(Operator)
+   fun OPERATOR(oper : String) : KoKoAst { //DEFAULT
+	   return KoKoId(oper)
    }
-   fun OPERATION(Operator : KoKoAst, operands : List<KoKoAst>) : KoKoAst { //DEFAULT
-       return KoKoOperation(Operator, operands)
+   fun OPERATION(oper : KoKoAst, operands : List<KoKoAst>) : KoKoAst { //DEFAULT
+       return KoKoOperation(oper, operands)
    }
    
-   fun BI_OPERATION(Operator : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoAst {  //DEFAULT
-       val id = (KoKoId)Operator //PARSING
+   fun BI_OPERATION(oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoAst {  //DEFAULT
+       val id = oper as KoKoId //PARSING
 	   when(id.getValue() ){
-		   "+" -> return KoKoPLUS(Operator, left, right);
-		   "-" -> return KoKoMINUS(Operator, left, right);
-           "*" -> return KoKoMULT(Operator, left, right);
-           "/" -> return KoKoDIV(Operator, left, right);
-           "%" -> return KoKoMODULUS(Operator, left, right);
-		   else -> return KoKoBiOperation(Operator, left, right);
+		   "+" -> return KoKoPLUS(oper, left, right);
+		   "-" -> return KoKoMINUS(oper, left, right);
+           "*" -> return KoKoMULT(oper, left, right);
+           "/" -> return KoKoDIV(oper, left, right);
+           "%" -> return KoKoMODULUS(oper, left, right);
+		   else -> return KoKoBiOperation(oper, left, right);
 	   }
        
    }
