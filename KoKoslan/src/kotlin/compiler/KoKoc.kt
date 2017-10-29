@@ -28,17 +28,17 @@ class KoKoc {
         if (args.size > 0) 
 		  inputFile = args[0]
 
-        var  is : InputStream = System.`in`
+        var inputStream : InputStream = System.`in`
 		
         if (inputFile != null){
- 		   is = FileInputStream(inputFile)
+ 		   inputStream = FileInputStream(inputFile)
 		   println(">>> KoKoc Reading from $inputFile <<<")
 		} else{
 		   println(">>> KoKoc Reading from console (enter CTRL-Z+ENTER to finish <<<")
 		}
 		 // Setup Lexer/Parser
-        //val input = ANTLRInputStream(is)
-        val input = CharStreams.fromStream(is)
+        //val input = ANTLRInputStream(inputStream)
+        val input = CharStreams.fromStream(inputStream)
         val lexer = FooLexer(input)
         val tokens = CommonTokenStream(lexer)
         val parser = FooParser(tokens)

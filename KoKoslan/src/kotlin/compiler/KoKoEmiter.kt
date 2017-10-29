@@ -22,10 +22,10 @@ public interface KoKoEmiter{
    
    val PLUS = KoKoId("+")
    val MINUS = KoKoId("-")
-   val MULT = new KoKoId("*")
-   val DIV = new KoKoId("/")
+   val MULT = KoKoId("*")
+   val DIV = KoKoId("/")
    val MODULUS = KoKoId("%")
-   val ERROR = new KoKoId("??")
+   val ERROR = KoKoId("??")
    
    fun PROGRAM(stmts : List<KoKoAst>) : KoKoProgram {  //DEFAULT?
        return KoKoProgram(stmts)
