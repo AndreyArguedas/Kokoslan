@@ -5,7 +5,7 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.ast;
+package kokoslan.kt.eval
 
 class KoKoStringValue(value : String) : KoKoAtomValue<String>(value) {
 }

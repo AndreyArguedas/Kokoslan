@@ -5,7 +5,7 @@
     Kimberly Olivas Delgado
 */
 
-package kokoslan.ast
+package kokoslan.kt.eval
 
 class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
 

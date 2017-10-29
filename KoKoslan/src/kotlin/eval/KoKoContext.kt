@@ -5,7 +5,7 @@
     Kimberly Olivas Delgado
 */
 
-package kokoslan.ast
+package kokoslan.kt.eval
 import java.util.*
 
 class KoKoContext (private var parent: KoKoContext? = null) : HashMap<String, KoKoValue?>(){

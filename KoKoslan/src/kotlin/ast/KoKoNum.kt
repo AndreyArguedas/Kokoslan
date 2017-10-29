@@ -5,7 +5,7 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.ast
+package kokoslan.kt.ast
 
 class KoKoNum(value : Double) : KoKoAtom<Double>(value){
    override fun eval(ctx : KoKoContext) : KoKoValue {

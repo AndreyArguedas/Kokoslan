@@ -5,6 +5,6 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.ast;
+package kokoslan.kt.eval
 
 class KoKoNumValue(value : Double) : KoKoAtomValue<Double>(value){}

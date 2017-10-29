@@ -5,7 +5,7 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.ast
+package kokoslan.kt.ast
 
 class KoKoBool(value: Boolean) : KoKoAtom<Boolean>(value) {
 }
