@@ -10,7 +10,7 @@ import java.util.*
 import java.io.*
 
 
-open class KoKoBiOperation(var oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoOperation(oper, Arrays.asList(left, right)) {
+open class KoKoBiOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoOperation(oper, Arrays.asList(left, right)) {
 
     fun left(): KoKoAst {
         return this.operands.get(0)
