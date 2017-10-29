@@ -22,26 +22,53 @@ lambda_expr  : '\\' pattern '.' expression
 
 evaluable_expr    :  add_expr test_expr?
 ;
+
 add_expr          :  mult_expr (add_oper mult_expr)*
 ;
+
 add_oper          : oper=('+' | '-')
 ;
-mult_expr         :  value_expr (mult_oper value_expr)*
+/*
+mult_expr         : prefixUnaryExpr (mult_oper prefixUnaryExpr)*
+;
+*/
+mult_expr         : prevalue_expr (mult_oper prevalue_expr)*
 ;
 
-mult_oper         :  oper=('*' | '/' | '%')
+prevalue_expr     : (prefixUnaryExpr|posfixUnaryExpr)? value_expr
+;
+
+prefixUnaryExpr   : unary_oper id
+;
+
+posfixUnaryExpr   : id unary_oper
+;
+/*
+prefixUnaryExpr   : unary_oper? posfixUnaryExpr 
+;
+
+posfixUnaryExpr   : value_expr unary_oper?
+;
+*/
+
+/**
+ * Assuming these are the only unary operators for prefix and posfix
+ * If there are any differences, they must be changed.
+ */
+unary_oper        : oper=('++'|'--')
+;
+
+mult_oper         : oper=('*' | '/' | '%')
 ;
 
 test_expr         :  '?' expression ':' expression
 ;
 // Value Expressions
-value_expr   :    '(' expression ')'          #ParentValueExpr
+value_expr   :     '(' expression ')'         #ParentValueExpr
+                 | value_expr call_args       #CallValueExpr
                  | atomic_value               #AtomicValueExpr
                  | list_value                 #ListValueExpr
                  | case_value                 #CaseValueExpr
-                 | value_expr call_args       #CallValueExpr
-                 | unary_expr value_expr      #UnaryPreExpr
-                 | value_expr unary_expr      #UnaryPosExpr
 ;
 
 atomic_value : id | number | bool | string
@@ -60,9 +87,6 @@ case_expr    :  lambda_expr ( ','  lambda_expr)*
 ;
 
 call_args    :  '(' list_expr? ')'
-;
-
-unary_expr   : oper=('++'|'--')
 ;
 
 // Patterns

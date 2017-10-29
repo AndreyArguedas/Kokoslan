@@ -65,6 +65,30 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMult_expr(KoKoslanParser.Mult_exprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#prevalue_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrevalue_expr(KoKoslanParser.Prevalue_exprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#prefixUnaryExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrefixUnaryExpr(KoKoslanParser.PrefixUnaryExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#posfixUnaryExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPosfixUnaryExpr(KoKoslanParser.PosfixUnaryExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#unary_oper}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnary_oper(KoKoslanParser.Unary_operContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link KoKoslanParser#mult_oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -91,13 +115,6 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCallValueExpr(KoKoslanParser.CallValueExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code UnaryPosExpr}
-	 * labeled alternative in {@link KoKoslanParser#value_expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnaryPosExpr(KoKoslanParser.UnaryPosExprContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ListValueExpr}
 	 * labeled alternative in {@link KoKoslanParser#value_expr}.
 	 * @param ctx the parse tree
@@ -111,13 +128,6 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCaseValueExpr(KoKoslanParser.CaseValueExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code UnaryPreExpr}
-	 * labeled alternative in {@link KoKoslanParser#value_expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnaryPreExpr(KoKoslanParser.UnaryPreExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AtomicValueExpr}
 	 * labeled alternative in {@link KoKoslanParser#value_expr}.
@@ -161,12 +171,6 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCall_args(KoKoslanParser.Call_argsContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link KoKoslanParser#unary_expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnary_expr(KoKoslanParser.Unary_exprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link KoKoslanParser#pattern}.
 	 * @param ctx the parse tree
