@@ -7,5 +7,4 @@
 
 package kokoslan.ast;
 
-class KoKoNumValue(value : Double) : KoKoAtomValue<Double>(value){
-}
+class KoKoNumValue(value : Double) : KoKoAtomValue<Double>(value){}

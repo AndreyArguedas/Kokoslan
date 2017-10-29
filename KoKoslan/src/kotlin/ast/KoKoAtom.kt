@@ -11,10 +11,10 @@ import java.io.*
 
 open class KoKoAtom<T>(private var value : T) : KoKoAst {
 
-   fun getValue() : T {return this.value}
+   fun getValue() : T {return value}
 
    override fun genCode(Out : PrintStream) : Unit{
-      Out.print(this.value + " ")
+      Out.print(value.toString() + " ")
    }
    override fun eval(ctx : KoKoContext) : KoKoValue {
 	   throw KoKoEvalException("KoKoAtom: eval not implemented") 

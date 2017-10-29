@@ -10,14 +10,14 @@ import java.util.*
 import java.io.*
 
 
-class KoKoBiOperation (oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoOperation(oper, Arrays.asList(left, right)) {
+open class KoKoBiOperation (var oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoOperation(oper, Arrays.asList(left, right)) {
 	
 	fun left() : KoKoAst {return this.operands.get(0)}
 	fun right() : KoKoAst {return this.operands.get(1)}
 	
 	override fun eval(ctx : KoKoContext) : KoKoValue {
 	   try {
-	        val operId = oper as KoKoId
+	        val operId = this.oper as KoKoId
 			val lv = left().eval(ctx) as KoKoNumValue
 			val rv = right().eval(ctx) as KoKoNumValue
 			when (operId.getValue()){
@@ -28,7 +28,7 @@ class KoKoBiOperation (oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoOp
 			}
 			
 	   } catch (e : Exception) {
-			throw KoKoEvalException(e.getMessage())
+			throw KoKoEvalException(e.message)
 	     }
 	   
    }

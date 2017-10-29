@@ -21,24 +21,24 @@ import java.io.*
    PLEASE DO SOME RESEARCH OF VISISTOR PATTERN FIRST
 */
 
-class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisitor<KoKoAst>, KoKoEmiter{
+class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisitor<KoKoAst>(), KoKoEmiter{
 	
-   protected var program: KoKoAst
-   protected var statements: List<KoKoAst> = ArrayList<>()
+   protected var program: KoKoAst = KoKoAst();
+   protected var statements: MutableList<KoKoAst> = mutableListOf<KoKoAst>()
 
    fun getProgram(): KoKoProgram{
 	   return PROGRAM(statements)
    }
    
-   fun genCode(): Unit{
+   fun genCode(){
 	   try {
 		   genCode(outputFile?.let{ PrintStream(outputFile) } ?: System.out)
 	   } catch (e: Exception){
-		   throw RuntimeException(e.getMessage())
+		   throw RuntimeException(e.message)
 	   }     
    }
 
-   fun genCode(out: PrintStream): Unit{
+   fun genCode(out: PrintStream){
       statements.forEach{ it.genCode(out) }
    }
 
@@ -77,8 +77,8 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 								   
 	  val operands: List<KoKoAst> = ctx.mult_expr()
                                    .map{ visit(it) }
-      val r: KoKoAst[] = {operands.get(0)}
-      (1 .. operands.size()).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }
+      val r: Array<KoKoAst> = Array<KoKoAst>(1){operands.get(0)}
+      (1 .. operands.size).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }
       return r[0]
    }
 
@@ -91,7 +91,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
    }
    
    override fun visitNumber(ctx: KoKoslanParser.NumberContext): KoKoAst{
-	  return NUM(Double.valueOf(ctx.NUMBER().getText()))
+	  return NUM((ctx.NUMBER().getText()).toDouble())
    }
 
    override fun visitBool(ctx: KoKoslanParser.BoolContext): KoKoAst{
@@ -99,7 +99,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
    }
 
    override fun visitString(ctx: KoKoslanParser.StringContext): KoKoAst{
-	  return STRING(String.valueOf(ctx.STRING().getText()))
+	  return STRING(ctx.STRING().getText())
    }
 
    override fun visitMult_expr(ctx: KoKoslanParser.Mult_exprContext): KoKoAst{
@@ -108,17 +108,13 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 	  }
 	  
 	  val operators: List<KoKoAst> = ctx.mult_oper()
-	                               .stream()
-	                               .map( e -> visit(e) )
-								   .collect(Collectors.toList())
+	                               .map{ visit(it) }
 								   
 	  val operands: List<KoKoAst>  = ctx.value_expr()
-	                               .stream()
-	                               .map( e -> visit(e) )
-								   .collect(Collectors.toList())
+	                               .map{ visit(it) }
                                    
-      val r: KoKoAst[] = {operands.get(0)};
-	  (1 .. operands.size()).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }  
+      val r: Array<KoKoAst> = Array<KoKoAst>(1){operands.get(0)}
+	  (1 .. operands.size).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }  
       return r[0]
    }
 
@@ -128,7 +124,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
    
    override fun visitCallValueExpr(ctx: KoKoslanParser.CallValueExprContext): KoKoAst{
       val head: KoKoAst = visit(ctx.value_expr())
-	  val args: KoKoList = (KoKoList)visit(ctx.call_args())
+	  val args: KoKoList = visit(ctx.call_args()) as KoKoList
 	  return CALL( head, args )
    }
 
