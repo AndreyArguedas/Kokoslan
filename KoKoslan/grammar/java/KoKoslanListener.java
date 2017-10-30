@@ -57,6 +57,16 @@ public interface KoKoslanListener extends ParseTreeListener {
 	 */
 	void exitLambda_expr(KoKoslanParser.Lambda_exprContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link KoKoslanParser#lambda_eval_expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterLambda_eval_expr(KoKoslanParser.Lambda_eval_exprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KoKoslanParser#lambda_eval_expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitLambda_eval_expr(KoKoslanParser.Lambda_eval_exprContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link KoKoslanParser#evaluable_expr}.
 	 * @param ctx the parse tree
 	 */
@@ -116,6 +126,36 @@ public interface KoKoslanListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBool_expr(KoKoslanParser.Bool_exprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KoKoslanParser#prefixUnary_expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrefixUnary_expr(KoKoslanParser.PrefixUnary_exprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KoKoslanParser#prefixUnary_expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrefixUnary_expr(KoKoslanParser.PrefixUnary_exprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KoKoslanParser#posfixUnary_expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterPosfixUnary_expr(KoKoslanParser.PosfixUnary_exprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KoKoslanParser#posfixUnary_expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitPosfixUnary_expr(KoKoslanParser.PosfixUnary_exprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KoKoslanParser#unary_oper}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnary_oper(KoKoslanParser.Unary_operContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KoKoslanParser#unary_oper}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnary_oper(KoKoslanParser.Unary_operContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link KoKoslanParser#bool_oper}.
 	 * @param ctx the parse tree

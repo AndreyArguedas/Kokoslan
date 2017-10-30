@@ -93,6 +93,14 @@ public interface KoKoEmiter{
         return new KoKoList();
    }
 
+   default KoKoLambda LAMBDA(KoKoAst pattern, KoKoAst expr, boolean evaluable){ 
+        return new KoKoLambda(pattern, expr, evaluable);
+   }
+
+   default KoKoCase CASE(List<KoKoAst> lambdas){ 
+        return new KoKoCase(lambdas);
+   }
+
    default KoKoAst CALL(KoKoAst head, KoKoList args){
        return new KoKoCall(head, args);
    }

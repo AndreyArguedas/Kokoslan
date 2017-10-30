@@ -75,6 +75,18 @@ public class KoKoslanBaseListener implements KoKoslanListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLambda_eval_expr(KoKoslanParser.Lambda_eval_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLambda_eval_expr(KoKoslanParser.Lambda_eval_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterEvaluable_expr(KoKoslanParser.Evaluable_exprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -142,6 +154,42 @@ public class KoKoslanBaseListener implements KoKoslanListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBool_expr(KoKoslanParser.Bool_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrefixUnary_expr(KoKoslanParser.PrefixUnary_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrefixUnary_expr(KoKoslanParser.PrefixUnary_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPosfixUnary_expr(KoKoslanParser.PosfixUnary_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPosfixUnary_expr(KoKoslanParser.PosfixUnary_exprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnary_oper(KoKoslanParser.Unary_operContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnary_oper(KoKoslanParser.Unary_operContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -8,16 +8,22 @@
 grammar KoKoslan;
 
 
-program      : definition* expression
+program           : definition* expression
 ;
 
-definition   : 'let' id '=' expression
+definition        : 'let' id '=' expression
 ;
-expression   : part_expr (',' part_expr)*
+expression        : part_expr (',' part_expr)*
 ;
-part_expr    :  lambda_expr | evaluable_expr 
+part_expr         :  lambda_expr | evaluable_expr | lambda_eval_expr 
 ;
-lambda_expr  : '\\' pattern '.' expression
+
+lambda_expr       :  pattern '->' expression
+;
+
+/* Trying to support the case (x -> x * x) 666 */
+
+lambda_eval_expr  :  '(' lambda_expr ')' expression
 ;
 
 evaluable_expr    :  add_expr | bool_expr test_expr?
@@ -78,7 +84,7 @@ list_expr    :  expression ( ','  expression)*
 // Case expressions
 case_value   :  '{' case_expr? '}'
 ;
-case_expr    :  lambda_expr ( ','  lambda_expr)*
+case_expr    :  lambda_expr ( ','  lambda_expr)+
 ;
 
 call_args    :  '(' list_expr? ')'
