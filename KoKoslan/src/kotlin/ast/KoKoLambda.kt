@@ -13,7 +13,7 @@ class KoKoLambda(private var pattern : KoKoAst, private var expr : KoKoAst, priv
 
    fun getExpr() : KoKoAst { return this.expr }
 
-   fun genCode(Out : PrintStream){
+   override fun genCode(Out : PrintStream){
       if(this.lambdaEvaluable)
           Out.print(" ( ")
 	  this.pattern.genCode(Out)
@@ -24,7 +24,7 @@ class KoKoLambda(private var pattern : KoKoAst, private var expr : KoKoAst, priv
 	  this.expr.genCode(Out)
    }
 
-   fun eval(ctx : KoKoContext) : KoKoValue{
+   override fun eval(ctx : KoKoContext) : KoKoValue{
 	   val value = expr.eval(ctx)
 	   ctx.assoc(pattern as KoKoId, value)
 	   return value
