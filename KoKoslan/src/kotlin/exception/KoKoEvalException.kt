@@ -7,6 +7,4 @@
 
 package kokoslan.kt.exception
 
-class KoKoEvalException(msg : String) : RuntimeException (msg) {
-
-}
+class KoKoEvalException(msg : String) : RuntimeException(msg){}

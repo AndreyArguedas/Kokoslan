@@ -6,6 +6,7 @@
 */
 
 package kokoslan.kt.ast
+
 import java.util.*
 import java.io.*
 import kokoslan.kt.eval.*
@@ -16,4 +17,5 @@ class KoKoString(value : String) : KoKoAtom<String>(value) {
    override fun eval(ctx : KoKoContext) : KoKoValue {
 	   return KoKoStringValue(getValue())  
    }
+   
 }

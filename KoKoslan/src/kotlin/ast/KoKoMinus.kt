@@ -6,6 +6,7 @@
 */
 
 package kokoslan.kt.ast
+
 import java.util.*
 import java.io.*
 import kokoslan.kt.eval.*
@@ -20,8 +21,7 @@ class KoKoMINUS(oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoBiOperati
 	         return KoKoNumValue(lv.getValue() - rv.getValue())
 	   } catch (e : Exception) {
 			throw KoKoEvalException(e.message!!)
-	   }
-	   
-   }
+	   }  
+    }
 	
 }

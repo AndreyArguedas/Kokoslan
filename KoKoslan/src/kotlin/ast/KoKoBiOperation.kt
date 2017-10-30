@@ -6,17 +6,18 @@
 */
 
 package kokoslan.kt.ast
+
 import java.util.*
 import java.io.*
 import kokoslan.kt.eval.*
 import kokoslan.kt.exception.*
-
 
 open class KoKoBiOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoOperation(oper, Arrays.asList(left, right)) {
 
     fun left(): KoKoAst {
         return this.operands.get(0)
     }
+
     fun right(): KoKoAst {
         return this.operands.get(1)
     }
@@ -36,7 +37,6 @@ open class KoKoBiOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoOp
         } catch (e: Exception) {
             throw KoKoEvalException(e.message!!)
         }
-
     }
-
+    
 }

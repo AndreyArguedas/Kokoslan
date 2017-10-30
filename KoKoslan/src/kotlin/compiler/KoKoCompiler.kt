@@ -44,7 +44,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
       statements.forEach{ it.genCode(out) }
    }
 
-   fun eval(): KoKoValue{
+   fun eval(): KoKoValue?{
 	   return getProgram().eval()
    }
    
@@ -74,13 +74,12 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 		  return visit(ctx.mult_expr(0))
 	  }
 	  
-	  val operators: List<KoKoAst> = ctx.add_oper()
-	                               .map{ visit(it) }
+	  val operators: List<KoKoAst> = ctx.add_oper().map{ visit(it) }
 								   
-	  val operands: List<KoKoAst> = ctx.mult_expr()
-                                   .map{ visit(it) }
-      val r: Array<KoKoAst> = Array<KoKoAst>(1){operands.get(0)}
-      (1 .. operands.size).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }
+	  val operands: List<KoKoAst> = ctx.mult_expr().map{ visit(it) } 
+
+      var r: Array<KoKoAst> = arrayOf(operands.get(0))
+      (1 .. operands.size-1).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }
       return r[0]
    }
 
@@ -109,21 +108,55 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 		  return visit(ctx.prefixUnary_expr(0))
 	  }
 	  
-	  val operators: List<KoKoAst> = ctx.mult_oper()
-	                               .map{ visit(it) }
+	  val operators: List<KoKoAst> = ctx.mult_oper().map{ visit(it) }
 								   
-	  val operands: List<KoKoAst>  = ctx.prefixUnary_expr()
-	                               .map{ visit(it) }
-                                   
-      val r: Array<KoKoAst> = Array<KoKoAst>(1){operands.get(0)}
-	  (1 .. operands.size).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }  
+	  val operands: List<KoKoAst>  = ctx.prefixUnary_expr().map{ visit(it) }        
+
+      var r: Array<KoKoAst> = arrayOf(operands.get(0))
+	  (1 .. operands.size-1).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }  
       return r[0]
    }
 
    override fun visitMult_oper(ctx: KoKoslanParser.Mult_operContext): KoKoAst{
 	   return OPERATOR(ctx.oper.getText())
    }
-   
+
+   override fun visitBool_expr(ctx: KoKoslanParser.Bool_exprContext): KoKoAst{
+      if ( ctx.bool_oper() == null ){
+		  return visit(ctx.value_expr(0))
+	  }
+   	  
+	  val operators: List<KoKoAst> = ctx.bool_oper().map{ visit(it) }
+								   
+	  val operands: List<KoKoAst>  = ctx.value_expr().map{ visit(it) }
+
+      var r: Array<KoKoAst> = arrayOf(operands.get(0))
+      (1 .. operands.size-1).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }  
+      return r[0]
+   }
+
+   override fun visitBool_oper(ctx: KoKoslanParser.Bool_operContext): KoKoAst{
+	   return OPERATOR(ctx.oper.getText())
+   }
+
+   override fun visitPrefixUnary_expr(ctx: KoKoslanParser.PrefixUnary_exprContext): KoKoAst { 
+       return visitChildren(ctx)
+   }
+
+   override fun visitPosfixUnary_expr(ctx: KoKoslanParser.PosfixUnary_exprContext): KoKoAst { 
+       if(ctx.unary_oper() == null) 
+           return visit(ctx.value_expr())
+       val unaryOper: KoKoId = visit(ctx.unary_oper()) as KoKoId
+       val operand: KoKoAst = visit(ctx.value_expr())
+       println("UnaryOper " + unaryOper)
+       println("Operand " + operand)
+       return visitChildren(ctx)
+   }
+
+   override fun visitUnary_oper(ctx: KoKoslanParser.Unary_operContext): KoKoAst {
+        return OPERATOR(ctx.oper.getText())
+    }
+
    override fun visitCallValueExpr(ctx: KoKoslanParser.CallValueExprContext): KoKoAst{
       val head: KoKoAst = visit(ctx.value_expr())
 	  val args: KoKoList = visit(ctx.call_args()) as KoKoList
@@ -137,7 +170,12 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
    override fun visitList_expr(ctx: KoKoslanParser.List_exprContext): KoKoAst{
       val exprs: List<KoKoAst> = ctx.expression()
 							   		.map{ visit(it) }
-	  return LIST(exprs)
+	  return LIST(exprs, false)
+   }
+
+   override fun visitList_value(ctx: KoKoslanParser.List_valueContext): KoKoAst{
+      val exprs: List<KoKoAst> = ctx.list_expr().expression(0).part_expr().map{ visit(it) } 
+	  return LIST(exprs, true);
    }
 
 }

@@ -6,6 +6,7 @@
 */
 
 package kokoslan.kt.ast
+
 import java.util.*
 import java.io.*
 import kokoslan.kt.eval.*
@@ -21,7 +22,6 @@ class KoKoMULT(oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoBiOperatio
 	   } catch (e : Exception) {
 			throw KoKoEvalException(e.message!!)
 	   }
-	   
-   }
+    }
 	
 }

@@ -6,9 +6,9 @@
 */
 
 package kokoslan.kt.eval
+
 import kokoslan.kt.ast.*
 import kokoslan.kt.exception.*
-
 
 class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
 
@@ -20,7 +20,7 @@ class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
 		return null
 	}
 
-	fun printArguments(ctx: KoKoContext): Unit{
+	fun printArguments(ctx: KoKoContext){
         args.forEach{ print(it.eval(ctx)) }
     }
 

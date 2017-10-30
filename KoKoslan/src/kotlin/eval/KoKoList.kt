@@ -6,6 +6,7 @@
 */
 
 package kokoslan.kt.eval
+
 import java.util.*;
 import java.io.*;
 import kokoslan.kt.ast.*
@@ -16,13 +17,17 @@ import kokoslan.kt.exception.*
     KoKoAst : Generates code with PrintStream,
     and can evaluate context and pass it to kokovalues
  */
-class KoKoList(list : List<KoKoAst>? = null) : ArrayList<KoKoAst>(list), KoKoAst{
+class KoKoList(list : List<KoKoAst>? = null, var kokoNativeList: Boolean = false) : ArrayList<KoKoAst>(list), KoKoAst{
     
     override fun genCode(Out : PrintStream) : Unit {
         if(this.size == 0) return
+        if(kokoNativeList == true)
+            Out.print("[ ")
         this.get(0).genCode(Out)
         this.drop(1)
             .forEach{Out.print(", "); it.genCode(Out);}
+        if(kokoNativeList == true)
+            Out.print("] ")
     }
 
     override fun eval(ctx : KoKoContext) : KoKoValue? {
@@ -35,4 +40,5 @@ class KoKoList(list : List<KoKoAst>? = null) : ArrayList<KoKoAst>(list), KoKoAst
     fun eval() : KoKoValue? {
         return eval(KoKoContext())
     }
+    
 } 
