@@ -78,7 +78,6 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 
    @Override
    public KoKoAst visitLambda_expr(KoKoslanParser.Lambda_exprContext ctx){
-	  System.out.println("Hola soy una lambda");
       KoKoAst id = visit(ctx.pattern());
       KoKoAst expr = visit(ctx.expression());	  
 	  return LAMBDA(id, expr, false);
@@ -86,24 +85,27 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
 
    @Override
    public KoKoAst visitLambda_eval_expr(KoKoslanParser.Lambda_eval_exprContext ctx){
-	  System.out.println("Hola soy una lambda evaluable");
       KoKoAst lambda = visit(ctx.lambda_expr());
       KoKoAst expr = visit(ctx.expression());	  
 	  return LAMBDA(lambda, expr, true);
    }
 
+    @Override
+   public KoKoAst visitCase_value(KoKoslanParser.Case_valueContext ctx){
+      KoKoAst caseexpr = visit(ctx.case_expr());
+	  return caseexpr;
+   }
+
    @Override
    public KoKoAst visitCase_expr(KoKoslanParser.Case_exprContext ctx){
-	  System.out.println("Hola soy un case { }");
-      System.out.println("Lambdas dentro del case {}" + ctx.lambda_expr());
+
       List<KoKoAst> lambdas = ctx.lambda_expr() //La idea es visitar todas las lambdas dentro del case
                                  .stream()
                                  .map(e -> visit(e))
                                  .collect(Collectors.toList());
       System.out.println(lambdas); //Las lambdas dentro de {}
-      /*KoKoAst expr = visit(ctx.expression());
-      System.out.println("{} expresion es " + expr.toString());*/
-	  return  CASE(lambdas);
+
+	  return CASE(lambdas);
    }
 
    @Override

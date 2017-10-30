@@ -1,5 +1,4 @@
 let f  = x  -> x * x 
 let a  =  ( x  -> x * x  ) 6666.0 
-let z  = 0.0  -> true 
-let r  = 999.0 
-f  (r ) 
+let b  = { x  -> x * x , y  -> y } 
+666.0 

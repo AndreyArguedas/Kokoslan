@@ -1,6 +1,4 @@
 let f = x -> x * x
 let a = (x -> x * x) 6666
-/* let b = { x -> x * x, y -> y} */
-let z = 0 -> true
-let r = 999
-f(r)
+let b = { x -> x * x, y -> y} 666
+f(9)

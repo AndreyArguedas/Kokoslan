@@ -18,6 +18,7 @@ public class KoKoCase extends ArrayList<KoKoAst> implements KoKoAst{
 
     public KoKoCase(List<KoKoAst> list){
         super(list); //KoKoList is ArrayList
+        System.out.println("Koko case creandose" + list);
     }
 
     public KoKoCase(){
@@ -31,6 +32,7 @@ public class KoKoCase extends ArrayList<KoKoAst> implements KoKoAst{
         out.print("{ ");
         this.get(0).genCode(out); //First KoKoAST gens code
         this.stream()
+            .skip(1)
             .forEach( t -> {
                             out.print(", ");
                             t.genCode(out); //KoKoAST gens code
