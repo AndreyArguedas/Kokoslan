@@ -19,7 +19,7 @@ import kokoslan.kt.exception.*
  */
 class KoKoList(list : List<KoKoAst>? = null, var kokoNativeList: Boolean = false) : ArrayList<KoKoAst>(list), KoKoAst{
     
-    override fun genCode(Out : PrintStream) : Unit {
+    override fun genCode(Out : PrintStream){
         if(this.size == 0) return
         if(kokoNativeList == true)
             Out.print("[ ")

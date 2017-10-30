@@ -17,7 +17,7 @@ class KoKoLet(private var id : KoKoAst, private var expr : KoKoAst) : KoKoAst {
 
    fun getExpr() : KoKoAst {return this.expr}
    
-   override fun genCode(Out : PrintStream) : Unit{
+   override fun genCode(Out : PrintStream){
       Out.print("let ")
 	  this.id.genCode(Out)
 	  Out.print(" = ")

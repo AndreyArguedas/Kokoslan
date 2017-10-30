@@ -18,7 +18,7 @@ class KoKoContext (private var parent: KoKoContext? = null) : HashMap<String, Ko
 		return value ?: return parent?.find(id) ?: throw KoKoNotFoundId(id)
 	}
 
-	fun assoc(id: KoKoId, value: KoKoValue?): Unit{
+	fun assoc(id: KoKoId, value: KoKoValue?){
 		put(id.getValue(), value)
 	}
 

@@ -1,5 +1,5 @@
 let list  = [ 4.0 , 6.0 , 8.0 , 9.0 , 123.0 ] 
-let list2  = [ 1500.0 , "ESKETIT" ] 
-let list3  = [ "CHEN" , "ES" , "EL" , "MAS" , "RICO" ] 
-let list4  = [ [ "CHEN" ] , [ "ES" , "EL" , "MAS" , "RICO" ] ] 
+let list2  = [ 1500.0 , "HOLA" ] 
+let list3  = [ "CARLOS" , "ANDREY" , "CHEN" , "DANIELA" , "KIMBERLY" ] 
+let list4  = [ [ "CARLOS" ] , [ "ANDREY" , "CHEN" , "DANIELA" , "KIMBERLY" ] ] 
 3.0 + 2.0 

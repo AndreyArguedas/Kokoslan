@@ -14,7 +14,7 @@ import kokoslan.kt.exception.*
 
 class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoKoList()) : KoKoAst {
 
-    override fun genCode(Out : PrintStream) : Unit { //The code we see when we do call.kl
+    override fun genCode(Out : PrintStream) { //The code we see when we do call.kl
         this.head.genCode(Out)
         Out.print(" (")
         this.args.genCode(Out)
