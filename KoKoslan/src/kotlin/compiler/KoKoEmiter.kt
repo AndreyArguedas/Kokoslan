@@ -28,7 +28,7 @@ public interface KoKoEmiter{
    val MULT : KoKoAst get() = KoKoId("*")
    val DIV : KoKoAst get() = KoKoId("/")
    val MODULUS : KoKoAst get() = KoKoId("%")
-   val POW :  KoKoAst get() = KoKoId("%");
+   val POW :  KoKoAst get() = KoKoId("^");
    val ERROR : KoKoAst get() = KoKoId("??")
    
    fun PROGRAM(stmts : MutableList<KoKoAst>) : KoKoProgram {  //DEFAULT?

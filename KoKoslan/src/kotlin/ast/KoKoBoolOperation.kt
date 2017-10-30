@@ -24,9 +24,9 @@ class KoKoBoolOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoOper
 
 	override fun eval(ctx: KoKoContext): KoKoValue{
 	   try {
-	        val operId: KoKoId = oper as KoKoId
-			val lv: KoKoNumValue = left().eval(ctx) as KoKoNumValue
-			val rv: KoKoNumValue = right().eval(ctx) as KoKoNumValue
+	        val operId = oper as KoKoId
+			val lv = left().eval(ctx) as KoKoNumValue
+			val rv = right().eval(ctx) as KoKoNumValue
 			when (operId.getValue()){
 				"<" -> return KoKoBoolValue(lv.getValue() < rv.getValue())
                 ">" -> return KoKoBoolValue(lv.getValue() > rv.getValue())

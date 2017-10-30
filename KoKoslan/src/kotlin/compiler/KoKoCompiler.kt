@@ -68,6 +68,33 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 	  return LET(id, expr)
    }
 
+   override fun visitLambda_expr(ctx: KoKoslanParser.Lambda_exprContext): KoKoAst{
+      val id: KoKoAst = visit(ctx.pattern())
+      val expr: KoKoAst = visit(ctx.expression()) 
+	  return LAMBDA(id, expr, false)
+   }
+
+   override fun visitLambda_eval_expr(ctx: KoKoslanParser.Lambda_eval_exprContext): KoKoAst{
+      val lambda: KoKoAst = visit(ctx.lambda_expr())
+      val expr: KoKoAst = visit(ctx.expression())	  
+	  return LAMBDA(lambda, expr, true)
+   }
+
+   override fun visitCase_value(ctx: KoKoslanParser.Case_valueContext): KoKoAst{
+      val caseexpr: KoKoAst = visit(ctx.case_expr())
+	  return caseexpr
+   }
+
+   override fun visitCase_expr(ctx: KoKoslanParser.Case_exprContext): KoKoAst{
+
+      val lambdas: List<KoKoAst> = ctx.lambda_expr().map{ visit(it) }
+      //La idea es visitar todas las lambdas dentro del case
+                                 
+      println(lambdas) //Las lambdas dentro de {}
+
+	  return CASE(lambdas)
+   }
+
    override fun visitAdd_expr(ctx: KoKoslanParser.Add_exprContext): KoKoAst{
 	  // Check if only one operand. Then just visit down
 	  if ( ctx.add_oper() == null ){
