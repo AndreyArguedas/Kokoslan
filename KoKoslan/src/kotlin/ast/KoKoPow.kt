@@ -16,8 +16,8 @@ class KoKoPOW(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoBiOperation(op
 
 	override fun eval(ctx: KoKoContext): KoKoValue{
 	   try {
-		     val lv: KoKoNumValue = left().eval(ctx) as KoKoNumValue
-			 val rv: KoKoNumValue = right().eval(ctx) as KoKoNumValue
+		     val lv = left().eval(ctx) as KoKoNumValue
+			 val rv = right().eval(ctx) as KoKoNumValue
 	         return KoKoNumValue(Math.pow(lv.getValue(), rv.getValue()))
 	   } catch (e: Exception) {
 			throw KoKoEvalException(e.message!!)

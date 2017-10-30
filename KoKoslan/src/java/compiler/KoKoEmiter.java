@@ -28,7 +28,7 @@ public interface KoKoEmiter{
    final KoKoAst MULT = new KoKoId("*");
    final KoKoAst DIV = new KoKoId("/");
    final KoKoAst MODULUS = new KoKoId("%");
-   final KoKoAst POW = new KoKoId("%");
+   final KoKoAst POW = new KoKoId("^");
    final KoKoAst ERROR = new KoKoId("??");
    
    default KoKoProgram PROGRAM(List<KoKoAst> stmts){ 

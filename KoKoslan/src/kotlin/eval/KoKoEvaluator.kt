@@ -13,7 +13,7 @@ import kokoslan.kt.exception.*
 class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
 
 	fun evaluate(ctx: KoKoContext): KoKoValue?{
-		print("Vine a evaluar todo")
+		//print("Vine a evaluar todo")
 		val name: String = (this.head as KoKoId).getValue()
         if(name.equals("print"))
             printArguments(ctx)

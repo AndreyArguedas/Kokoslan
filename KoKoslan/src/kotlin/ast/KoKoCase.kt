@@ -5,10 +5,13 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.java.ast
+package kokoslan.kt.ast
+
 import java.util.*
 import java.io.*
 import java.util.stream.IntStream
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 /*  Lists of KoKoAst objects
     KoKoAst : Generates code with PrintStream,
@@ -17,9 +20,9 @@ import java.util.stream.IntStream
 class KoKoCase(list : List<KoKoAst>? = null) : ArrayList<KoKoAst>(list), KoKoAst{
 
     override fun genCode(Out : PrintStream){
-        println("He venido a imprimirme 1 " + this)
+        //println("He venido a imprimirme 1 " + this)
         if(this.size == 0) return
-        println("He venido a imprimirme" + this)
+        //println("He venido a imprimirme" + this)
         Out.print("{ ")
         this.get(0).genCode(Out); //First KoKoAST gens code
         this.drop(1)
@@ -30,11 +33,11 @@ class KoKoCase(list : List<KoKoAst>? = null) : ArrayList<KoKoAst>(list), KoKoAst
     override fun eval(ctx : KoKoContext) : KoKoValue? {
         val res = KoKoListValue()
         for(i in 0 .. this.size) res.add(this.get(i).eval(ctx))
-        //(0 .. this.size).forEach { res.add(this.get(it).eval(ctx)) }
         return res
     }
 
     fun eval() : KoKoValue? { //See the upper method
         return eval(KoKoContext())
     }
+    
 } 

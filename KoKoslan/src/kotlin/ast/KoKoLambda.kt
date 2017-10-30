@@ -5,8 +5,11 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.java.ast
+package kokoslan.kt.ast
+
 import java.io.*
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 class KoKoLambda(private var pattern : KoKoAst, private var expr : KoKoAst, private var lambdaEvaluable : Boolean) : KoKoAst{
    fun getPattern() : KoKoAst { return this.pattern }
@@ -24,9 +27,10 @@ class KoKoLambda(private var pattern : KoKoAst, private var expr : KoKoAst, priv
 	  this.expr.genCode(Out)
    }
 
-   override fun eval(ctx : KoKoContext) : KoKoValue{
+   override fun eval(ctx : KoKoContext) : KoKoValue?{
 	   val value = expr.eval(ctx)
 	   ctx.assoc(pattern as KoKoId, value)
 	   return value
    }
+
 }

@@ -28,26 +28,26 @@ public interface KoKoEmiter{
    val MULT : KoKoAst get() = KoKoId("*")
    val DIV : KoKoAst get() = KoKoId("/")
    val MODULUS : KoKoAst get() = KoKoId("%")
-   val POW :  KoKoAst get() = KoKoId("%");
+   val POW :  KoKoAst get() = KoKoId("^");
    val ERROR : KoKoAst get() = KoKoId("??")
    
-   fun PROGRAM(stmts : MutableList<KoKoAst>) : KoKoProgram {  //DEFAULT?
+   fun PROGRAM(stmts : MutableList<KoKoAst>) : KoKoProgram {
        return KoKoProgram(stmts)
    }
    
-   fun LET(id : KoKoAst, expr : KoKoAst) : KoKoAst { //DEFAULT
+   fun LET(id : KoKoAst, expr : KoKoAst) : KoKoAst { 
 	   return KoKoLet(id, expr)
    }
 
-   fun OPERATOR(oper : String) : KoKoAst { //DEFAULT
+   fun OPERATOR(oper : String) : KoKoAst { 
 	   return KoKoId(oper)
    }
 
-   fun OPERATION(oper : KoKoAst, operands : MutableList<KoKoAst>) : KoKoAst { //DEFAULT
+   fun OPERATION(oper : KoKoAst, operands : MutableList<KoKoAst>) : KoKoAst { 
        return KoKoOperation(oper, operands)
    }
    
-   fun BI_OPERATION(oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoAst {  //DEFAULT
+   fun BI_OPERATION(oper : KoKoAst, left : KoKoAst, right : KoKoAst) : KoKoAst {  
        val id = oper as KoKoId
 	   when(id.getValue() ){
 		   "+" -> return KoKoPLUS(oper, left, right)
@@ -60,7 +60,7 @@ public interface KoKoEmiter{
 	   }    
    }
 
-    fun BOOL_OPERATION(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoAst {    //DEFAULT
+    fun BOOL_OPERATION(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoAst {
        val id = oper as KoKoId
 	   when(id.getValue() ){ //I think we can put all the operators in a hash or list and use contains
 		   "<" -> return KoKoBoolOperation(oper, left, right)
@@ -73,11 +73,11 @@ public interface KoKoEmiter{
 	   }   
    }
    
-   fun NUM(value : Double) : KoKoNum{   //DEFAULT
+   fun NUM(value : Double) : KoKoNum{
        return KoKoNum(value)
    }
 
-   fun STRING(value : String) : KoKoString {   //DEFAULT
+   fun STRING(value : String) : KoKoString {
        return KoKoString(value)
    }
    
@@ -85,15 +85,23 @@ public interface KoKoEmiter{
        return KoKoId(value)
    }
    
-   fun LIST(expressions : List<KoKoAst>, nat: Boolean) : KoKoList{ //Arguments with expressions  //DEFAULT 
+   fun LIST(expressions : List<KoKoAst>, nat: Boolean) : KoKoList{ //Arguments with expressions 
        return KoKoList(expressions, nat)
    }
 
-   fun LIST() : KoKoList { //Empty arguments   //DEFAULT
+   fun LIST() : KoKoList { //Empty arguments
         return KoKoList()
    }
+
+   fun LAMBDA(pattern: KoKoAst, expr: KoKoAst, evaluable: Boolean): KoKoLambda{ 
+        return KoKoLambda(pattern, expr, evaluable)
+   }
+
+   fun CASE(lambdas: List<KoKoAst>): KoKoCase{ 
+        return KoKoCase(lambdas)
+   }
    
-   fun CALL(head : KoKoAst, args : KoKoList) : KoKoAst {   //DEFAULT
+   fun CALL(head : KoKoAst, args : KoKoList) : KoKoAst {
        return KoKoCall(head, args)
    }
    

@@ -32,8 +32,7 @@ class KoKoList(list : List<KoKoAst>? = null, var kokoNativeList: Boolean = false
 
     override fun eval(ctx : KoKoContext) : KoKoValue? {
         val res = KoKoListValue()
-        for(i in 0 .. this.size) res.add(this.get(i).eval(ctx))
-        //(0 .. this.size).forEach { res.add(this.get(it).eval(ctx)) }
+        for(i in 0 .. this.size-1) res.add(this.get(i).eval(ctx))
         return res
     }
 
