@@ -6,9 +6,8 @@
 */
 
 package kokoslan.kt.eval
+
 import kokoslan.kt.ast.*
 import kokoslan.kt.exception.*
 
-
-interface KoKoValue{
-}
+interface KoKoValue{}

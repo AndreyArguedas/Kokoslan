@@ -11,7 +11,6 @@ import java.io.*
 import kokoslan.kt.eval.*
 import kokoslan.kt.exception.*
 
-
 open class KoKoAtom<T>(private var value : T) : KoKoAst {
 
    fun getValue() : T {return value}
@@ -25,4 +24,5 @@ open class KoKoAtom<T>(private var value : T) : KoKoAst {
    override fun toString() : String {
 	   return value.toString()
    }
+   
 }

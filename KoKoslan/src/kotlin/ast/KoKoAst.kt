@@ -12,12 +12,12 @@ import kokoslan.kt.eval.*
 import kokoslan.kt.exception.*
 
 interface KoKoAst {
-   fun genCode() { //default void?
-      genCode(System.out) //'??
+   fun genCode() {
+      genCode(System.out)
    }
    
-   //Default void?
    fun genCode(Out : PrintStream)
    
    fun eval(ctx : KoKoContext) : KoKoValue?
+   
 }
