@@ -158,7 +158,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 	  val operands: List<KoKoAst>  = ctx.value_expr().map{ visit(it) }
 
       var r: Array<KoKoAst> = arrayOf(operands.get(0))
-      (1 .. operands.size-1).forEach{ r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }  
+      (1 .. operands.size-1).forEach{ r[0] = BOOL_OPERATION(operators.get(it - 1), r[0], operands.get(it)) }  
       return r[0]
    }
 

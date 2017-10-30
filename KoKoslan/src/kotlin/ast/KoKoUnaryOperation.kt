@@ -24,9 +24,9 @@ class KoKoUnaryOperation(oper: KoKoAst, value: KoKoAst) : KoKoOperation(oper, Ar
 	
 	override fun eval(ctx: KoKoContext): KoKoValue{
 	   try {
-	        val operId: KoKoId = oper as KoKoId
-			val lv: KoKoNumValue = preValue().eval(ctx) as KoKoNumValue
-			val rv: KoKoNumValue = posValue().eval(ctx) as KoKoNumValue
+	        val operId = oper as KoKoId
+			val lv = preValue().eval(ctx) as KoKoNumValue
+			val rv = posValue().eval(ctx) as KoKoNumValue
 			when (operId.getValue()){
 				"++" -> return KoKoNumValue(lv.getValue() + rv.getValue())
 				"--" -> return KoKoNumValue(lv.getValue() - rv.getValue())
