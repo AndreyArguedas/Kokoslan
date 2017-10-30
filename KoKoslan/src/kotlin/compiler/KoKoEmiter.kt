@@ -92,6 +92,14 @@ public interface KoKoEmiter{
    fun LIST() : KoKoList { //Empty arguments   //DEFAULT
         return KoKoList()
    }
+
+   fun LAMBDA(pattern: KoKoAst, expr: KoKoAst, evaluable: Boolean): KoKoLambda{ 
+        return KoKoLambda(pattern, expr, evaluable)
+   }
+
+   fun CASE(lambdas: List<KoKoAst>): KoKoCase{ 
+        return KoKoCase(lambdas)
+   }
    
    fun CALL(head : KoKoAst, args : KoKoList) : KoKoAst {   //DEFAULT
        return KoKoCall(head, args)

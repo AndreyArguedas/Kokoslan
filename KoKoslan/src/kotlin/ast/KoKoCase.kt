@@ -5,10 +5,13 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.java.ast
+package kokoslan.kt.ast
+
 import java.util.*
 import java.io.*
 import java.util.stream.IntStream
+import kokoslan.kt.eval.*
+import kokoslan.kt.exception.*
 
 /*  Lists of KoKoAst objects
     KoKoAst : Generates code with PrintStream,
@@ -37,4 +40,5 @@ class KoKoCase(list : List<KoKoAst>? = null) : ArrayList<KoKoAst>(list), KoKoAst
     fun eval() : KoKoValue? { //See the upper method
         return eval(KoKoContext())
     }
+    
 } 
