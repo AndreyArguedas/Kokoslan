@@ -8,6 +8,7 @@ import kokoslan.java.util.*;
 import java.util.*;
 import java.io.*;
 import kokoslan.java.eval.*;
+import kokoslan.java.exception.*;
 
 public class KoKoBiOperation extends KoKoOperation {
 	

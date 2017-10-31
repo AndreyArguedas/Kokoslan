@@ -5,7 +5,7 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.compile;
+package kokoslan.kt.compiler;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -27,11 +27,15 @@ fun main(args : Array<String>){
     println(">>> $VERSION <<<")
     println("...............................................\n")
     // Get parameters
-    var inputFile: String ? = "cases/evalLambda3.kl"
-    var outputFile: String ? = "output/evalLambda3.kl.out.kl"
-
-    /*if (args.size > 0)
-        inputFile = args[0]*/
+    val NOMBRE = "mult"
+    var inputFile = "cases/$NOMBRE.kl"
+    var outputFile = "output/$NOMBRE.kl.out.kl"
+    /*
+    var inputFile: String ? = null
+    var outputFile: String ? = null
+    */
+    if (args.isNotEmpty())
+        inputFile = args[0]
 
     var inputStream: InputStream = System.`in`
 

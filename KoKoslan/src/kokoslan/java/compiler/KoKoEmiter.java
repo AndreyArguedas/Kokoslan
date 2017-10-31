@@ -7,7 +7,7 @@
  @since 0.0
  
 */
-package kokoslan.java.compile;
+package kokoslan.java.compiler;
 
 import kokoslan.java.ast.*;
 import kokoslan.java.eval.*;

@@ -6,6 +6,7 @@ package kokoslan.java.ast;
 import java.util.*;
 import java.io.*;
 import kokoslan.java.eval.*;
+import kokoslan.java.exception.*;
 
 
 public class KoKoBoolOperation extends KoKoOperation {

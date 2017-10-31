@@ -9,11 +9,11 @@ package kokoslan.java.ast;
 import java.util.*;
 import java.io.*;
 import kokoslan.java.eval.*;
+import kokoslan.java.exception.*;
 
-
-public class KoKoMODULUS extends KoKoBiOperation {
+public class KoKoDIV extends KoKoBiOperation {
 	
-    public KoKoMODULUS(KoKoAst operator, KoKoAst left, KoKoAst right){
+    public KoKoDIV(KoKoAst operator, KoKoAst left, KoKoAst right){
 		super(operator, left, right);
 	}
 	
@@ -22,7 +22,7 @@ public class KoKoMODULUS extends KoKoBiOperation {
 	   try {
 		     KoKoNumValue lv = (KoKoNumValue)(left().eval(ctx));
 			 KoKoNumValue rv = (KoKoNumValue)(right().eval(ctx));
-	         return new KoKoNumValue(lv.getValue() % rv.getValue());
+	         return new KoKoNumValue(lv.getValue() / rv.getValue());
 	   } catch (Exception e) {
 			throw new KoKoEvalException(e.getMessage());
 	   }

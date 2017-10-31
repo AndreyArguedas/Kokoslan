@@ -5,5 +5,5 @@ rd /S /Q classes  build
 md classes
 rd /S /Q build
 md build
-del /Q  src\java\parser\*
+del /Q  src\kokoslan\parser\*
 cls

@@ -6,6 +6,7 @@ package kokoslan.java.eval;
 
 import java.util.*;
 import kokoslan.java.ast.*;
+import kokoslan.java.exception.*;
 
 public class KoKoContext extends HashMap<String, KoKoValue>{
 	private KoKoContext parent; 

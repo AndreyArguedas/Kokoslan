@@ -5,6 +5,7 @@
 package kokoslan.java.ast;
 import java.io.*;
 import kokoslan.java.eval.*;
+import kokoslan.java.exception.*;
 
 public class KoKoAtom<T> implements KoKoAst{
    private T value;

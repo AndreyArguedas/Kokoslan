@@ -1,16 +1,19 @@
-/**
- @author loriacarlos@gmail.com
- 
+/** 
+   Andrey Arguedas Espinoza
+   Daniela Armas Sanchez
+   Michael Chen Wang
+   Kimberly Olivas Delgado
 */
+
 package kokoslan.java.ast;
 import java.util.*;
 import java.io.*;
 import kokoslan.java.eval.*;
+import kokoslan.java.exception.*;
 
-
-public class KoKoMINUS extends KoKoBiOperation {
+public class KoKoMULT extends KoKoBiOperation {
 	
-    public KoKoMINUS(KoKoAst operator, KoKoAst left, KoKoAst right){
+    public KoKoMULT(KoKoAst operator, KoKoAst left, KoKoAst right){
 		super(operator, left, right);
 	}
 	
@@ -19,7 +22,7 @@ public class KoKoMINUS extends KoKoBiOperation {
 	   try {
 		     KoKoNumValue lv = (KoKoNumValue)(left().eval(ctx));
 			 KoKoNumValue rv = (KoKoNumValue)(right().eval(ctx));
-	         return new KoKoNumValue(lv.getValue() - rv.getValue());
+	         return new KoKoNumValue(lv.getValue() * rv.getValue());
 	   } catch (Exception e) {
 			throw new KoKoEvalException(e.getMessage());
 	   }

@@ -5,7 +5,7 @@
  @version EIF400.II-2017
  @since 0.0
 */
-package kokoslan.java.compile;
+package kokoslan.java.compiler;
 
 import kokoslan.parser.*;
 import kokoslan.java.ast.*;

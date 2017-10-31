@@ -5,7 +5,7 @@
     Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.compile
+package kokoslan.kt.compiler
 
 import kokoslan.parser.*
 import kokoslan.kt.ast.*

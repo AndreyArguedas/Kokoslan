@@ -2,7 +2,7 @@
  @author loriacarlos@gmail.com
  
 */
-package kokoslan.java.ast;
+package kokoslan.java.exception;
 
 
 public class KoKoEvalException extends RuntimeException {

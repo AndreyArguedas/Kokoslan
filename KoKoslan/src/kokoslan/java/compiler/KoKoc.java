@@ -14,7 +14,7 @@
  @since 0.0
 */
 
-package kokoslan.java.compile;
+package kokoslan.java.compiler;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -32,9 +32,11 @@ public class KoKoc {
 		System.out.println("\n...............................................");
 		System.out.println(">>> " + VERSION + " <<<");
 		System.out.println("...............................................\n");
+
 		// Get parameters
-        String inputFile = null, 
-		       outputFile = null;
+		final String NOMBRE = "mult";
+		String inputFile = "cases/" + NOMBRE + ".kl",
+		       outputFile = "output/" + NOMBRE + ".kl.out.kl";
         if (args.length > 0) 
 		  inputFile = args[0];
 	  
