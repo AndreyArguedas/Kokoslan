@@ -27,10 +27,15 @@ class KoKoLambda(private var pattern : KoKoAst, private var expr : KoKoAst, priv
 	  this.expr.genCode(Out)
    }
 
-   override fun eval(ctx : KoKoContext) : KoKoValue?{
-	   val value = expr.eval(ctx)
+   override fun eval(ctx : KoKoContext) : KoKoValue?{ //La idea es no evaluar una lambda hasta que no le hagan call
+
+       var kokolamb = KoKoLambdaValue(pattern as KoKoId, expr, ctx.push())
+       //x -> x * x   //{x : x * x}
+       ctx.assoc(pattern as KoKoId, kokolamb) //Mete en el hash de KoKoContext
+       return kokolamb
+       /*val value = expr.eval(ctx)
 	   ctx.assoc(pattern as KoKoId, value)
-	   return value
+	   return value*/
    }
 
 }

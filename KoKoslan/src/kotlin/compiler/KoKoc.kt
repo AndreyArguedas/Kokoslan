@@ -27,11 +27,11 @@ fun main(args : Array<String>){
     println(">>> $VERSION <<<")
     println("...............................................\n")
     // Get parameters
-    var inputFile: String ? = null
-    var outputFile: String ? = null
+    var inputFile: String ? = "cases/evalLambda.kl"
+    var outputFile: String ? = "output/evalLambda.kl.out.kl"
 
-    if (args.size > 0)
-        inputFile = args[0]
+    /*if (args.size > 0)
+        inputFile = args[0]*/
 
     var inputStream: InputStream = System.`in`
 

@@ -29,7 +29,7 @@ class KoKoProgram(private val statements: List < KoKoAst > ): KoKoAst {
         return res
     }
 
-    fun eval(): KoKoValue? {
+    fun eval(): KoKoValue? { //El eval empieza ca
         return eval(KoKoContext())
     }
     
