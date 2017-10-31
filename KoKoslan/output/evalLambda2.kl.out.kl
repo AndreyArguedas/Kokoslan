@@ -1,0 +1,4 @@
+let a  = 4.0 
+let b  = 6.0 
+let f  = x  -> b * x 
+f  (a ) 

@@ -34,7 +34,7 @@ public class KoKoc {
 		System.out.println("...............................................\n");
 
 		// Get parameters
-		final String NOMBRE = "mult";
+		final String NOMBRE = "evalLambda2";
 		String inputFile = "cases/" + NOMBRE + ".kl",
 		       outputFile = "output/" + NOMBRE + ".kl.out.kl";
         if (args.length > 0) 
