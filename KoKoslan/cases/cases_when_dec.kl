@@ -1,0 +1,12 @@
+
+let y = 666
+
+let dec = {   0 -> 0 
+            | x -> dec(x-1) + 1
+			
+		  } // cambiamos coma por | y lambda por flecha
+
+dec(y)
+
+// expected 666
+

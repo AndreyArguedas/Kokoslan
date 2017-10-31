@@ -20,7 +20,10 @@ class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
             val kokoval = ctx.find (this.head as KoKoId)
             if(kokoval is KoKoLambdaValue) {
                 var kl = kokoval as KoKoLambdaValue
-                ctx.set(kl.pattern.toString(), ctx.getValue(args.get(0).toString()))
+                val arg = args.get(0)
+                val found = ctx.containsKey(arg.toString())
+                /* Cuando hayan mas casos agregar un when aqui*/
+                ctx.set(kl.pattern.toString(), if(found) ctx.get(arg.toString()) else KoKoNumValue(arg.toString().toDouble()))
                 return kl.expr.eval(ctx)
             }
 

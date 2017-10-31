@@ -27,8 +27,8 @@ fun main(args : Array<String>){
     println(">>> $VERSION <<<")
     println("...............................................\n")
     // Get parameters
-    var inputFile: String ? = "cases/evalLambda.kl"
-    var outputFile: String ? = "output/evalLambda.kl.out.kl"
+    var inputFile: String ? = "cases/evalLambda3.kl"
+    var outputFile: String ? = "output/evalLambda3.kl.out.kl"
 
     /*if (args.size > 0)
         inputFile = args[0]*/
