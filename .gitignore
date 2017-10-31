@@ -3,7 +3,7 @@
 .idea
 KoKoslan/.idea
 KoKoslan/src/java/parser/*
-
+KoKoslan/out
 
 #Ignore any .class
 **/*.class
