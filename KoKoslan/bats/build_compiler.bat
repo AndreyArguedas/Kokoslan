@@ -1,5 +1,8 @@
 @echo off
 REM compila modelo (parser, value, ast y compilador )
-javac -cp .;classes;lib;%CLASSPATH%  -d classes src/java/parser/*.java src/java/ast/*.java src/java/eval/*.java  src/java/exception/*.java src/java/compiler/*.java  src/java/util/*.java
-
-kotlinc -cp .;classes;lib;%CLASSPATH% -d classes src/kotlin/ast/*.kt src/kotlin/eval/*.kt src/kotlin/compiler/*.kt src/kotlin/exception/*.kt 
+REM Compila el parser
+javac -cp .;classes;lib;%CLASSPATH%  -d classes src/kokoslan/parser/*.java
+REM Compila Java
+javac -cp .;classes;lib;%CLASSPATH%  -d classes src/kokoslan/java/ast/*.java src/kokoslan/java/eval/*.java  src/kokoslan/java/exception/*.java src/kokoslan/java/compiler/*.java  src/kokoslan/java/util/*.java
+REM Compila Kotlin
+kotlinc -cp .;classes;lib;%CLASSPATH% -d classes src/kokoslan/kotlin/ast/*.kt src/kokoslan/kotlin/eval/*.kt src/kokoslan/kotlin/compiler/*.kt src/kokoslan/kotlin/exception/*.kt 
