@@ -27,10 +27,14 @@ fun main(args : Array<String>){
     println(">>> $VERSION <<<")
     println("...............................................\n")
     // Get parameters
+    val NOMBRE = "mult"
+    var inputFile = "cases/$NOMBRE.kl"
+    var outputFile = "output/$NOMBRE.kl.out.kl"
+    /*
     var inputFile: String ? = null
     var outputFile: String ? = null
-
-    if (args.size > 0)
+    */
+    if (args.isNotEmpty())
         inputFile = args[0]
 
     var inputStream: InputStream = System.`in`
