@@ -1,6 +1,7 @@
 package kokoslan.java.ast;
 import java.util.*;
 import java.io.*;
+import kokoslan.java.eval.*;
 
 public class KoKoCall implements KoKoAst{
     protected KoKoList args; //Args is what is inside the parenthesis of a call to kokoslan function

@@ -3,8 +3,9 @@
  
 */
 package kokoslan.java.ast;
-import java.io.*;
 
+import java.io.*;
+import kokoslan.java.eval.*;
 
 public interface KoKoAst{
    default void genCode(){

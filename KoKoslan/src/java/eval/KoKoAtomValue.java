@@ -2,7 +2,9 @@
  @author loriacarlos@gmail.com
  
 */
-package kokoslan.java.ast;
+package kokoslan.java.eval;
+
+import kokoslan.java.ast.*;
 import java.io.*;
 
 public class KoKoAtomValue<T> implements KoKoValue{

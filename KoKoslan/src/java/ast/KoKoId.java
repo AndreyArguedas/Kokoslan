@@ -3,6 +3,7 @@
  
 */
 package kokoslan.java.ast;
+import kokoslan.java.eval.*;
 
 
 public class KoKoId extends KoKoAtom<String>{

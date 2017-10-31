@@ -7,6 +7,7 @@
 
 package kokoslan.java.ast;
 import java.io.*;
+import kokoslan.java.eval.*;
 
 
 public class KoKoLambda implements KoKoAst{

@@ -9,6 +9,7 @@ package kokoslan.java.compile;
 
 import kokoslan.parser.*;
 import kokoslan.java.ast.*;
+import kokoslan.java.eval.*;
 import kokoslan.java.util.*;
 
 import org.antlr.v4.runtime.*;

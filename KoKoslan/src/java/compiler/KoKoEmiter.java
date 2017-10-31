@@ -10,6 +10,7 @@
 package kokoslan.java.compile;
 
 import kokoslan.java.ast.*;
+import kokoslan.java.eval.*;
 import java.util.*;
 
 /* SEE THE GRAMMAR AND COMPARE IT WITH THIS, THIS INTERFACE

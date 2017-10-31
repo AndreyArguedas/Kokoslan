@@ -7,7 +7,7 @@ package kokoslan.java.ast;
 import kokoslan.java.util.*;
 import java.util.*;
 import java.io.*;
-
+import kokoslan.java.eval.*;
 
 public class KoKoBiOperation extends KoKoOperation {
 	

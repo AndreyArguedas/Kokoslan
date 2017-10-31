@@ -9,6 +9,7 @@ package kokoslan.java.ast;
 import java.util.*;
 import java.io.*;
 import java.util.stream.IntStream;
+import kokoslan.java.eval.*;
 
 /*  Lists of KoKoAst objects
     KoKoAst : Generates code with PrintStream,

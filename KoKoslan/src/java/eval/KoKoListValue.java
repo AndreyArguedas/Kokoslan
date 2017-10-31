@@ -5,7 +5,9 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.java.ast;
+package kokoslan.java.eval;
+
+import kokoslan.java.ast.*;
 import java.util.*;
 import java.io.*;
 

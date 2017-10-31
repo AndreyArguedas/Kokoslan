@@ -4,7 +4,7 @@
 */
 package kokoslan.java.ast;
 import java.io.*;
-
+import kokoslan.java.eval.*;
 
 public class KoKoAtom<T> implements KoKoAst{
    private T value;

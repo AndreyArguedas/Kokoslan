@@ -2,9 +2,10 @@
  @author loriacarlos@gmail.com
  
 */
-package kokoslan.java.ast;
+package kokoslan.java.eval;
 
 import java.util.*;
+import kokoslan.java.ast.*;
 
 public class KoKoContext extends HashMap<String, KoKoValue>{
 	private KoKoContext parent; 
