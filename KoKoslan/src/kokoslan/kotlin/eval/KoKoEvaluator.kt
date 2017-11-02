@@ -14,8 +14,12 @@ class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
 
 	fun evaluate(ctx: KoKoContext): KoKoValue?{
 		val name: String = (this.head as KoKoId).getValue()
-        if(name.equals("print"))
+        if(name == "print")
             printArguments(ctx)
+        else if(name == "println") {
+            printArguments(ctx)
+            println()
+        }
 		else{
             val kokoval = ctx.find (this.head as KoKoId)
             if(kokoval is KoKoLambdaValue) {
