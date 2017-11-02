@@ -95,6 +95,12 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 	  return CASE(lambdas)
    }
 
+    override fun visitParentValueExpr(ctx: KoKoslanParser.ParentValueExprContext): KoKoAst{
+        val operation: KoKoAst = visit(ctx.expression().part_expr(0).evaluable_expr())
+        return operation;
+    }
+
+
    override fun visitAdd_expr(ctx: KoKoslanParser.Add_exprContext): KoKoAst{
 	  // Check if only one operand. Then just visit down
 	  if ( ctx.add_oper() == null ){
