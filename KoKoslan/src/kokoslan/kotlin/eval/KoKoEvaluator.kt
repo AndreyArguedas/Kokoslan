@@ -19,7 +19,7 @@ class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
 		else{
             val kokoval = ctx.find (this.head as KoKoId)
             if(kokoval is KoKoLambdaValue) {
-                var kl = kokoval as KoKoLambdaValue
+                var kl = kokoval
                 val arg = args.get(0)
                 val found = ctx.containsKey(arg.toString())
                 /* Cuando hayan mas casos agregar un when aqui*/

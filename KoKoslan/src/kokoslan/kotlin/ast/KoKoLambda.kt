@@ -7,11 +7,12 @@
 
 package kokoslan.kt.ast
 
+import jdk.nashorn.internal.codegen.CompilerConstants
 import java.io.*
 import kokoslan.kt.eval.*
 import kokoslan.kt.exception.*
 
-class KoKoLambda(private var pattern : KoKoAst, private var expr : KoKoAst, private var lambdaEvaluable : Boolean) : KoKoAst{
+class KoKoLambda(private val pattern : KoKoAst, private val expr : KoKoAst, private var lambdaEvaluable : Boolean) : KoKoAst{
    fun getPattern() : KoKoAst { return this.pattern }
 
    fun getExpr() : KoKoAst { return this.expr }
@@ -28,14 +29,25 @@ class KoKoLambda(private var pattern : KoKoAst, private var expr : KoKoAst, priv
    }
 
    override fun eval(ctx : KoKoContext) : KoKoValue?{ //La idea es no evaluar una lambda hasta que no le hagan call
-
-       var kokolamb = KoKoLambdaValue(pattern as KoKoId, expr, ctx.push())
-       //x -> x * x   //{x : x * x}
-       ctx.assoc(pattern as KoKoId, kokolamb) //Mete en el hash de KoKoContext
-       return kokolamb
-       /*val value = expr.eval(ctx)
-	   ctx.assoc(pattern as KoKoId, value)
-	   return value*/
+       if(lambdaEvaluable){
+           var myArg : List<KoKoAst> = listOf(expr)
+           var args : KoKoList = KoKoList( myArg,false)
+           var value = expr.eval(ctx)
+           if(pattern is KoKoLambda) {
+               ctx.assoc(pattern.getPattern() as KoKoId, value);
+               return pattern.getExpr().eval(ctx)
+           }
+       }
+       else {
+           var kokolamb = KoKoLambdaValue(pattern as KoKoId, expr, ctx.push())
+           //x -> x * x   //{x : x * x}
+           ctx.assoc(pattern as KoKoId, kokolamb) //Mete en el hash de KoKoContext
+           return kokolamb
+           /*val value = expr.eval(ctx)
+	        ctx.assoc(pattern as KoKoId, value)
+	        return value*/
+       }
+       return null
    }
 
 }
