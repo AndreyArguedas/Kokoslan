@@ -16,10 +16,6 @@ class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
 		val name: String = (this.head as KoKoId).getValue()
         if(name == "print")
             printArguments(ctx)
-        else if(name == "println") {
-            printArguments(ctx)
-            println()
-        }
 		else{
             val kokoval = ctx.find (this.head as KoKoId)
             if(kokoval is KoKoLambdaValue) {
@@ -36,7 +32,7 @@ class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
 	}
 
 	fun printArguments(ctx: KoKoContext){
-        args.forEach{ print(it.eval(ctx)) }
+        args.forEach{ println(it.eval(ctx)) }
     }
 
 	/*
