@@ -1,0 +1,7 @@
+let x = 9
+
+let f = \y. y + x
+
+x = 2
+
+f(x)

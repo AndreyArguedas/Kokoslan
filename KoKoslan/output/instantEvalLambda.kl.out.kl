@@ -1,0 +1,2 @@
+let jojojojo  =  ( x  -> x * 1.0  ) 666.0 + 333.0 
+print  (jojojojo ) 
