@@ -1,0 +1,7 @@
+let rr = x -> y -> x * y + y
+
+let a = rr(10)
+
+let b = a(10)
+
+print(b)

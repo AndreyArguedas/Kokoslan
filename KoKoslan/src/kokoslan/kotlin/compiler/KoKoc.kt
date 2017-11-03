@@ -27,7 +27,7 @@ fun main(args : Array<String>){
     println(">>> $VERSION <<<")
     println("...............................................\n")
     // Get parameters
-    val NOMBRE = "instantEvalLambda"
+    val NOMBRE = "recursion"
     var inputFile = "cases/$NOMBRE.kl"
     var outputFile = "output/$NOMBRE.kl.out.kl"
     /*
