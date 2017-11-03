@@ -28,7 +28,7 @@ class KoKoLet(private var id : KoKoAst, private var expr : KoKoAst) : KoKoAst {
    override fun eval(ctx : KoKoContext) : KoKoValue?{
 	   val value = expr.eval(ctx)
 	   ctx.assoc(id as KoKoId, value)
-	   return value;
+	   return value
    }
    
 }
