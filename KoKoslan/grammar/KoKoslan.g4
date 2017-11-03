@@ -15,15 +15,10 @@ definition        : 'let' id '=' expression
 ;
 expression        : part_expr (',' part_expr)*
 ;
-part_expr         :  lambda_expr | evaluable_expr | lambda_eval_expr
+part_expr         :  lambda_expr | evaluable_expr
 ;
 
 lambda_expr       :  pattern '->' expression | '\\' pattern '.' expression
-;
-
-/* Trying to support the case (x -> x * x) 666 and (\x. x * x) 666*/
-
-lambda_eval_expr  :  '(' lambda_expr ')' expression
 ;
 
 evaluable_expr    :  add_expr | bool_expr test_expr?
@@ -64,12 +59,14 @@ bool_oper         :  oper=('>' | '<' | '==' | '<=' | '>=' | '!=')
 
 test_expr         :  '?' expression ':' expression
 ;
+
 // Value Expressions
-value_expr        : '(' expression ')'         #ParentValueExpr
-                  | value_expr call_args       #CallValueExpr
-                  | atomic_value               #AtomicValueExpr
-                  | list_value                 #ListValueExpr
-                  | case_value                 #CaseValueExpr
+value_expr        : '(' expression ')'              #ParentValueExpr
+                  | '(' lambda_expr ')' value_expr  #EvaluableLambdaExpr
+                  | value_expr call_args            #CallValueExpr
+                  | atomic_value                    #AtomicValueExpr
+                  | list_value                      #ListValueExpr
+                  | case_value                      #CaseValueExpr
 ;
 
 atomic_value : id | number | bool | string
