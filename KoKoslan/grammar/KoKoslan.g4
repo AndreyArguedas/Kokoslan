@@ -26,7 +26,7 @@ lambda_expr       :  pattern '->' expression | '\\' pattern '.' expression
 lambda_eval_expr  :  '(' lambda_expr ')' expression
 ;
 
-evaluable_expr    :   add_expr | add_expr | bool_expr test_expr?
+evaluable_expr    :  add_expr | bool_expr test_expr?
 ;
 
 add_expr          :  mult_expr (add_oper mult_expr)*
