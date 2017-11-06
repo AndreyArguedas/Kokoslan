@@ -181,9 +181,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
            return visit(ctx.value_expr())
        val unaryOper: KoKoId = visit(ctx.unary_oper()) as KoKoId
        val operand: KoKoAst = visit(ctx.value_expr())
-       println("UnaryOper " + unaryOper)
-       println("Operand " + operand)
-       return visitChildren(ctx)
+       return UNARY_OPERATION(unaryOper, operand, false)
    }
 
    override fun visitUnary_oper(ctx: KoKoslanParser.Unary_operContext): KoKoAst {
