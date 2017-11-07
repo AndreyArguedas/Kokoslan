@@ -1,0 +1,6 @@
+let x = 99
+let y = 89
+
+let r = x > y ? x + 90 : x - 90
+
+print(r)

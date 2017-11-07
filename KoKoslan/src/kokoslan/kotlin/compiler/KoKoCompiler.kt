@@ -84,6 +84,18 @@ class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisit
         return caseExpr
     }
 
+    override fun visitEvaluable_expr(ctx: KoKoslanParser.Evaluable_exprContext): KoKoAst {
+        if (ctx.test_expr() == null)
+            return visit(ctx.add_expr())
+
+        val condition = visit(ctx.bool_expr())
+        val success = visit(ctx.test_expr().expression(0))
+        val fail = visit(ctx.test_expr().expression(1))
+
+        return TEST(condition, success, fail)
+
+    }
+
     override fun visitCase_expr(ctx: KoKoslanParser.Case_exprContext): KoKoAst {
 
         val lambdas: List < KoKoAst > = ctx.lambda_expr().map {

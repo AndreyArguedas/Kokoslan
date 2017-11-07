@@ -109,4 +109,8 @@ interface KoKoEmiter {
         return KoKoCall(head, args)
     }
 
+    fun TEST(condition: KoKoAst, success: KoKoAst, fail: KoKoAst): KoKoAst {
+        return KoKoTest(condition, success, fail)
+    }
+
 }
