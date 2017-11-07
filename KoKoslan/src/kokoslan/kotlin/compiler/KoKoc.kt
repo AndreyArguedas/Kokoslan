@@ -27,7 +27,7 @@ fun main(args : Array<String>){
     println(">>> $VERSION <<<")
     println("...............................................\n")
     // Get parameters
-    val NOMBRE = "test_expr"
+    val NOMBRE = "cases_compose"
     var inputFile = "cases/$NOMBRE.kl"
     var outputFile = "output/$NOMBRE.kl.out.kl"
     /*

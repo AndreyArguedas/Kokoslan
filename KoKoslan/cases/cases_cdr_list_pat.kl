@@ -1,6 +1,6 @@
 let list = [1, 2, 3]
 
-let car = \[x | r].r 
+let cdr = \[x | r].r 
 
 cdr(list)
 
