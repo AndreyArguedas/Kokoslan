@@ -18,7 +18,7 @@ import kokoslan.kt.ast.*
 import kokoslan.kt.eval.*
 import kokoslan.kt.exception.*
 
-const val VERSION = "KoKoc v1.0 CR EIF400.II-2017"
+const val VERSION = "KoKoc v1.3 CR EIF400.II-2017"
 const val PROMPT = ">"
 
 //@Throws(e : Exception)
@@ -27,7 +27,7 @@ fun main(args : Array<String>){
     println(">>> $VERSION <<<")
     println("...............................................\n")
     // Get parameters
-    val NOMBRE = "double_lambdas"
+    val NOMBRE = "printAndOps"
     var inputFile = "cases/$NOMBRE.kl"
     var outputFile = "output/$NOMBRE.kl.out.kl"
     /*
