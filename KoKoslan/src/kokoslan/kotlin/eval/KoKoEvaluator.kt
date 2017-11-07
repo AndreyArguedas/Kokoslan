@@ -26,7 +26,6 @@ class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList){
                 ctx.set(kl.pattern.toString(), if(found) ctx.get(arg.toString()) else KoKoNumValue(arg.toString().toDouble()))
                 return kl.expr.eval(ctx)
             }
-
         }
         return null
 	}

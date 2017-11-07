@@ -85,9 +85,9 @@ public class KoKoCompiler extends KoKoslanBaseVisitor<KoKoAst> implements KoKoEm
    }
 
    @Override
-   public KoKoAst visitLambda_eval_expr(KoKoslanParser.Lambda_eval_exprContext ctx){
+   public KoKoAst visitEvaluableLambdaExpr(KoKoslanParser.EvaluableLambdaExprContext ctx){
       KoKoAst lambda = visit(ctx.lambda_expr());
-      KoKoAst expr = visit(ctx.expression());	  
+      KoKoAst expr = visit(ctx.value_expr());
 	  return LAMBDA(lambda, expr, true);
    }
 

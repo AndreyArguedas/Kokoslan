@@ -1,2 +1,2 @@
-let jojojojo  =  ( x  -> x * 1.0  ) 666.0 + 333.0 
-print  (jojojojo ) 
+let jojojojo  =  ( x  -> x * 2.0  ) 666.0 + 333.0 
+jojojojo + 1.0 - 1.0 
