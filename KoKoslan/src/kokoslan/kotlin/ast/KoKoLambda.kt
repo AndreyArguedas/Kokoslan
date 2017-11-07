@@ -29,6 +29,24 @@ class KoKoLambda(private val pattern : KoKoAst, private val expr : KoKoAst, priv
    }
 
    override fun eval(ctx : KoKoContext) : KoKoValue?{ //La idea es no evaluar una lambda hasta que no le hagan call
+       if(lambdaEvaluable) {
+           val newCtx = ctx.push()
+           val ptrn = pattern as KoKoLambda
+           val kokoLambdaValue = KoKoLambdaValue(ptrn.pattern, ptrn.expr, newCtx.push())
+           newCtx.assoc(KoKoId(pattern.hashCode().toString()), kokoLambdaValue)
+           val r = KoKoCall(KoKoId(pattern.hashCode().toString()), KoKoList(listOf(expr))).eval(kokoLambdaValue.ctx)
+           return r
+       }
+       val kokoLambdaValue = KoKoLambdaValue(pattern as KoKoId, expr, ctx.push())   //Hacer el return de una vez
+       return kokoLambdaValue
+
+
+
+
+
+
+
+       /*
        if(lambdaEvaluable){
            var myArg : List<KoKoAst> = listOf(expr)
            var args : KoKoList = KoKoList( myArg,false)
@@ -48,6 +66,7 @@ class KoKoLambda(private val pattern : KoKoAst, private val expr : KoKoAst, priv
 	        return value*/
        }
        return null
+       */
    }
 
 }

@@ -1,0 +1,3 @@
+let y  = 666.0 
+let dec  = dec  (x - 1.0 ) + 1.0 
+dec  (y ) 

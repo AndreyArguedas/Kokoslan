@@ -22,7 +22,23 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
     }
 
     override fun eval(ctx : KoKoContext) : KoKoValue? { //Evaluates the call, returns a value, context = id(args)
-        return KoKoEvaluator(this.head, this.args).evaluate(ctx)
+        val closure = ctx.find(this.head as KoKoId)
+        if(closure is KoKoLambdaValue) {
+            val arg = args[0]
+            val valueOfArg: KoKoValue
+            if(ctx.contains(KoKoId(arg.toString())))
+                valueOfArg = ctx.find(KoKoId(arg.toString()))
+            else
+                valueOfArg = KoKoNumValue(arg.toString().toDouble())
+            val r = beta_reduction(closure, valueOfArg)
+            return r
+        }
+        return null
+//        return KoKoEvaluator(this.head, this.args).evaluate(ctx)
     }
-    
+
+    fun beta_reduction(closure: KoKoLambdaValue, valueOfArg: KoKoValue): KoKoValue? {
+        closure.ctx.set(closure.pattern.toString(), valueOfArg)
+        return closure.expr.eval(closure.ctx)
+    }
 }
