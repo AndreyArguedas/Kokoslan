@@ -7,7 +7,6 @@ Kimberly Olivas Delgado
 
 package kokoslan.kt.ast
 
-import kokoslan.java.eval.KoKoBoolValue
 import java.io.*
 import kokoslan.kt.eval.*
 
@@ -29,7 +28,7 @@ class KoKoTest(private val condition : KoKoAst, private val successExpr : KoKoAs
     }
 
     override fun eval(ctx : KoKoContext) : KoKoValue? {
-        val cond = getCondition().eval(ctx)
+        var cond  = getCondition().eval(ctx)
         if(cond is KoKoBoolValue){
             var value = when(cond.value){
                                     true -> getSuccessExpr().eval(ctx)

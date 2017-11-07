@@ -85,8 +85,12 @@ class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisit
     }
 
     override fun visitEvaluable_expr(ctx: KoKoslanParser.Evaluable_exprContext): KoKoAst {
-        if (ctx.test_expr() == null)
-            return visit(ctx.add_expr())
+        if (ctx.test_expr() == null){
+            if(ctx.bool_expr() == null)
+                return visit(ctx.add_expr())
+            else
+                return visit(ctx.bool_expr())
+        }
 
         val condition = visit(ctx.bool_expr())
         val success = visit(ctx.test_expr().expression(0))

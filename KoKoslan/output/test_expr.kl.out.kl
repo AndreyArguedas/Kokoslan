@@ -1,4 +1,4 @@
 let x  = 99.0 
 let y  = 89.0 
-let r  = x > y  ? x + 90.0  : x - 90.0 
+let r  = x == y  ? x + 90.0  : x - 90.0 
 print  (r ) 
