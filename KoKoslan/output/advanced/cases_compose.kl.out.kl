@@ -1,2 +1,2 @@
-let compose  = \f .\g .\x .g  (f  (x ) ) 
-compose  (\x .x + 1.0 )  (\x .x * x )  (666.0 ) 
+let compose  = f  -> g  -> x  -> g  (f  (x ) ) 
+compose  (x  -> x + 1.0 )  (x  -> x * x )  (666.0 ) 
