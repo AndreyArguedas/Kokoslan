@@ -7,6 +7,7 @@
 
 package kokoslan.kt.ast
 
+import kokoslan.kotlin.exception.KoKoFailException
 import java.util.*
 import java.io.*
 import kokoslan.kt.eval.*
@@ -31,6 +32,7 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
 
         when((this.head as KoKoId).getValue()) {
             "print" -> printArguments(ctx)
+            "fail" ->  throw KoKoFailException()
             else -> {
                 val closure = ctx.find(this.head as KoKoId)
                 val arg = args[0]
@@ -41,7 +43,10 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
                         valueOfArg = arg.eval(closure.ctx)!!
                     } else if(arg is KoKoCall) {
                         valueOfArg = arg.eval(ctx)!!
-                    } else if(ctx.contains(KoKoId(arg.toString())))
+                    } else if(arg is KoKoBiOperation){
+                        valueOfArg = arg.eval(closure.ctx)
+                    }
+                    else if(ctx.contains(KoKoId(arg.toString())))
                         valueOfArg = ctx.find(KoKoId(arg.toString()))
                     else
                         valueOfArg = KoKoNumValue(arg .toString().toDouble())

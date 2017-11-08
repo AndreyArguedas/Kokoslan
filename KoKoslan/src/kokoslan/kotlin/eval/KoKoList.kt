@@ -17,7 +17,7 @@ import kokoslan.kt.exception.*
     KoKoAst : Generates code with PrintStream,
     and can evaluate context and pass it to kokovalues
  */
-class KoKoList(list : List<KoKoAst>? = null, var kokoNativeList: Boolean = false) : ArrayList<KoKoAst>(list), KoKoAst{
+class KoKoList(var list : List<KoKoAst>? = null, var kokoNativeList: Boolean = false) : ArrayList<KoKoAst>(list), KoKoAst{
     
     override fun genCode(Out : PrintStream){
         if(this.size == 0) return

@@ -12,15 +12,15 @@ Middle:
 cases_car_list_pat //Not passed
 cases_cdr_list_pat //Not passed
 cases_cons_first_rest //Not passed
-cases_fail //Not passed
+cases_fail //Passed
 cases_insert_list_pat //Not passed
 cases_length //Not passed
-cases_no_fail //Not passed
+cases_no_fail //Passed
 cases_recursive_dec //Not passed
 
 Advanced:
 
-cases_compose //Not passed
+cases_compose //Passed
 cases_when_car //Not passed
 cases_when_dec //Not passed
 cases_when_fact //Not passed

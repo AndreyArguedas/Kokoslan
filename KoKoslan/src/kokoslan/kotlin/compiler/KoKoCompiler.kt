@@ -256,7 +256,9 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitCall_args(ctx: KoKoslanParser.Call_argsContext): KoKoAst {
-        return ctx.list_expr()?.let { visit(ctx.list_expr()) } ?: LIST()
+        return if(ctx.list_expr() != null)
+                    visit(ctx.list_expr())
+                else LIST()
     }
 
     override fun visitList_expr(ctx: KoKoslanParser.List_exprContext): KoKoAst {

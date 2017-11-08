@@ -1,7 +1,7 @@
 
 let y = 666
 
-let dec = x == 0 ? 0 : dec(x - 1) + 1 
+let dec = \x. x == 0 ? 0 : dec(x - 1) + 1 
 
 dec(y)
 
