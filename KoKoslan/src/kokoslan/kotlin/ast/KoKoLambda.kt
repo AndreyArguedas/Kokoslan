@@ -18,14 +18,14 @@ class KoKoLambda(private val pattern : KoKoAst, private val expr : KoKoAst, priv
    fun getExpr() : KoKoAst { return this.expr }
 
    override fun genCode(Out : PrintStream){
-      if(this.lambdaEvaluable)
-          Out.print(" ( ")
-	  this.pattern.genCode(Out)
-      if(!this.lambdaEvaluable)
-	      Out.print(" -> ")
-      if(this.lambdaEvaluable)
-          Out.print(" ) ")
-	  this.expr.genCode(Out)
+       if(this.lambdaEvaluable)
+           Out.print("(")
+       Out.print("\\")
+       this.pattern.genCode(Out)
+       Out.print(". ")
+       this.expr.genCode(Out)
+       if(this.lambdaEvaluable)
+           Out.print(") ")
    }
 
    override fun eval(ctx : KoKoContext) : KoKoValue? { //La idea es no evaluar una lambda hasta que no le hagan call
@@ -40,5 +40,4 @@ class KoKoLambda(private val pattern : KoKoAst, private val expr : KoKoAst, priv
        val kokoLambdaValue = KoKoLambdaValue(pattern as KoKoId, expr, ctx.push())   //Hacer el return de una vez
        return kokoLambdaValue
    }
-
 }

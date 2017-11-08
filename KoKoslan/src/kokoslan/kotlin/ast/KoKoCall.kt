@@ -22,6 +22,7 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
     }
 
     override fun eval(ctx : KoKoContext) : KoKoValue? { //Evaluates the call, returns a value, context = id(args)
+        //This can be turned into a when for this.head, as KoKoCall, as KoKoLambda, as KoKoId
 
         if(this.head is KoKoCall){ //Esto es para manejar calls anidados ejemplo max(10)(20)
             val vv =  this.head.eval(ctx) //Un closure esperaria yo
@@ -32,13 +33,18 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
             "print" -> printArguments(ctx)
             else -> {
                 val closure = ctx.find(this.head as KoKoId)
+                val arg = args[0]
+                val valueOfArg: KoKoValue
+
                 if(closure is KoKoLambdaValue) {
-                    val arg = args[0]
-                    val valueOfArg: KoKoValue
-                    if(ctx.contains(KoKoId(arg.toString())))
+                    if(arg is KoKoLambda) {
+                        valueOfArg = arg.eval(closure.ctx)!!
+                    } else if(arg is KoKoCall) {
+                        valueOfArg = arg.eval(ctx)!!
+                    } else if(ctx.contains(KoKoId(arg.toString())))
                         valueOfArg = ctx.find(KoKoId(arg.toString()))
                     else
-                        valueOfArg = KoKoNumValue(arg.toString().toDouble())
+                        valueOfArg = KoKoNumValue(arg .toString().toDouble())
                     val r = beta_reduction(closure, valueOfArg)
                     return r
                 }

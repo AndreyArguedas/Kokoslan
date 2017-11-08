@@ -28,6 +28,7 @@ fun main(args : Array<String>){
     println("...............................................\n")
     // Get parameters
     val NOMBRE = "advanced/cases_compose"
+    //val NOMBRE = "instantEvalLambda"
     var inputFile = "cases/$NOMBRE.kl"
     var outputFile = "output/$NOMBRE.kl.out.kl"
     /*
