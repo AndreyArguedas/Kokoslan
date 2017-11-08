@@ -37,7 +37,10 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
                 if(closure is KoKoLambdaValue) {
                     val arg = args[0]
                     val valueOfArg: KoKoValue
-                    if(ctx.contains(KoKoId(arg.toString())))
+                    if(arg is KoKoBiOperation){
+                        valueOfArg = arg.eval(closure.ctx)
+                    }
+                    else if(ctx.contains(KoKoId(arg.toString())))
                         valueOfArg = ctx.find(KoKoId(arg.toString()))
                     else
                         valueOfArg = KoKoNumValue(arg.toString().toDouble())

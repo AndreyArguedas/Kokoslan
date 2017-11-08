@@ -20,7 +20,7 @@ cases_recursive_dec //Not passed
 
 Advanced:
 
-cases_compose //Not passed
+cases_compose //Passed
 cases_when_car //Not passed
 cases_when_dec //Not passed
 cases_when_fact //Not passed

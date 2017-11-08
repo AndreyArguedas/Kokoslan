@@ -26,6 +26,12 @@ class KoKoLet(private var id : KoKoAst, private var expr : KoKoAst) : KoKoAst {
    }
    
    override fun eval(ctx : KoKoContext) : KoKoValue?{
+       /*var reg = expr.toString() //To find recursion patterns
+       if(reg.contains( getId().toString())){
+           var kokorc = KoKoRecursiveClosure(expr, ctx.push())
+           ctx.assoc(id as KoKoId, kokorc)
+           return kokorc
+       }*/
 	   val value = expr.eval(ctx)
 	   ctx.assoc(id as KoKoId, value)
 	   return value
