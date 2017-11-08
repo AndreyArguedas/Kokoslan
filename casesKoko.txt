@@ -4,7 +4,7 @@ cases_closure //Passed
 cases_formula //Passed
 cases_formula_lambda //Not passed
 cases_lambda_apply //Passed
-cases_max //Not passed
+cases_max //Passed
 cases_xor //Not passed
 
 Middle: 
