@@ -1,4 +1,4 @@
-/** 
+/**
    Andrey Arguedas Espinoza
    Daniela Armas Sanchez
    Michael Chen Wang
@@ -13,7 +13,7 @@ import kokoslan.kt.eval.*
 import kokoslan.kt.exception.*
 
 class KoKoBoolOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoOperation(oper, Arrays.asList(left, right)) {
-	
+
     fun left(): KoKoAst {
         return operands.get(0)
     }
@@ -25,21 +25,23 @@ class KoKoBoolOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoOper
 	override fun eval(ctx: KoKoContext): KoKoValue{
 	   try {
 	        val operId = oper as KoKoId
-			val lv = left().eval(ctx) as KoKoNumValue
-			val rv = right().eval(ctx) as KoKoNumValue
+			var lv = left().eval(ctx)!!
+			var rv = right().eval(ctx)!!
+
 			when (operId.getValue()){
-				"<" -> return KoKoBoolValue(lv.getValue() < rv.getValue())
-                ">" -> return KoKoBoolValue(lv.getValue() > rv.getValue())
-                "<=" -> return KoKoBoolValue(lv.getValue() <= rv.getValue())
-                ">=" -> return KoKoBoolValue(lv.getValue() >= rv.getValue())
-                "==" -> return KoKoBoolValue(lv.getValue().equals(rv.getValue()))
-                "!=" -> return KoKoBoolValue(!lv.getValue().equals(rv.getValue()))
+				"<" ->  { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() < rv.getValue())}
+                ">" ->  { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() > rv.getValue())}
+                "<=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() <= rv.getValue())}
+                ">=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() >= rv.getValue())}
+                "==" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() == rv.getValue())}
+                "!=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() != rv.getValue())}
+                "||" -> { lv as KoKoBoolValue; rv as KoKoBoolValue; return KoKoBoolValue(lv.getValue() || rv.getValue())}
+                "&&" -> { lv as KoKoBoolValue; rv as KoKoBoolValue; return KoKoBoolValue(lv.getValue() && rv.getValue())}
 				else -> throw KoKoEvalException("KoKoBoolOperation unimpemented operator")
 			}
-			
+
 	   } catch (e: Exception) {
 			throw KoKoEvalException(e.message!!)
        }
    }
-
 }

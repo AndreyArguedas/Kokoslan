@@ -1,0 +1,3 @@
+// Primitive rest
+let length = \l.(l == []) ? 0 : length(rest(l)) + 1
+length(rest([1,2,3,4]) == 4 - 1)

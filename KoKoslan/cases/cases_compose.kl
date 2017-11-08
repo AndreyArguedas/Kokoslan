@@ -1,0 +1,3 @@
+let compose = \f.\g.\x.g(f(x))
+
+compose(\x.x+1)(\x.x*x)(666)

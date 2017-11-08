@@ -45,6 +45,14 @@ class KoKoUnaryOperation(oper: KoKoAst, value: KoKoAst, val isPrefix: Boolean = 
         }
         return value
     }
+
+    fun not(ctx: KoKoContext): KoKoBoolValue {
+        val kbv = getValue().eval(ctx) as KoKoBoolValue
+        return when(kbv.getValue()){
+            true -> KoKoBoolValue(false)
+            else -> KoKoBoolValue(true)
+        }
+    }
 	
 	override fun eval(ctx: KoKoContext): KoKoValue {
 	   try {
@@ -52,6 +60,7 @@ class KoKoUnaryOperation(oper: KoKoAst, value: KoKoAst, val isPrefix: Boolean = 
            return when(operId.getValue()) {
                "++" -> plusPlus(ctx)
                "--" -> minusMinus(ctx)
+               "!" -> not(ctx)
                else -> throw KoKoEvalException("KoKoUnaryOperation unimpemented operator")
            }
 	   } catch (e: Exception) {
@@ -62,7 +71,8 @@ class KoKoUnaryOperation(oper: KoKoAst, value: KoKoAst, val isPrefix: Boolean = 
     override fun genCode(Out: PrintStream) {
         if(isPrefix) {
             genOperCode(Out)
-            genValueCode(Out)
+            getValue().genCode(Out)
+            //genValueCode(Out)
         } else {
             genValueCode(Out)
             genOperCode(Out)

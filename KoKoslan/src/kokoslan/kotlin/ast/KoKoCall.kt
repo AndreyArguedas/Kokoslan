@@ -22,6 +22,12 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
     }
 
     override fun eval(ctx : KoKoContext) : KoKoValue? { //Evaluates the call, returns a value, context = id(args)
+
+        if(this.head is KoKoCall){ //Esto es para manejar calls anidados ejemplo max(10)(20)
+            val vv =  this.head.eval(ctx) //Un closure esperaria yo
+            return beta_reduction(vv as KoKoLambdaValue, args[0].eval(ctx)!!)
+        }
+
         when((this.head as KoKoId).getValue()) {
             "print" -> printArguments(ctx)
             else -> {

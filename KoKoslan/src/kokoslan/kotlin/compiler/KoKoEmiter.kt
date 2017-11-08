@@ -28,7 +28,7 @@ interface KoKoEmiter {
     val MULT: KoKoAst get() = KoKoId("*")
     val DIV: KoKoAst get() = KoKoId("/")
     val MODULUS: KoKoAst get() = KoKoId("%")
-    val POW: KoKoAst get() = KoKoId("^");
+    val POW: KoKoAst get() = KoKoId("^")
     val ERROR: KoKoAst get() = KoKoId("??")
 
     fun PROGRAM(stmts: MutableList < KoKoAst > ): KoKoProgram {
@@ -69,13 +69,16 @@ interface KoKoEmiter {
             ">=" -> return KoKoBoolOperation(oper, left, right)
             "==" -> return KoKoBoolOperation(oper, left, right)
             "!=" -> return KoKoBoolOperation(oper, left, right)
+            "||" -> return KoKoBoolOperation(oper, left, right)
+            "&&" -> return KoKoBoolOperation(oper, left, right)
             else -> return KoKoBiOperation(oper, left, right)
         }
     }
 
-    fun UNARY_OPERATION(oper: KoKoAst, operand: KoKoAst, isPrefix: Boolean): KoKoAst {
+    fun UNARY_OPERATION(oper: KoKoAst, operand: KoKoAst, isPrefix: Boolean = false): KoKoAst {
         return KoKoUnaryOperation(oper, operand, isPrefix)
     }
+
 
     fun NUM(value: Double): KoKoNum {
         return KoKoNum(value)
@@ -107,6 +110,10 @@ interface KoKoEmiter {
 
     fun CALL(head: KoKoAst, args: KoKoList): KoKoAst {
         return KoKoCall(head, args)
+    }
+
+    fun TEST(condition: KoKoAst, success: KoKoAst, fail: KoKoAst): KoKoAst {
+        return KoKoTest(condition, success, fail)
     }
 
 }

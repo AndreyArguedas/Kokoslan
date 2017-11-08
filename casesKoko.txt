@@ -1,0 +1,28 @@
+Basicos:
+
+cases_closure //Passed
+cases_formula //Passed
+cases_formula_lambda //Passed
+cases_lambda_apply //Passed
+cases_max //Passed
+cases_xor //Passed
+
+Middle: 
+
+cases_car_list_pat //Not passed
+cases_cdr_list_pat //Not passed
+cases_cons_first_rest //Not passed
+cases_fail //Not passed
+cases_insert_list_pat //Not passed
+cases_length //Not passed
+cases_no_fail //Not passed
+cases_recursive_dec //Not passed
+
+Advanced:
+
+cases_compose //Not passed
+cases_when_car //Not passed
+cases_when_dec //Not passed
+cases_when_fact //Not passed
+cases_when_length_pat //Not passed
+cases_when_map //Not passed

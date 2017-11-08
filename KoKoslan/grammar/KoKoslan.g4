@@ -15,10 +15,19 @@ definition        : 'let' id '=' expression
 ;
 expression        : part_expr (',' part_expr)*
 ;
-part_expr         :  lambda_expr | evaluable_expr
+part_expr         :  lambda_expr | logic_expr | evaluable_expr
 ;
 
 lambda_expr       :  pattern '->' expression | '\\' pattern '.' expression
+;
+
+logic_expr        :  rel_expr (rel_oper rel_expr)*
+;
+
+rel_expr          : evaluable_expr | '!' logic_expr
+;
+
+rel_oper          : oper=('||' | '&&')
 ;
 
 evaluable_expr    :  add_expr | bool_expr test_expr?
