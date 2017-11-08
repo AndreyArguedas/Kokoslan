@@ -25,7 +25,7 @@ import java.io.*
 
 class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisitor<KoKoAst>(), KoKoEmiter {
 
-    protected var program: KoKoAst? = null;
+    protected var program: KoKoAst? = null
     protected var statements: MutableList<KoKoAst> = mutableListOf<KoKoAst>()
 
     fun getProgram(): KoKoProgram {

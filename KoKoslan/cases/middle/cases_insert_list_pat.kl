@@ -1,0 +1,8 @@
+let list = [1, 2, 3]
+
+let insert = \x.\l.[x | l] 
+
+insert(0)(list)
+
+// expected [0,1,2,3]
+

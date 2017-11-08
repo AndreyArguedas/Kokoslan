@@ -1,0 +1,19 @@
+let compose = \f.\g.\x.g(f(x))
+
+compose(\x.x+1)(\x.x*x)(666)
+
+/**
+ Case 1
+ if this is given ---- compose(\x.x+1)
+ It should return a new lambda
+
+ Case 2 
+ if this is given ---- compose(\x.x+1)(\x.x*x)
+ It should return another new lambda
+
+ Case 3
+ If the full case is given, it should apply the whole lambda
+
+
+ Expected: 444889
+*/

@@ -1,0 +1,8 @@
+let list = [1, 2, 3]
+
+let cdr = \[x | r].r 
+
+cdr(list)
+
+// expected [2, 3]
+

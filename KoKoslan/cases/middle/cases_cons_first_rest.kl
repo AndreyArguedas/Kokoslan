@@ -1,0 +1,4 @@
+// Primitive cons, first, rest
+let list = [1,2,3,4]
+length( cons(first(list))(rest(list)) == list )
+// length( cons(first(list), rest(list) )  == list ) si implementaron calls de mas de un argumento
