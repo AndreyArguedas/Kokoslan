@@ -27,7 +27,7 @@ fun main(args : Array<String>){
     println(">>> $VERSION <<<")
     println("...............................................\n")
     // Get parameters
-    val NOMBRE = "cases_max"
+    val NOMBRE = "cases_recursive_dec"
     var inputFile = "cases/$NOMBRE.kl"
     var outputFile = "output/$NOMBRE.kl.out.kl"
     /*
