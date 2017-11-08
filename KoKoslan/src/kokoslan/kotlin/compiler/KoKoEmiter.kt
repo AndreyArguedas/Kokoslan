@@ -97,7 +97,7 @@ interface KoKoEmiter {
     }
 
     fun LIST(): KoKoList { //Empty arguments
-        return KoKoList()
+        return KoKoList(listOf(), false)
     }
 
     fun LAMBDA(pattern: KoKoAst, expr: KoKoAst, evaluable: Boolean): KoKoLambda {
