@@ -113,7 +113,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitParentValueExpr(ctx: KoKoslanParser.ParentValueExprContext): KoKoAst {
-        val operation: KoKoAst = visit(ctx.expression().part_expr(0).evaluable_expr())
+        val operation: KoKoAst = visit(ctx.expression().part_expr(0).logic_expr())
         return operation;
     }
 
