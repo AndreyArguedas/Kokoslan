@@ -43,7 +43,7 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
                         valueOfArg = arg.eval(closure.ctx)!!
                     } else if(arg is KoKoCall) {
                         valueOfArg = arg.eval(ctx)!!
-                    } else if(arg is KoKoBiOperation){
+                    } else if(arg is KoKoBiOperation) {
                         valueOfArg = arg.eval(closure.ctx)
                     }
                     else if(ctx.contains(KoKoId(arg.toString())))

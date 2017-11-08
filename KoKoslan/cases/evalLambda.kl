@@ -1,3 +1,0 @@
-let a = 4
-let f = x -> x * x
-f(a)

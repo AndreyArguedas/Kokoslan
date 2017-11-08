@@ -1,2 +1,0 @@
-let isZero = \n. n==0 ? true : fail()
-isZero(1)
