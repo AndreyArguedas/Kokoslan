@@ -23,10 +23,10 @@ import java.io.*
    PLEASE DO SOME RESEARCH OF VISISTOR PATTERN FIRST
 */
 
-class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisitor < KoKoAst > (), KoKoEmiter {
+class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisitor<KoKoAst>(), KoKoEmiter {
 
-    protected var program: KoKoAst ? = null;
-    protected var statements: MutableList < KoKoAst > = mutableListOf < KoKoAst > ()
+    protected var program: KoKoAst? = null;
+    protected var statements: MutableList<KoKoAst> = mutableListOf<KoKoAst>()
 
     fun getProgram(): KoKoProgram {
         return PROGRAM(statements)
@@ -41,10 +41,10 @@ class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisit
     }
 
     fun genCode(out: PrintStream) {
-        statements.forEach{ it.genCode(out) }
+        statements.forEach { it.genCode(out) }
     }
 
-    fun eval(): KoKoValue ? {
+    fun eval(): KoKoValue? {
         return getProgram().eval()
     }
 
@@ -52,9 +52,9 @@ class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisit
         return visit(tree)
     }
 
-    override fun visitProgram(ctx: KoKoslanParser.ProgramContext): KoKoAst ? {
-        ctx.definition().map{ visit(it) }
-                        .forEach{ statements.add(it) }
+    override fun visitProgram(ctx: KoKoslanParser.ProgramContext): KoKoAst? {
+        ctx.definition().map { visit(it) }
+                .forEach { statements.add(it) }
         program = PROGRAM(statements)
         val expr: KoKoAst = visit(ctx.expression())
         statements.add(expr)
@@ -85,8 +85,8 @@ class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisit
     }
 
     override fun visitEvaluable_expr(ctx: KoKoslanParser.Evaluable_exprContext): KoKoAst {
-        if (ctx.test_expr() == null){
-            if(ctx.bool_expr() == null)
+        if (ctx.test_expr() == null) {
+            if (ctx.bool_expr() == null)
                 return visit(ctx.add_expr())
             else
                 return visit(ctx.bool_expr())
@@ -102,7 +102,7 @@ class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisit
 
     override fun visitCase_expr(ctx: KoKoslanParser.Case_exprContext): KoKoAst {
 
-        val lambdas: List < KoKoAst > = ctx.lambda_expr().map {
+        val lambdas: List<KoKoAst> = ctx.lambda_expr().map {
             visit(it)
         }
         //La idea es visitar todas las lambdas dentro del case
@@ -124,18 +124,48 @@ class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisit
             return visit(ctx.mult_expr(0))
         }
 
-        val operators = ctx.add_oper().map{ visit(it) }
+        val operators = ctx.add_oper().map { visit(it) }
 
-        val operands = ctx.mult_expr().map{ visit(it) }
+        val operands = ctx.mult_expr().map { visit(it) }
 
-        var r: Array < KoKoAst > = arrayOf(operands.get(0))
-        (1 until operands.size ).forEach{
+        var r: Array<KoKoAst> = arrayOf(operands.get(0))
+        (1 until operands.size).forEach {
             r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it))
         }
         return r[0]
     }
 
     override fun visitAdd_oper(ctx: KoKoslanParser.Add_operContext): KoKoAst {
+        return OPERATOR(ctx.oper.text)
+    }
+
+    override fun visitLogic_expr(ctx: KoKoslanParser.Logic_exprContext): KoKoAst {
+        // Check if only one operand. Then just visit down
+        if (ctx.rel_oper() == null) {
+            return visit(ctx.rel_expr(0))
+        }
+
+        val operators = ctx.rel_oper().map { visit(it) }
+
+        val operands = ctx.rel_expr().map { visit(it) }
+
+        var r: Array<KoKoAst> = arrayOf(operands.get(0))
+        (1 until operands.size).forEach {
+            r[0] = BOOL_OPERATION(operators.get(it - 1), r[0], operands.get(it))
+        }
+        return r[0]
+    }
+
+    override fun visitRel_expr(ctx: KoKoslanParser.Rel_exprContext): KoKoAst { //Este visit soporta los NOT simples
+        // Check if only one operand. Then just visit down
+        if (ctx.evaluable_expr() == null) //En este caso es que viene el not (!)
+            return UNARY_OPERATION( OPERATOR("!"), visit(ctx.logic_expr()), true)
+        else return visit(ctx.evaluable_expr())
+
+    }
+
+
+    override fun visitRel_oper(ctx: KoKoslanParser.Rel_operContext): KoKoAst {
         return OPERATOR(ctx.oper.text)
     }
 
@@ -160,18 +190,18 @@ class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisit
             return visit(ctx.prefixUnary_expr(0))
         }
 
-        val operators: List < KoKoAst > = ctx.mult_oper().map {
+        val operators: List<KoKoAst> = ctx.mult_oper().map {
             visit(it)
         }
 
-        val operands: List < KoKoAst > = ctx.prefixUnary_expr().map {
+        val operands: List<KoKoAst> = ctx.prefixUnary_expr().map {
             visit(it)
         }
 
-        var r: Array < KoKoAst > = arrayOf(operands.get(0))
-            (1 until operands.size ).forEach {
-                r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it))
-            }
+        var r: Array<KoKoAst> = arrayOf(operands.get(0))
+        (1 until operands.size).forEach {
+            r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it))
+        }
         return r[0]
     }
 
@@ -184,18 +214,18 @@ class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisit
             return visit(ctx.value_expr(0))
         }
 
-        val operators: List < KoKoAst > = ctx.bool_oper().map {
+        val operators: List<KoKoAst> = ctx.bool_oper().map {
             visit(it)
         }
 
-        val operands: List < KoKoAst > = ctx.value_expr().map {
+        val operands: List<KoKoAst> = ctx.value_expr().map {
             visit(it)
         }
 
-        var r: Array < KoKoAst > = arrayOf(operands.get(0))
-            (1 until operands.size ).forEach {
-                r[0] = BOOL_OPERATION(operators.get(it - 1), r[0], operands.get(it))
-            }
+        var r: Array<KoKoAst> = arrayOf(operands.get(0))
+        (1 until operands.size).forEach {
+            r[0] = BOOL_OPERATION(operators.get(it - 1), r[0], operands.get(it))
+        }
         return r[0]
     }
 
@@ -226,16 +256,16 @@ class KoKoCompiler(protected var outputFile: String ? = null): KoKoslanBaseVisit
     }
 
     override fun visitCall_args(ctx: KoKoslanParser.Call_argsContext): KoKoAst {
-        return ctx.list_expr() ?.let{ visit(ctx.list_expr()) } ?: LIST()
+        return ctx.list_expr()?.let { visit(ctx.list_expr()) } ?: LIST()
     }
 
     override fun visitList_expr(ctx: KoKoslanParser.List_exprContext): KoKoAst {
-        val exprs: List<KoKoAst> = ctx.expression().map{ visit(it) }
+        val exprs: List<KoKoAst> = ctx.expression().map { visit(it) }
         return LIST(exprs, false)
     }
 
     override fun visitList_value(ctx: KoKoslanParser.List_valueContext): KoKoAst {
-        val exprs: List < KoKoAst > = ctx.list_expr().expression(0).part_expr().map {
+        val exprs: List<KoKoAst> = ctx.list_expr().expression(0).part_expr().map {
             visit(it)
         }
         return LIST(exprs, true);

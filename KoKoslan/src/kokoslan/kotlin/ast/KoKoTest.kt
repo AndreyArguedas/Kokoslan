@@ -30,7 +30,7 @@ class KoKoTest(private val condition : KoKoAst, private val successExpr : KoKoAs
     override fun eval(ctx : KoKoContext) : KoKoValue? {
         var cond  = getCondition().eval(ctx)
         if(cond is KoKoBoolValue){
-            var value = when(cond.value){
+            var value = when(cond.getValue()){
                                     true -> getSuccessExpr().eval(ctx)
                                     false -> getFailExpr().eval(ctx)
             }

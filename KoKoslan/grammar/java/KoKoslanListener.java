@@ -57,6 +57,36 @@ public interface KoKoslanListener extends ParseTreeListener {
 	 */
 	void exitLambda_expr(KoKoslanParser.Lambda_exprContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link KoKoslanParser#logic_expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogic_expr(KoKoslanParser.Logic_exprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KoKoslanParser#logic_expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogic_expr(KoKoslanParser.Logic_exprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KoKoslanParser#rel_expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterRel_expr(KoKoslanParser.Rel_exprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KoKoslanParser#rel_expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitRel_expr(KoKoslanParser.Rel_exprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KoKoslanParser#rel_oper}.
+	 * @param ctx the parse tree
+	 */
+	void enterRel_oper(KoKoslanParser.Rel_operContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KoKoslanParser#rel_oper}.
+	 * @param ctx the parse tree
+	 */
+	void exitRel_oper(KoKoslanParser.Rel_operContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link KoKoslanParser#evaluable_expr}.
 	 * @param ctx the parse tree
 	 */

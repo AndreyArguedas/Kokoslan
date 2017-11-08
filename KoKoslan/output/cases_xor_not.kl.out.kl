@@ -1,0 +1,3 @@
+let x  = false 
+let y  = !kokoslan.kt.ast.KoKoUnaryOperation@5d3411d
+x || y && x || y 

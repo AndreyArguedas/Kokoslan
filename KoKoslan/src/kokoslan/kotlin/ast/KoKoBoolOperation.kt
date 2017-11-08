@@ -25,15 +25,18 @@ class KoKoBoolOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoOper
 	override fun eval(ctx: KoKoContext): KoKoValue{
 	   try {
 	        val operId = oper as KoKoId
-			val lv = left().eval(ctx) as KoKoNumValue
-			val rv = right().eval(ctx) as KoKoNumValue
+			var lv = left().eval(ctx)!!
+			var rv = right().eval(ctx)!!
+
 			when (operId.getValue()){
-				"<" -> return KoKoBoolValue(lv.getValue() < rv.getValue())
-                ">" -> return KoKoBoolValue(lv.getValue() > rv.getValue())
-                "<=" -> return KoKoBoolValue(lv.getValue() <= rv.getValue())
-                ">=" -> return KoKoBoolValue(lv.getValue() >= rv.getValue())
-                "==" -> return KoKoBoolValue(lv.getValue().equals(rv.getValue()))
-                "!=" -> return KoKoBoolValue(!lv.getValue().equals(rv.getValue()))
+				"<" ->  { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() < rv.getValue())}
+                ">" ->  { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() < rv.getValue())}
+                "<=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() < rv.getValue())}
+                ">=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() < rv.getValue())}
+                "==" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() < rv.getValue())}
+                "!=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() < rv.getValue())}
+                "||" -> { lv as KoKoBoolValue; rv as KoKoBoolValue; return KoKoBoolValue(lv.getValue() || rv.getValue())}
+                "&&" -> { lv as KoKoBoolValue; rv as KoKoBoolValue; return KoKoBoolValue(lv.getValue() && rv.getValue())}
 				else -> throw KoKoEvalException("KoKoBoolOperation unimpemented operator")
 			}
 			
@@ -41,5 +44,4 @@ class KoKoBoolOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoOper
 			throw KoKoEvalException(e.message!!)
        }
    }
-
 }
