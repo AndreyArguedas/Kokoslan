@@ -1,0 +1,2 @@
+let isZero  = \n . n == 0.0  ? true  : fail  () 
+isZero  (0.0 ) 
