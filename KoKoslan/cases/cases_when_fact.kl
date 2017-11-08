@@ -1,7 +1,0 @@
-
-let fact = {
-       0 -> 1
-	 | n -> n*fact(n-1)
-}
-
-fact(5)

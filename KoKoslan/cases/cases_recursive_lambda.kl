@@ -1,5 +1,0 @@
-let y = 666
-
-let dec = \x. x == 0 ? 0 : dec(x - 1) + 2 * dec(x - 1)
-
-dec(y)

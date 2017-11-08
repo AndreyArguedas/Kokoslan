@@ -1,3 +1,0 @@
-let max = \x.\y. x > y ? x : y
-max(10)(20) == max(20)(10)
-/* o max(10, 20) == max(20, 10) si call de multiples argumentos*/

@@ -1,7 +1,0 @@
-let a = 4
-
-let b = 6
-
-let f = x -> b * x
-
-f(a)
