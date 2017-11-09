@@ -7,6 +7,7 @@
 
 package kokoslan.kt.ast
 
+import kokoslan.kotlin.exception.KoKoFailException
 import java.util.*
 import java.io.*
 import kokoslan.kt.eval.*
@@ -33,15 +34,37 @@ class KoKoBoolOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoOper
                 ">" ->  { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() > rv.getValue())}
                 "<=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() <= rv.getValue())}
                 ">=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() >= rv.getValue())}
-                "==" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() == rv.getValue())}
-                "!=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() != rv.getValue())}
+                "==" -> { return equals(lv, rv) }
+                "!=" -> { return notEquals(lv, rv) }
                 "||" -> { lv as KoKoBoolValue; rv as KoKoBoolValue; return KoKoBoolValue(lv.getValue() || rv.getValue())}
                 "&&" -> { lv as KoKoBoolValue; rv as KoKoBoolValue; return KoKoBoolValue(lv.getValue() && rv.getValue())}
 				else -> throw KoKoEvalException("KoKoBoolOperation unimpemented operator")
 			}
-
 	   } catch (e: Exception) {
 			throw KoKoEvalException(e.message!!)
        }
    }
+    //<
+    fun lt(lv: KoKoValue, rv: KoKoValue): KoKoBoolValue {
+        if(lv is KoKoNumValue && rv is KoKoNumValue)
+            return KoKoBoolValue(lv.getValue() < rv.getValue())
+        throw KoKoEvalException("Not implemented")
+    }
+
+    fun equals(lv: KoKoValue, rv: KoKoValue): KoKoBoolValue {
+        if(lv is KoKoNumValue && rv is KoKoNumValue)
+            return KoKoBoolValue(lv.getValue() == rv.getValue())
+        if(lv is KoKoListValue && rv is KoKoListValue)
+            return KoKoBoolValue(lv == rv)
+        throw KoKoEvalException("Not implemented")
+    }
+
+    fun notEquals(lv: KoKoValue, rv: KoKoValue): KoKoBoolValue {
+        if(lv is KoKoNumValue && rv is KoKoNumValue)
+            return KoKoBoolValue(lv.getValue() != rv.getValue())
+        if(lv is KoKoListValue && rv is KoKoListValue)
+            return KoKoBoolValue(lv != rv)
+        throw KoKoEvalException("Not implemented")
+    }
+
 }
