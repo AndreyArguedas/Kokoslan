@@ -60,7 +60,7 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
 
     fun beta_reduction(closure: KoKoLambdaValue, valueOfArg: KoKoValue): KoKoValue? {
         if(closure.pattern is KoKoListPat && valueOfArg is KoKoListValue){
-            closure.ctx.assoc(closure.pattern.head as KoKoId, valueOfArg[0])
+            closure.ctx.assoc(closure.pattern.head as KoKoId, valueOfArg.getFirst())
             closure.ctx.assoc(closure.pattern.rest as KoKoId, valueOfArg.getRest())
         }
         else

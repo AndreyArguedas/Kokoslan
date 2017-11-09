@@ -18,4 +18,8 @@ class KoKoListValue: ArrayList<KoKoValue?>, KoKoValue{
     fun getRest() : KoKoListValue{
         return KoKoListValue(this.drop(1))
     }
+
+    fun getFirst() : KoKoValue?{
+        return this.firstOrNull()
+    }
 }

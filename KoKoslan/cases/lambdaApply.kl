@@ -1,0 +1,9 @@
+let y = 666
+
+let x = 33
+
+let f =  x -> x(y)  /* ojo que es \x.(x(y)) no (\x.x)(y) */
+
+let g = x -> x + y    /* ojo que es \x.(x+y) */
+
+f(g)

@@ -18,7 +18,11 @@ class KoKoListPat(val head : KoKoAst, val rest : KoKoAst) : KoKoAst{
     }
 
     override fun eval(ctx : KoKoContext) : KoKoValue? { //La idea es no evaluar una lambda hasta que no le hagan call
-        return null
+        var headValue = this.head.eval(ctx)
+        var restValue = this.rest.eval(ctx)
+        val l = restValue as KoKoListValue
+        l.add(0, headValue)
+        return KoKoListValue(l)
     }
 }
 
