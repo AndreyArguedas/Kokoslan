@@ -1,6 +1,6 @@
 let list = [1, 2, 3]
 
-let insert = \x.\l.[x | l] 
+let insert = \x. \y. [x | y]
 
 insert(0)(list)
 

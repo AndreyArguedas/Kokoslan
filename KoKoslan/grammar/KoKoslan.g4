@@ -18,7 +18,8 @@ expression        : part_expr (',' part_expr)*
 part_expr         :  lambda_expr | logic_expr | evaluable_expr
 ;
 
-lambda_expr       :  pattern '->' expression | '\\' pattern '.' expression
+lambda_expr       : '\\' pattern '.' ( expression | pattern )
+                  | pattern '->' ( expression | pattern )
 ;
 
 logic_expr        :  rel_expr (rel_oper rel_expr)*
@@ -97,13 +98,13 @@ call_args    :  '(' list_expr? ')'
 ;
 
 // Patterns
-pattern      :  atomic_pat | list_pat
+pattern      :  list_pat | atomic_pat
 ;
 atomic_pat   : id | number | bool 
 ;
 list_pat     : '[' list_body_pat? ']'
 ;
-list_body_pat : pattern (',' pattern)* rest_body_pat?
+list_body_pat : pattern  (',' pattern)*  rest_body_pat?
 ;
 rest_body_pat : '|' (id | list_pat)
 ;
@@ -149,6 +150,8 @@ LEFT_BRACKET : '['
 ;
 RIGHT_BRACKET : ']'
 ;
+PIPE : '|'
+;
 LET : 'let'
 ;
 NOT : '!'
@@ -173,7 +176,7 @@ ADD :   '+'
 ;
 SUB :   '-' 
 ;
-ID : [a-zA-Z][a-zA-Z_0-9]* 
+ID : [a-zA-Z][a-zA-Z_0-9]*
 ;
 ////////////////////////////////////////////////
 // Ignored tokens
