@@ -37,7 +37,11 @@ class KoKoLambda(private val pattern : KoKoAst, private val expr : KoKoAst, priv
            val r = KoKoCall(KoKoId(pattern.hashCode().toString()), KoKoList(listOf(expr))).eval(kokoLambdaValue.ctx)
            return r
        }
-       val kokoLambdaValue = KoKoLambdaValue(pattern as KoKoId, expr, ctx.push())   //Hacer el return de una vez
+       val kokoLambdaValue : KoKoLambdaValue
+       if(pattern is KoKoListPat)
+           kokoLambdaValue = KoKoLambdaValue(pattern, expr, ctx.push())
+       else
+           kokoLambdaValue = KoKoLambdaValue(pattern as KoKoId, expr, ctx.push())
        return kokoLambdaValue
    }
 }

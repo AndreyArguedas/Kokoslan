@@ -12,4 +12,4 @@ import java.io.*;
 import kokoslan.kt.ast.*
 import kokoslan.kt.exception.*
 
-class KoKoLambdaValue(var pattern : KoKoAst, var expr : KoKoAst, var ctx : KoKoContext) : KoKoValue
+class KoKoLambdaValue(val pattern : KoKoAst, val expr : KoKoAst, var ctx : KoKoContext) : KoKoValue

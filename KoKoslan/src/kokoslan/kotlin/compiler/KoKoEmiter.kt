@@ -104,6 +104,10 @@ interface KoKoEmiter {
         return KoKoLambda(pattern, expr, evaluable)
     }
 
+    fun LIST_PAT(head: KoKoAst, rest: KoKoAst): KoKoListPat {
+        return KoKoListPat(head, rest)
+    }
+
     fun CASE(lambdas: List < KoKoAst > ): KoKoCase {
         return KoKoCase(lambdas)
     }
