@@ -68,8 +68,8 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitLambda_expr(ctx: KoKoslanParser.Lambda_exprContext): KoKoAst {
-        val id: KoKoAst = visit(ctx.pattern())
-        val expr: KoKoAst = visit(ctx.expression())
+        val id: KoKoAst = visit(ctx.pattern(0))
+        val expr = if(ctx.expression() != null) visit(ctx.expression()) else visit(ctx.pattern(1))
         return LAMBDA(id, expr, false)
     }
 
