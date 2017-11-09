@@ -1,0 +1,5 @@
+let x  = 666.0 
+let y  = 999.0 
+let ps  = x + 7.0 + 5.0 
+let pp  = print  ("Printing......" ) 
+x - 100.0 + y - ps 
