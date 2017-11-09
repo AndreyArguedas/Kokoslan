@@ -8,6 +8,8 @@
 package kokoslan.kt.ast
 
 import kokoslan.kotlin.exception.KoKoFailException
+import kokoslan.kotlin.primitive.KoKoFirst
+import kokoslan.kotlin.primitive.KoKoLength
 import kokoslan.kotlin.primitive.KoKoPrimitive
 import kokoslan.kotlin.primitive.KoKoRest
 import java.util.*
@@ -36,6 +38,9 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
             "print" -> printArguments(ctx)
             "fail" ->  throw KoKoFailException()
             "rest" ->  return KoKoRest().eval(this.args.first().eval(ctx)!!, ctx)
+            "first" -> return KoKoFirst().eval(this.args.first().eval(ctx)!!, ctx)
+            "length" ->return KoKoLength().eval(this.args.first().eval(ctx)!!, ctx)
+            /*"cons"  -> return KoKoCons().eval(this.args.first().eval(ctx)!!, ctx)*/
             else -> {
                 val closure = ctx.find(this.head as KoKoId)
                 val arg = args[0]
