@@ -5,11 +5,11 @@
     Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.eval
+package kokoslan.kotlin.eval
 
 import java.util.*
-import kokoslan.kt.ast.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.ast.*
+import kokoslan.kotlin.exception.*
 
 class KoKoContext (private var parent: KoKoContext? = null) : HashMap<String, KoKoValue?>(){
 

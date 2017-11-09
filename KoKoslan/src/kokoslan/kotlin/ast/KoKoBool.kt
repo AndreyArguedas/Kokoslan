@@ -5,10 +5,10 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.ast
+package kokoslan.kotlin.ast
 
-import kokoslan.kt.eval.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.eval.*
+import kokoslan.kotlin.exception.*
 
 class KoKoBool(value: Boolean) : KoKoAtom<Boolean>(value) {
     override fun eval(ctx : KoKoContext) : KoKoValue {

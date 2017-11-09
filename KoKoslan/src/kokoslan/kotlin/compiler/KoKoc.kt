@@ -5,7 +5,7 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.compiler;
+package kokoslan.kotlin.compiler;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -14,9 +14,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 import kokoslan.parser.*;
-import kokoslan.kt.ast.*
-import kokoslan.kt.eval.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.ast.*
+import kokoslan.kotlin.eval.*
+import kokoslan.kotlin.exception.*
 
 const val VERSION = "KoKoc v1.3 CR EIF400.II-2017"
 const val PROMPT = ">"
@@ -28,7 +28,7 @@ fun main(args : Array<String>){
     println("...............................................\n")
     // Get parameters
 
-    val NOMBRE = "middle/cases_length"
+    val NOMBRE = "own_cases/cases_basic_when"
     var inputFile = "cases/$NOMBRE.kl"
     var outputFile = "output/$NOMBRE.kl.out.kl"
     /*

@@ -5,12 +5,12 @@
     Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.compiler
+package kokoslan.kotlin.compiler
 
 import kokoslan.parser.*
-import kokoslan.kt.ast.*
-import kokoslan.kt.eval.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.ast.*
+import kokoslan.kotlin.eval.*
+import kokoslan.kotlin.exception.*
 
 import org.antlr.v4.runtime.*
 import org.antlr.v4.runtime.tree.ParseTree

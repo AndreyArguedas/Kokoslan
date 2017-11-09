@@ -1,6 +1,6 @@
-package kokoslan.kt.ast
+package kokoslan.kotlin.ast
 
-import kokoslan.kt.eval.*
+import kokoslan.kotlin.eval.*
 import java.io.PrintStream
 
 class KoKoListPat(val head : KoKoAst, val rest : KoKoAst) : KoKoAst{

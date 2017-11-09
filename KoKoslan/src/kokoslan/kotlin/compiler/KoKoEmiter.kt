@@ -5,12 +5,12 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.compiler
+package kokoslan.kotlin.compiler
 
 import java.util.*
-import kokoslan.kt.ast.*
-import kokoslan.kt.eval.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.ast.*
+import kokoslan.kotlin.eval.*
+import kokoslan.kotlin.exception.*
 
 /* SEE THE GRAMMAR AND COMPARE IT WITH THIS, THIS INTERFACE
     IS VERY IMPORTANT, GIVES GRAMMAR A SENSE, TURNS GRAMMAR WORDS

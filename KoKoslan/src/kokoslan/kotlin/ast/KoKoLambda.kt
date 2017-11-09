@@ -5,12 +5,12 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.ast
+package kokoslan.kotlin.ast
 
 import jdk.nashorn.internal.codegen.CompilerConstants
 import java.io.*
-import kokoslan.kt.eval.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.eval.*
+import kokoslan.kotlin.exception.*
 
 class KoKoLambda(private val pattern : KoKoAst, private val expr : KoKoAst, private var lambdaEvaluable : Boolean) : KoKoAst{
    fun getPattern() : KoKoAst { return this.pattern }

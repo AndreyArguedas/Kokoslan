@@ -5,10 +5,10 @@ Michael Chen Wang
 Kimberly Olivas Delgado
  */
 
-package kokoslan.kt.ast
+package kokoslan.kotlin.ast
 
 import java.io.*
-import kokoslan.kt.eval.*
+import kokoslan.kotlin.eval.*
 
 class KoKoTest(private val condition : KoKoAst, private val successExpr : KoKoAst, private var failExpr : KoKoAst) : KoKoAst{
 
