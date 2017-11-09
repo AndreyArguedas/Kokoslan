@@ -267,10 +267,8 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitList_value(ctx: KoKoslanParser.List_valueContext): KoKoAst {
-        val exprs: List<KoKoAst> = ctx.list_expr().expression(0).part_expr().map {
-            visit(it)
-        }
-        return LIST(exprs, true);
+        return if(ctx.list_expr() == null) LIST()
+             else LIST(ctx.list_expr().expression(0).part_expr().map{visit(it)}, true)
     }
 
     override fun visitList_pat(ctx: KoKoslanParser.List_patContext): KoKoAst {
