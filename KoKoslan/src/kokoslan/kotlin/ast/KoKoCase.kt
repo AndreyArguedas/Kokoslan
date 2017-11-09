@@ -5,13 +5,13 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.ast
+package kokoslan.kotlin.ast
 
 import java.util.*
 import java.io.*
 import java.util.stream.IntStream
-import kokoslan.kt.eval.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.eval.*
+import kokoslan.kotlin.exception.*
 
 /*  Lists of KoKoAst objects
     KoKoAst : Generates code with PrintStream,

@@ -5,9 +5,9 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.eval
+package kokoslan.kotlin.eval
 
-import kokoslan.kt.ast.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.ast.*
+import kokoslan.kotlin.exception.*
 
 class KoKoStringValue(value : String) : KoKoAtomValue<String>(value){}

@@ -1,5 +1,5 @@
-package kokoslan.kt.eval
+package kokoslan.kotlin.eval
 
-import kokoslan.kt.ast.*
+import kokoslan.kotlin.ast.*
 
 class KoKoRecursiveClosure(var expression : KoKoAst, var ctx : KoKoContext) : KoKoValue

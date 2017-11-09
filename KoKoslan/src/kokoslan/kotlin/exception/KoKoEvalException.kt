@@ -5,6 +5,6 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.exception
+package kokoslan.kotlin.exception
 
 class KoKoEvalException(msg : String) : RuntimeException(msg){}

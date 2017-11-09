@@ -5,11 +5,11 @@ Michael Chen Wang
 Kimberly Olivas Delgado
  */
 
-package kokoslan.kt.eval
+package kokoslan.kotlin.eval
 
 import java.util.*;
 import java.io.*;
-import kokoslan.kt.ast.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.ast.*
+import kokoslan.kotlin.exception.*
 
 class KoKoLambdaValue(val pattern : KoKoAst, val expr : KoKoAst, var ctx : KoKoContext) : KoKoValue

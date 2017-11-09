@@ -5,7 +5,7 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.ast
+package kokoslan.kotlin.ast
 
 import kokoslan.kotlin.exception.KoKoFailException
 import kokoslan.kotlin.primitive.KoKoFirst
@@ -14,8 +14,8 @@ import kokoslan.kotlin.primitive.KoKoPrimitive
 import kokoslan.kotlin.primitive.KoKoRest
 import java.util.*
 import java.io.*
-import kokoslan.kt.eval.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.eval.*
+import kokoslan.kotlin.exception.*
 
 class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoKoList()) : KoKoAst {
 

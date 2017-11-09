@@ -1,0 +1,6 @@
+
+let f = \0. true
+
+f(0)
+
+//Expected: true

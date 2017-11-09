@@ -5,12 +5,12 @@
    Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.ast
+package kokoslan.kotlin.ast
 
 import java.util.*
 import java.io.*
-import kokoslan.kt.eval.*
-import kokoslan.kt.exception.*
+import kokoslan.kotlin.eval.*
+import kokoslan.kotlin.exception.*
 
 open class KoKoBiOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoOperation(oper, Arrays.asList(left, right)) {
 

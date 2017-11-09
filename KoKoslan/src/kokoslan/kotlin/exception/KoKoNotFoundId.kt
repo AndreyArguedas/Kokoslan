@@ -5,8 +5,8 @@
     Kimberly Olivas Delgado
 */
 
-package kokoslan.kt.exception
+package kokoslan.kotlin.exception
 
-import kokoslan.kt.ast.*
+import kokoslan.kotlin.ast.*
 
 class KoKoNotFoundId(id: KoKoId) : RuntimeException("*** Id ${id.getValue()} is not defined! ***"){}

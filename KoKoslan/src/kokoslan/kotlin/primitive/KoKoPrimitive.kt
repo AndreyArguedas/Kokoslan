@@ -1,7 +1,7 @@
 package kokoslan.kotlin.primitive
 
-import kokoslan.kt.eval.KoKoContext
-import kokoslan.kt.eval.KoKoValue
+import kokoslan.kotlin.eval.KoKoContext
+import kokoslan.kotlin.eval.KoKoValue
 
 interface KoKoPrimitive {
     val name: String
