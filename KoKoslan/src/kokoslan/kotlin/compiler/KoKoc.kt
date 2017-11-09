@@ -28,7 +28,7 @@ fun main(args : Array<String>){
     println("...............................................\n")
     // Get parameters
 
-    val NOMBRE = "middle/cases_length"
+    val NOMBRE = "own_cases/cases_first_cons"
     var inputFile = "cases/$NOMBRE.kl"
     var outputFile = "output/$NOMBRE.kl.out.kl"
     /*
