@@ -34,14 +34,21 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
             return beta_reduction(vv as KoKoLambdaValue, args[0].eval(ctx)!!)
         }
 
+        if(this.head is KoKoLambda) {
+            val kkLambda = KoKoLambda(this.head, args[0], true)
+            return kkLambda.eval(ctx)
+        }
+
+        if(this.head is KoKoId)
+            if(this.head.toString() == "length")
+                if(!ctx.contains(KoKoId("length")))
+                    return KoKoLength().eval(this.args.first().eval(ctx)!!, ctx)
+
+
         when((this.head as KoKoId).getValue()) {
-            "print" -> printArguments(ctx)
-            "fail" ->  throw KoKoFailException()
-            "rest" ->  return KoKoRest().eval(this.args.first().eval(ctx)!!, ctx)
-            "first" -> return KoKoFirst().eval(this.args.first().eval(ctx)!!, ctx)
-            "length" ->return KoKoLength().eval(this.args.first().eval(ctx)!!, ctx)
-            /*"cons"  -> return KoKoCons().eval(this.args.first().eval(ctx)!!, ctx)*/
-            else -> {
+            "print"     -> printArguments(ctx)
+            "fail"      -> throw KoKoFailException()
+            else        -> {
                 val closure = ctx.find(this.head as KoKoId)
                 val arg = args[0]
                 val valueOfArg: KoKoValue
@@ -53,8 +60,9 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
                         valueOfArg = arg.eval(ctx)!!
                     } else if(arg is KoKoBiOperation) {
                         valueOfArg = arg.eval(closure.ctx)
-                    }
-                    else if(ctx.contains(KoKoId(arg.toString())))
+                    } else if(arg is KoKoList) {
+                        valueOfArg = arg.eval(closure.ctx)!!
+                    } else if(ctx.contains(KoKoId(arg.toString())))
                         valueOfArg = ctx.find(KoKoId(arg.toString()))
                     else
                         valueOfArg = KoKoNumValue(arg .toString().toDouble())

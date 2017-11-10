@@ -11,4 +11,7 @@ import kokoslan.kotlin.ast.*
 import kokoslan.kotlin.exception.*
 
 class KoKoBoolValue(value: Boolean) : KoKoAtomValue<Boolean>(value){
+    override fun getValue(): Boolean {
+        return super.getValue()
+    }
 }

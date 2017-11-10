@@ -11,6 +11,7 @@ import java.util.*
 import kokoslan.kotlin.ast.*
 import kokoslan.kotlin.eval.*
 import kokoslan.kotlin.exception.*
+import kokoslan.kotlin.primitive.KoKoCons
 
 /* SEE THE GRAMMAR AND COMPARE IT WITH THIS, THIS INTERFACE
     IS VERY IMPORTANT, GIVES GRAMMAR A SENSE, TURNS GRAMMAR WORDS
@@ -19,6 +20,8 @@ import kokoslan.kotlin.exception.*
 */
 
 interface KoKoEmiter {
+
+    val CONS: KoKoCons get() = KoKoCons()
 
     val TRUE: KoKoBool get() = KoKoBool(true)
     val FALSE: KoKoBool get() = KoKoBool(false)
@@ -91,18 +94,12 @@ interface KoKoEmiter {
         return KoKoList(expressions, nat)
     }
 
-    fun LIST(): KoKoList { //Empty arguments
-        return KoKoList(listOf(), false)
+    fun LIST(isNative: Boolean = false): KoKoList { //Empty arguments
+        return KoKoList(listOf(), isNative)
     }
 
     fun LAMBDA(pattern: KoKoAst, expr: KoKoAst, isEvaluable: Boolean): KoKoLambda {
-        return when(expr) {
-            is KoKoBool -> {
-                val id = ID("#x")
-                KoKoLambda(id, TEST(BOOL_OPERATION(ID("=="), id, pattern), expr, CALL(ID("fail"), KoKoList(listOf(id)) )), isEvaluable)
-            }
-            else -> KoKoLambda(pattern, expr, isEvaluable)
-        }
+        return KoKoLambda(pattern, expr, isEvaluable)
     }
 
     fun LIST_PAT(head: KoKoAst, rest: KoKoAst): KoKoListPat {
@@ -114,7 +111,6 @@ interface KoKoEmiter {
     }
 
     fun CALL(head: KoKoAst, args: KoKoList): KoKoAst {
-
         return KoKoCall(head, args)
     }
 

@@ -12,9 +12,9 @@ import kokoslan.kotlin.ast.*
 import kokoslan.kotlin.exception.*
 
 
-open class KoKoAtomValue<T>(private var value: T) : KoKoValue{
+open class KoKoAtomValue<T>(private var value: T) : KoKoValue {
     
-    fun getValue() : T {return value}
+    open fun getValue() : T {return value}
 
     override fun toString(): String{
         return value.toString()
