@@ -27,7 +27,8 @@ fun main(args : Array<String>){
     println(">>> $VERSION <<<")
     println("...............................................\n")
     // Get parameters
-
+//    val NOMBRE = "basic/cases_closure"
+//    val NOMBRE = "middle/cases_cons_first_rest"
     val NOMBRE = "own_cases/cases_basic_when"
     var inputFile = "cases/$NOMBRE.kl"
     var outputFile = "output/$NOMBRE.kl.out.kl"

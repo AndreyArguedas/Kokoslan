@@ -1,2 +1,2 @@
 let list  = [ 1.0 , 2.0 , 3.0 , 4.0 ] 
-length  (cons  (first  (list ) )  (rest  (list ) ) ) == list 
+length  (cons  (first  (list ) )  (rest  (list ) ) ) == 4.0 

@@ -62,16 +62,11 @@ interface KoKoEmiter {
 
     fun BOOL_OPERATION(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoAst {
         val id = oper as KoKoId
-        when(id.getValue()) { //I think we can put all the operators in a hash or list and use contains. Chen: I agree
-            "<" -> return KoKoBoolOperation(oper, left, right)
-            ">" -> return KoKoBoolOperation(oper, left, right)
-            "<=" -> return KoKoBoolOperation(oper, left, right)
-            ">=" -> return KoKoBoolOperation(oper, left, right)
-            "==" -> return KoKoBoolOperation(oper, left, right)
-            "!=" -> return KoKoBoolOperation(oper, left, right)
-            "||" -> return KoKoBoolOperation(oper, left, right)
-            "&&" -> return KoKoBoolOperation(oper, left, right)
-            else -> return KoKoBiOperation(oper, left, right)
+        return when(id.getValue()) { //I think we can put all the operators in a hash or list and use contains. Chen: I agree
+            "<", ">", "<=", ">=", "==", "!=", "||", "&&" -> {
+                KoKoBoolOperation(oper, left, right)
+            }
+            else -> KoKoBiOperation(oper, left, right)
         }
     }
 
@@ -100,8 +95,14 @@ interface KoKoEmiter {
         return KoKoList(listOf(), false)
     }
 
-    fun LAMBDA(pattern: KoKoAst, expr: KoKoAst, evaluable: Boolean): KoKoLambda {
-        return KoKoLambda(pattern, expr, evaluable)
+    fun LAMBDA(pattern: KoKoAst, expr: KoKoAst, isEvaluable: Boolean): KoKoLambda {
+        return when(expr) {
+            is KoKoBool -> {
+                val id = ID("#x")
+                KoKoLambda(id, TEST(BOOL_OPERATION(ID("=="), id, pattern), expr, CALL(ID("fail"), KoKoList(listOf(id)) )), isEvaluable)
+            }
+            else -> KoKoLambda(pattern, expr, isEvaluable)
+        }
     }
 
     fun LIST_PAT(head: KoKoAst, rest: KoKoAst): KoKoListPat {
@@ -113,6 +114,7 @@ interface KoKoEmiter {
     }
 
     fun CALL(head: KoKoAst, args: KoKoList): KoKoAst {
+
         return KoKoCall(head, args)
     }
 

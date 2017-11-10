@@ -12,8 +12,8 @@ import kokoslan.kotlin.exception.*
 
 class KoKoId(value : String) : KoKoAtom<String>(value) {
 
-   override fun eval(ctx : KoKoContext) : KoKoValue {
-	   return ctx.find(this)
-   }
+    override fun eval(ctx : KoKoContext) : KoKoValue {
+        return ctx.find(this)
+    }
    
 }
