@@ -12,7 +12,7 @@ import java.io.*
 import kokoslan.kotlin.eval.*
 import kokoslan.kotlin.exception.*
 
-class KoKoLambda(val pattern : KoKoAst, val expr : KoKoAst, var isLambdaEvaluable : Boolean) : KoKoAst{
+class KoKoLambda(val pattern : KoKoAst, private val expr : KoKoAst, var isLambdaEvaluable : Boolean) : KoKoAst{
 
    override fun genCode(Out : PrintStream){
        if(isLambdaEvaluable)
@@ -24,6 +24,10 @@ class KoKoLambda(val pattern : KoKoAst, val expr : KoKoAst, var isLambdaEvaluabl
        if(isLambdaEvaluable)
            Out.print(") ")
    }
+
+    fun getExpr() : KoKoAst{
+        return this.getExpr()
+    }
 
    override fun eval(ctx : KoKoContext) : KoKoValue? { //La idea es no evaluar una lambda hasta que no le hagan call
        if(isLambdaEvaluable) {

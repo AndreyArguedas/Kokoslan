@@ -93,10 +93,10 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
             is KoKoBool,
             is KoKoList,
             is KoKoNum,
-            is KoKoListPat-> {
-                expr = TEST(BOOL_OPERATION(ID("=="), ID("#x"), pattern), expr, CALL(ID("#n"), KoKoList(listOf(ID("#x"))) ))
-                val myLambda  = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
-                return LET(ID("case_" + hashCode().toString()), myLambda)
+            is KoKoListPat -> {
+                expr = TEST(BOOL_OPERATION(ID("=="), ID("#x"), pattern), expr, CALL(ID("#n"), KoKoList(listOf(ID("#x")))))
+                val expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
+                return expr
             }
         }
         return LAMBDA(id, expr, false)
@@ -131,14 +131,14 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 
     override fun visitCase_expr(ctx: KoKoslanParser.Case_exprContext): KoKoAst {
 
-        var lambdas: List<KoKoAst> = ctx.lambda_expr().map {
+        var lambdas: List<KoKoAst> = ctx.lambda_expr().mapIndexed { idx, it ->
             val lmda = visit(it)
-            return LET("case_$idx", lmda)
+            LET(ID("case_$idx"), lmda)
         }
 
         var allCases = mutableListOf<KoKoAst>(defaultExpression())
 
-        lambdas.reversed().forEach {allCases.add(it)}
+        lambdas.reversed().forEach { allCases.add(it) }
 
         val mainLambda = packLambdas(allCases.asReversed())
 
@@ -339,13 +339,20 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
         return LIST_PAT(pattern, rest)
     }
 
-    fun defaultExpression() : KoKoAst {
-        val myLambda  = LAMBDA(ID("#x"), CALL(ID("fail"), LIST(listOf(ID("#x")), false)), false)
-        return LET(ID("case_" + hashCode().toString()), myLambda)
+    fun defaultExpression(): KoKoAst {
+        val myLambda = LAMBDA(ID("#x"), CALL(ID("fail"), LIST(listOf(ID("#x")), false)), false)
+        return LET(ID("else_1"), myLambda)
     }
 
-    fun packLambdas(lambdas: MutableList<KoKoAst>) : KoKoAst{
-        if(lambdas.isEmpty()) return ID("fail")
-        return KoKoLambda(lambdas.first(), packLambdas(lambdas.drop(1).toMutableList()), true)
+    fun packLambdas(lambdas: MutableList<KoKoAst>): KoKoAst { //Y si lo hacemos iterativo para no parir con el caso base?
+        var mainCall : KoKoCall
+        val kkl = lambdas.first() as KoKoLet
+        val next = lambdas.drop(1).first() as KoKoLet
+        mainCall = KoKoCall(kkl.getId(), LIST(listOf(next.getId()), false))
+        lambdas.drop(2).toMutableList().forEach{
+            it as KoKoLet
+            mainCall = KoKoCall(mainCall,  LIST(listOf(it.getExpr()), false))
+        }
+        return mainCall
     }
 }
