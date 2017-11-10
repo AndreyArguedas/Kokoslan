@@ -31,9 +31,10 @@ class KoKoCase(list : List<KoKoAst>? = null) : ArrayList<KoKoAst>(list), KoKoAst
     }
 
     override fun eval(ctx : KoKoContext) : KoKoValue? {
-        val res = KoKoListValue()
-        for(i in 0 .. this.size) res.add(this.get(i).eval(ctx))
-        return res
+        //return KoKoCall().eval(ctx);
+        /*val res = KoKoListValue()
+        for(i in 0 until this.size) res.add(this.get(i).eval(ctx))
+        return res*/
     }
 
     fun eval() : KoKoValue? { //See the upper method
