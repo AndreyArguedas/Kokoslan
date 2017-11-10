@@ -1,14 +1,14 @@
 package kokoslan.kotlin.primitive
 
 import kokoslan.kotlin.exception.KoKoFailException
-import kokoslan.kt.ast.KoKoCall
-import kokoslan.kt.ast.KoKoId
-import kokoslan.kt.ast.KoKoLambda
-import kokoslan.kt.ast.KoKoListPat
-import kokoslan.kt.eval.KoKoContext
-import kokoslan.kt.eval.KoKoListValue
-import kokoslan.kt.eval.KoKoNumValue
-import kokoslan.kt.eval.KoKoValue
+import kokoslan.kotlin.ast.KoKoCall
+import kokoslan.kotlin.ast.KoKoId
+import kokoslan.kotlin.ast.KoKoLambda
+import kokoslan.kotlin.ast.KoKoListPat
+import kokoslan.kotlin.eval.KoKoContext
+import kokoslan.kotlin.eval.KoKoListValue
+import kokoslan.kotlin.eval.KoKoNumValue
+import kokoslan.kotlin.eval.KoKoValue
 
 class KoKoCons(): KoKoPrimitive {
     override val name = "cons"

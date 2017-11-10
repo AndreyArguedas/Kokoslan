@@ -1,9 +1,9 @@
 package kokoslan.kotlin.primitive
 
 import kokoslan.kotlin.exception.KoKoFailException
-import kokoslan.kt.eval.KoKoContext
-import kokoslan.kt.eval.KoKoListValue
-import kokoslan.kt.eval.KoKoValue
+import kokoslan.kotlin.eval.KoKoContext
+import kokoslan.kotlin.eval.KoKoListValue
+import kokoslan.kotlin.eval.KoKoValue
 
 class KoKoFirst(): KoKoPrimitive {
     override val name = "first"

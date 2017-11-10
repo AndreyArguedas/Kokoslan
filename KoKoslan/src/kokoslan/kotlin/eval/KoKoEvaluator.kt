@@ -14,7 +14,7 @@ class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList) {
 
 
     fun evaluate(tree: KoKoProgram, ctx: KoKoContext): KoKoValue? {
-        return null;
+        return null
     }
 
 
