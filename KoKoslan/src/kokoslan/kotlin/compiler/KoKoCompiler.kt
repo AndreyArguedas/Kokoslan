@@ -94,7 +94,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitCase_value(ctx: KoKoslanParser.Case_valueContext): KoKoAst {
-        val caseExpr: KoKoAst = visit(ctx.case_expr())
+        val caseExpr: KoKoAst = visit(ctx.case_expr(0))
         return caseExpr
     }
 

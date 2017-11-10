@@ -28,7 +28,7 @@ fun main(args : Array<String>){
     println("...............................................\n")
     // Get parameters
 //    val NOMBRE = "basic/cases_max"
-    val NOMBRE = "middle/cases_length"
+    val NOMBRE = "advanced/cases_when_car"
 //    val NOMBRE = "own_cases/cases_basic_when"
     var inputFile = "cases/$NOMBRE.kl"
     var outputFile = "output/$NOMBRE.kl.out.kl"

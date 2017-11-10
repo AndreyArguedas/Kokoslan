@@ -15,7 +15,7 @@ definition        : 'let' id '=' expression
 ;
 expression        : part_expr (',' part_expr)*
 ;
-part_expr         :  lambda_expr | logic_expr | evaluable_expr
+part_expr         :  lambda_expr | logic_expr | evaluable_expr | case_value
 ;
 
 lambda_expr       : '\\' pattern '.' ( expression | pattern )
@@ -76,7 +76,6 @@ value_expr        : '(' expression ')'              #ParentValueExpr
                   | value_expr call_args            #CallValueExpr
                   | atomic_value                    #AtomicValueExpr
                   | list_value                      #ListValueExpr
-                  | case_value                      #CaseValueExpr
 ;
 
 atomic_value : id | number | bool | string
@@ -85,13 +84,13 @@ atomic_value : id | number | bool | string
 list_value   :  '[' list_expr? ']'
 ; 
 
-list_expr    :  expression ( ','  expression)*
+list_expr    :  expression (','  expression)*
 ;
 
 // Case expressions
-case_value   :  '{' case_expr? '}'
+case_value   :  '{' case_expr+ '}'
 ;
-case_expr    :  lambda_expr ( ','  lambda_expr)+
+case_expr    :  lambda_expr ( '|'  lambda_expr)*
 ;
 
 call_args    :  '(' list_expr? ')'
@@ -176,7 +175,7 @@ ADD :   '+'
 ;
 SUB :   '-' 
 ;
-ID : [a-zA-Z][a-zA-Z_0-9]*
+ID : [a-z_A-Z][a-zA-Z_0-9]*
 ;
 ////////////////////////////////////////////////
 // Ignored tokens

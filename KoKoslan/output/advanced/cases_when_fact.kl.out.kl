@@ -1,0 +1,2 @@
+let fact  = { \#x . #x == 0.0  ? 1.0  : fail  (#x ) , \n . n * fact  (n - 1.0 ) } 
+fact  (5.0 ) 
