@@ -1,6 +1,4 @@
-let car  = { let case_961160488  = \#x . \#n . #x == [f |_ ] ? f  : #n  (#x ) 
-, let case_961160488  = \#x . fail  (#x ) 
-, (\let case_961160488  = \#x . \#n . #x == [f |_ ] ? f  : #n  (#x ) 
-. (\let case_961160488  = \#x . fail  (#x ) 
-. fail ) ) } 
+let car  = { let case_0  = \#x . \#n . #x == [f |_ ] ? f  : #n  (#x ) 
+, let else_1  = \#x . fail  (#x ) 
+, case_0  (else_1 ) } 
 car  ([ 1.0 , 2.0 , 3.0 ] ) 

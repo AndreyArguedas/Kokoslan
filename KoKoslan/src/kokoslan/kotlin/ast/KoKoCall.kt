@@ -8,14 +8,9 @@
 package kokoslan.kotlin.ast
 
 import kokoslan.kotlin.exception.KoKoFailException
-import kokoslan.kotlin.primitive.KoKoFirst
 import kokoslan.kotlin.primitive.KoKoLength
-import kokoslan.kotlin.primitive.KoKoPrimitive
-import kokoslan.kotlin.primitive.KoKoRest
-import java.util.*
 import java.io.*
 import kokoslan.kotlin.eval.*
-import kokoslan.kotlin.exception.*
 
 class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoKoList()) : KoKoAst {
 
@@ -43,7 +38,6 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
             if(this.head.toString() == "length")
                 if(!ctx.contains(KoKoId("length")))
                     return KoKoLength().eval(this.args.first().eval(ctx)!!, ctx)
-
 
         when((this.head as KoKoId).getValue()) {
             "print"     -> printArguments(ctx)
@@ -73,6 +67,23 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
                     else
                         valueOfArg = KoKoNumValue(arg .toString().toDouble())
                     val r = beta_reduction(closure, valueOfArg)
+                    return r
+                }
+                else if(closure is KoKoCaseValue){
+                    val call = closure.call.eval(closure.ctx)
+                    if(arg is KoKoLambda) {
+                        valueOfArg = arg.eval(closure.ctx)!!
+                    } else if(arg is KoKoCall) {
+                        valueOfArg = arg.eval(ctx)!!
+                    } else if(arg is KoKoBiOperation) {
+                        valueOfArg = arg.eval(closure.ctx)
+                    } else if(arg is KoKoList) {
+                        valueOfArg = arg.eval(closure.ctx)!!
+                    } else if(ctx.contains(KoKoId(arg.toString())))
+                        valueOfArg = ctx.find(KoKoId(arg.toString()))
+                    else
+                        valueOfArg = KoKoNumValue(arg .toString().toDouble())
+                    val r = beta_reduction(call as KoKoLambdaValue, valueOfArg)
                     return r
                 }
             }

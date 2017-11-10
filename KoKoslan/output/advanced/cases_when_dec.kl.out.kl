@@ -1,3 +1,6 @@
 let y  = 666.0 
-let dec  = { \#x . #x == 0.0  ? 0.0  : fail  (#x ) , \x . dec  (x - 1.0 ) + 1.0 } 
+let dec  = { let case_0  = \#x . \#n . #x == 0.0  ? 0.0  : #n  (#x ) 
+, let case_1  = \x . dec  (x - 1.0 ) + 1.0 
+, let else_1  = \#x . fail  (#x ) 
+, case_0  (case_1 )  (\#x . fail  (#x ) ) } 
 dec  (y ) 
