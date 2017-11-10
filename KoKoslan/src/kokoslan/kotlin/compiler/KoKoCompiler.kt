@@ -27,6 +27,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 
     protected var program: KoKoAst? = null
     protected var statements: MutableList<KoKoAst> = mutableListOf<KoKoAst>()
+    protected var primitives = hashSetOf<String>("cons", "first", "rest", "length")
 
     fun getProgram(): KoKoProgram {
         return PROGRAM(statements)
@@ -64,12 +65,25 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     override fun visitDefinition(ctx: KoKoslanParser.DefinitionContext): KoKoAst {
         val id: KoKoAst = visit(ctx.id())
         val expr: KoKoAst = visit(ctx.expression())
+        if(primitives.contains(id.toString()))
+            primitives.remove(id.toString())
         return LET(id, expr)
     }
 
     override fun visitLambda_expr(ctx: KoKoslanParser.Lambda_exprContext): KoKoAst {
-        val id: KoKoAst = visit(ctx.pattern(0))
-        val expr = if(ctx.expression() != null) visit(ctx.expression()) else visit(ctx.pattern(1))
+        var id: KoKoAst = visit(ctx.pattern(0))
+        val pattern = id
+        var expr = if(ctx.expression() != null) visit(ctx.expression()) else visit(ctx.pattern(1))
+
+        when(id) {
+            is KoKoBool,
+            is KoKoList,
+            is KoKoNum -> {
+
+                id = ID("#x")
+                expr = TEST(BOOL_OPERATION(ID("=="), id, pattern), expr, CALL(ID("fail"), KoKoList(listOf(id)) ))
+            }
+        }
         return LAMBDA(id, expr, false)
     }
 
@@ -250,8 +264,29 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitCallValueExpr(ctx: KoKoslanParser.CallValueExprContext): KoKoAst {
-        val head: KoKoAst = visit(ctx.value_expr())
+        var head: KoKoAst = visit(ctx.value_expr())
         val args: KoKoList = visit(ctx.call_args()) as KoKoList
+        if(head is KoKoId) {
+            if(head.getValue() in primitives) {
+                when(head.getValue()) {
+                    "cons"  -> head = LAMBDA(ID("#x"), LAMBDA(ID("#y"), LIST_PAT(ID("#x"), ID("#y")), false), true)
+                    "rest"  -> head = LAMBDA(LIST_PAT(ID("#x"), ID("#y")), ID("#y"), false)
+                    "first" -> head = LAMBDA(LIST_PAT(ID("#x"), ID("#y")), ID("#x"), false)
+                    /*
+                    "length"-> head = LAMBDA(ID("#l"),
+                                             TEST(BOOL_OPERATION(ID("=="), ID("#l"), LIST(true)),
+                                                  NUM(0.0),
+                                                  BI_OPERATION(OPERATOR("+"),
+                                                               CALL(ID("length"),
+                                                                    LIST(listOf(CALL(ID("rest"),
+                                                                                     LIST(listOf(ID("#l")),
+                                                                                          false))),
+                                                                         false)),
+                                                               NUM(1.0))), false)
+                                                               */
+                }
+            }
+        }
         return CALL(head, args)
     }
 

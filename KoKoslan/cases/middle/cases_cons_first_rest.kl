@@ -3,7 +3,10 @@ let list = [1,2,3,4]
 
 length( cons(first(list))(rest(list)) ) == 4
 
+/*
 //Expected: True
 
 // length( cons(first(list))(rest(list))  == list ) *** ORIGINAL CON BUG ***
 // length( cons(first(list), rest(list) )  == list ) si implementaron calls de mas de un argumento
+
+*/

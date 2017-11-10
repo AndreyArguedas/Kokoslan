@@ -10,4 +10,4 @@ package kokoslan.kotlin.eval
 import kokoslan.kotlin.ast.*
 import kokoslan.kotlin.exception.*
 
-interface KoKoValue{}
+interface KoKoValue { }

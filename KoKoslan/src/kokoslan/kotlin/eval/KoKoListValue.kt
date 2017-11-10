@@ -15,6 +15,11 @@ import kokoslan.kotlin.exception.*
 class KoKoListValue: ArrayList<KoKoValue?>, KoKoValue{
     constructor() : super()
     constructor(list : List<KoKoValue?>) : super(list)
+
+    fun getValue(): KoKoListValue {
+        return this
+    }
+
     fun getRest() : KoKoListValue{
         return KoKoListValue(this.drop(1))
     }

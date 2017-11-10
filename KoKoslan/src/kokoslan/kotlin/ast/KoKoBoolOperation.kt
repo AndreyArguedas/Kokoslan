@@ -54,8 +54,13 @@ class KoKoBoolOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoOper
     fun equals(lv: KoKoValue, rv: KoKoValue): KoKoBoolValue {
         if(lv is KoKoNumValue && rv is KoKoNumValue)
             return KoKoBoolValue(lv.getValue() == rv.getValue())
+
         if(lv is KoKoListValue && rv is KoKoListValue)
             return KoKoBoolValue(lv == rv)
+
+        if(lv is KoKoBoolValue && rv is KoKoBoolValue)
+            return KoKoBoolValue(lv.getValue() == rv.getValue())
+
         throw KoKoEvalException("Not implemented")
     }
 
