@@ -78,10 +78,12 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
         when(id) {
             is KoKoBool,
             is KoKoList,
-            is KoKoNum -> {
-
+            is KoKoNum-> {
                 id = ID("#x")
                 expr = TEST(BOOL_OPERATION(ID("=="), id, pattern), expr, CALL(ID("fail"), KoKoList(listOf(id)) ))
+            }
+            is KoKoListPat -> {
+                return LAMBDA(id, expr, false)
             }
         }
         return LAMBDA(id, expr, false)

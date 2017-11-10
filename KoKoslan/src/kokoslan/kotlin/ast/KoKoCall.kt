@@ -49,8 +49,14 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
             "print"     -> printArguments(ctx)
             "fail"      -> throw KoKoFailException()
             else        -> {
-                val closure = ctx.find(this.head as KoKoId)
-                val arg = args[0]
+                var closure = ctx.find(this.head as KoKoId)
+                var arg = args[0]
+                if(closure is KoKoListValue){
+                    val first = closure.getFirst()
+                    closure.removeAt(0)
+                    closure = first as KoKoLambdaValue
+                }
+
                 val valueOfArg: KoKoValue
 
                 if(closure is KoKoLambdaValue) {
