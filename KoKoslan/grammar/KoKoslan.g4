@@ -18,8 +18,8 @@ expression        : part_expr (',' part_expr)*
 part_expr         :  lambda_expr | logic_expr | evaluable_expr | case_value
 ;
 
-lambda_expr       : '\\' pattern '.' ( expression | pattern )
-                  | pattern '->' ( expression | pattern )
+lambda_expr       : '\\' pattern '.' ( expression | pattern )   #BackslashLambda
+                  | pattern '->' ( expression | pattern )       #ArrowLambda
 ;
 
 logic_expr        :  rel_expr (rel_oper rel_expr)*

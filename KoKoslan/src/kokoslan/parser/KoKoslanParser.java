@@ -339,6 +339,17 @@ public class KoKoslanParser extends Parser {
 	}
 
 	public static class Lambda_exprContext extends ParserRuleContext {
+		public Lambda_exprContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_lambda_expr; }
+	 
+		public Lambda_exprContext() { }
+		public void copyFrom(Lambda_exprContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ArrowLambdaContext extends Lambda_exprContext {
 		public List<PatternContext> pattern() {
 			return getRuleContexts(PatternContext.class);
 		}
@@ -348,13 +359,27 @@ public class KoKoslanParser extends Parser {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public Lambda_exprContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_lambda_expr; }
+		public ArrowLambdaContext(Lambda_exprContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof KoKoslanVisitor ) return ((KoKoslanVisitor<? extends T>)visitor).visitLambda_expr(this);
+			if ( visitor instanceof KoKoslanVisitor ) return ((KoKoslanVisitor<? extends T>)visitor).visitArrowLambda(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class BackslashLambdaContext extends Lambda_exprContext {
+		public List<PatternContext> pattern() {
+			return getRuleContexts(PatternContext.class);
+		}
+		public PatternContext pattern(int i) {
+			return getRuleContext(PatternContext.class,i);
+		}
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public BackslashLambdaContext(Lambda_exprContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof KoKoslanVisitor ) return ((KoKoslanVisitor<? extends T>)visitor).visitBackslashLambda(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -367,6 +392,7 @@ public class KoKoslanParser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case BACK_SLASH:
+				_localctx = new BackslashLambdaContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(97);
@@ -398,6 +424,7 @@ public class KoKoslanParser extends Parser {
 			case TRUE:
 			case FALSE:
 			case ID:
+				_localctx = new ArrowLambdaContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(104);

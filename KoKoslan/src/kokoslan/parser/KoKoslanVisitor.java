@@ -35,11 +35,19 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPart_expr(KoKoslanParser.Part_exprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link KoKoslanParser#lambda_expr}.
+	 * Visit a parse tree produced by the {@code BackslashLambda}
+	 * labeled alternative in {@link KoKoslanParser#lambda_expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLambda_expr(KoKoslanParser.Lambda_exprContext ctx);
+	T visitBackslashLambda(KoKoslanParser.BackslashLambdaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArrowLambda}
+	 * labeled alternative in {@link KoKoslanParser#lambda_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrowLambda(KoKoslanParser.ArrowLambdaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link KoKoslanParser#logic_expr}.
 	 * @param ctx the parse tree
