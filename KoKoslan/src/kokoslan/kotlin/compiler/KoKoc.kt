@@ -29,7 +29,7 @@ fun main(args : Array<String>){
     // Get parameters
     val NOMBRE: String
 //    NOMBRE = "basic/cases_formula_lambda"
-    NOMBRE = "advanced/cases_when_dec"
+    NOMBRE = "advanced/cases_when_length_pat"
 //    NOMBRE = "own_cases/cases_middle_when"
     var inputFile = "cases/$NOMBRE.kl"
     var outputFile = "output/$NOMBRE.kl.out.kl"
