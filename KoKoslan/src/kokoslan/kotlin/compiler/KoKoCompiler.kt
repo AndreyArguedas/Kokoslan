@@ -99,12 +99,14 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
         when (pattern) {
             is KoKoBool,
             is KoKoList,
-            is KoKoNum,
-            is KoKoListPat -> {
+            is KoKoNum -> {
                 expr = TEST(BOOL_OPERATION(ID("=="), ID("#x"), pattern), expr, CALL(ID("#n"), KoKoList(listOf(ID("#x")))))
                 //val expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
                 val expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
                 return expr
+            }
+            is KoKoListPat -> {
+                return LAMBDA(id, expr, false)
             }
         }
         return LAMBDA(id, expr, false)
@@ -339,7 +341,8 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitList_pat(ctx: KoKoslanParser.List_patContext): KoKoAst {
-        return visit(ctx.list_body_pat())
+        return if(ctx.list_body_pat() == null) LIST()
+        else visit(ctx.list_body_pat())
     }
 
     override fun visitList_body_pat(ctx: KoKoslanParser.List_body_patContext): KoKoAst {
@@ -354,11 +357,11 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     fun packLambdas(lambdas: MutableList<KoKoAst>): KoKoAst { //Y si lo hacemos iterativo para no parir con el caso base?
-        var mainCall : KoKoCall
+        var mainCall: KoKoCall
         val kkl = lambdas.first() as KoKoLet
         val next = lambdas.drop(1).first() as KoKoLet
         mainCall = KoKoCall(kkl.getId(), LIST(listOf(ID("#x")), false))
-        lambdas.drop(1).toMutableList().forEach{
+        lambdas.drop(1).toMutableList().forEach {
             it as KoKoLet
             val anotherCall = KoKoCall(it.getId(), LIST(listOf(ID("#x")), false))
             val lambda = KoKoLambda(ID("#x"), anotherCall, false)
