@@ -1,7 +1,10 @@
 
-let y = 666
+let y = 400
 
-let dec = {  0 -> 0 | x -> dec(x - 1) + 1 } 
+let dec = {
+    0 -> 0
+  | x -> dec(x - 1) + 1
+}
 
 dec(y)
 

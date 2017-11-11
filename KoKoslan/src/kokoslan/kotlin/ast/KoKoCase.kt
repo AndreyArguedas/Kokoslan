@@ -21,11 +21,12 @@ class KoKoCase(list: List<KoKoAst>? = null) : ArrayList<KoKoAst>(list), KoKoAst 
 
     override fun genCode(Out: PrintStream) {
         if (this.size == 0) return
-        Out.print("{ ")
-        this.get(0).genCode(Out)
+        Out.println("{ ")
+        Out.print("\t  ")
+        this[0].genCode(Out)
         this.drop(1)
-                .forEach { Out.print(", "); it.genCode(Out); }
-        Out.print("} ")
+                .forEach { Out.print("\t| "); it.genCode(Out); }
+        Out.println("\n}")
     }
 
     override fun eval(ctx: KoKoContext): KoKoValue? {
@@ -37,7 +38,7 @@ class KoKoCase(list: List<KoKoAst>? = null) : ArrayList<KoKoAst>(list), KoKoAst 
             casesList.add(myLet)
             newCtx.assoc(myLet.getId() as KoKoId, myLet.eval(newCtx))
         }
-        var myCall = this.last() as KoKoCall
+        var myCall = this.last()
         return KoKoCaseValue(KoKoList(casesList.toList()), myCall, newCtx)
 
         /*val res = KoKoListValue()

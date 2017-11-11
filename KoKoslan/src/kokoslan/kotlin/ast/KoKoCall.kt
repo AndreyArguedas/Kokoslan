@@ -26,7 +26,11 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
 
         if(this.head is KoKoCall){ //Esto es para manejar calls anidados ejemplo max(10)(20)
             val vv =  this.head.eval(ctx) //Un closure esperaria yo
-            return beta_reduction(vv as KoKoLambdaValue, args[0].eval(ctx)!!)
+            if(vv is KoKoLambdaValue){
+                return beta_reduction(vv, args[0].eval(ctx)!!)
+            }
+            //Succeded
+            return vv
         }
 
         if(this.head is KoKoLambda) {
@@ -45,11 +49,6 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
             else        -> {
                 var closure = ctx.find(this.head as KoKoId)
                 var arg = args[0]
-                /*if(closure is KoKoListValue){
-                    val first = closure.getFirst()
-                    closure.removeAt(0)
-                    closure = first as KoKoLambdaValue
-                }*/
 
                 val valueOfArg: KoKoValue
 
@@ -70,7 +69,9 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
                     return r
                 }
                 else if(closure is KoKoCaseValue){
-                    val call = closure.call.eval(closure.ctx)
+                    val tempCaseValue =  this.head.eval(ctx) //Un closure esperaria yo
+                    return case_beta_reduction(tempCaseValue as KoKoCaseValue, args[0].eval(ctx)!!)
+                    /*
                     if(arg is KoKoLambda) {
                         valueOfArg = arg.eval(closure.ctx)!!
                     } else if(arg is KoKoCall) {
@@ -83,8 +84,10 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
                         valueOfArg = ctx.find(KoKoId(arg.toString()))
                     else
                         valueOfArg = KoKoNumValue(arg .toString().toDouble())
-                    val r = beta_reduction(call as KoKoLambdaValue, valueOfArg)
+                    closure.ctx.assoc(KoKoId("#x"), valueOfArg)
+                    val r = closure.call.eval(closure.ctx)
                     return r
+                    */
                 }
             }
         }
@@ -98,8 +101,20 @@ class KoKoCall(protected var head : KoKoAst, protected var args : KoKoList = KoK
         }
         else
             closure.ctx.set(closure.pattern.toString(), valueOfArg)
+
         return closure.expr.eval(closure.ctx)
     }
+
+    fun case_beta_reduction(closure: KoKoCaseValue, valueOfArg: KoKoValue): KoKoValue? {
+        val newClosureAst = closure.call as KoKoLambda
+        val newClosure = newClosureAst.eval(closure.ctx)
+        return beta_reduction(newClosure as KoKoLambdaValue, valueOfArg)
+    }
+
+    fun setArg(arg: KoKoAst) {
+        this.args = KoKoList(listOf(arg))
+    }
+
     fun printArguments(ctx: KoKoContext){
         args.forEach{ println(it.eval(ctx)) }
     }

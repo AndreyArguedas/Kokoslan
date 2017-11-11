@@ -89,17 +89,26 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
         var id: KoKoAst = visit(ctx.pattern(0))
         val pattern = id
         var expr = if (ctx.expression() != null) visit(ctx.expression()) else visit(ctx.pattern(1))
+        /*
+        expr = TEST(BOOL_OPERATION(ID("=="), ID("#x"), pattern), expr, CALL(ID("#n"), KoKoList(listOf(ID("#x")))))
+        //val expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
+        expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
+        return expr
+        */
+
         when (pattern) {
             is KoKoBool,
             is KoKoList,
             is KoKoNum,
             is KoKoListPat -> {
                 expr = TEST(BOOL_OPERATION(ID("=="), ID("#x"), pattern), expr, CALL(ID("#n"), KoKoList(listOf(ID("#x")))))
+                //val expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
                 val expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
                 return expr
             }
         }
         return LAMBDA(id, expr, false)
+
     }
 
     override fun visitEvaluableLambdaExpr(ctx: KoKoslanParser.EvaluableLambdaExprContext): KoKoAst {
@@ -348,11 +357,13 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
         var mainCall : KoKoCall
         val kkl = lambdas.first() as KoKoLet
         val next = lambdas.drop(1).first() as KoKoLet
-        mainCall = KoKoCall(kkl.getId(), LIST(listOf(next.getId()), false))
-        lambdas.drop(2).toMutableList().forEach{
+        mainCall = KoKoCall(kkl.getId(), LIST(listOf(ID("#x")), false))
+        lambdas.drop(1).toMutableList().forEach{
             it as KoKoLet
-            mainCall = KoKoCall(mainCall,  LIST(listOf(it.getExpr()), false))
+            val anotherCall = KoKoCall(it.getId(), LIST(listOf(ID("#x")), false))
+            val lambda = KoKoLambda(ID("#x"), anotherCall, false)
+            mainCall = KoKoCall(mainCall, LIST(listOf(lambda), false))
         }
-        return mainCall
+        return LAMBDA(ID("#x"), mainCall, false)
     }
 }
