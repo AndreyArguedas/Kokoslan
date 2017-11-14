@@ -8,9 +8,8 @@
 package kokoslan.kotlin.eval
 
 import kokoslan.kotlin.ast.*
-import kokoslan.kotlin.exception.*
 
-class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList) {
+data class KoKoEvaluator(private var head: KoKoAst, protected var args: KoKoList) {
 
 
     fun evaluate(tree: KoKoProgram, ctx: KoKoContext): KoKoValue? {

@@ -1,25 +1,24 @@
-/** 
-   Andrey Arguedas Espinoza
-   Daniela Armas Sanchez
-   Michael Chen Wang
-   Kimberly Olivas Delgado
-*/
+/**
+Andrey Arguedas Espinoza
+Daniela Armas Sanchez
+Michael Chen Wang
+Kimberly Olivas Delgado
+ */
 
 package kokoslan.kotlin.ast
 
 import java.util.*
-import java.io.*
 import kokoslan.kotlin.eval.*
 import kokoslan.kotlin.exception.*
 
-open class KoKoBiOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoOperation(oper, Arrays.asList(left, right)) {
+open class KoKoBiOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoOperation(oper, Arrays.asList(left, right)) {
 
     fun left(): KoKoAst {
-        return this.operands.get(0)
+        return this.operands[0]
     }
 
     fun right(): KoKoAst {
-        return this.operands.get(1)
+        return this.operands[1]
     }
 
     override fun eval(ctx: KoKoContext): KoKoValue {
@@ -27,16 +26,16 @@ open class KoKoBiOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoOp
             val operId = this.oper as KoKoId
             val lv = left().eval(ctx) as KoKoNumValue
             val rv = right().eval(ctx) as KoKoNumValue
-            when(operId.getValue()) {
-                "+" -> return KoKoNumValue(lv.getValue() + rv.getValue())
-                "-" -> return KoKoNumValue(lv.getValue() - rv.getValue())
-                "*" -> return KoKoNumValue(lv.getValue() * rv.getValue())
-                else -> throw KoKoEvalException("KoKoBiOperation unimpemented operator")
+            return when (operId.getValue()) {
+                "+" -> KoKoNumValue(lv.getValue() + rv.getValue())
+                "-" -> KoKoNumValue(lv.getValue() - rv.getValue())
+                "*" -> KoKoNumValue(lv.getValue() * rv.getValue())
+                else -> throw KoKoEvalException("KoKoBiOperation unimplemented operator")
             }
 
         } catch (e: Exception) {
             throw KoKoEvalException(e.message!!)
         }
     }
-    
+
 }

@@ -1,41 +1,24 @@
-/** 
-   Andrey Arguedas Espinoza
-   Daniela Armas Sanchez
-   Michael Chen Wang
-   Kimberly Olivas Delgado
-*/
+/**
+Andrey Arguedas Espinoza
+Daniela Armas Sanchez
+Michael Chen Wang
+Kimberly Olivas Delgado
+ */
 
 package kokoslan.kotlin.compiler
 
-import java.util.*
 import kokoslan.kotlin.ast.*
 import kokoslan.kotlin.eval.*
-import kokoslan.kotlin.exception.*
-import kokoslan.kotlin.primitive.KoKoCons
-
-/* SEE THE GRAMMAR AND COMPARE IT WITH THIS, THIS INTERFACE
-    IS VERY IMPORTANT, GIVES GRAMMAR A SENSE, TURNS GRAMMAR WORDS
-    TO OBJECTS, EACH TIME SOMETHING IS CHANGED IN GRAMMAR
-    IS NECESSARY TO CHANGE IT OR IMPLEMENT IT HERE
-*/
 
 interface KoKoEmiter {
-
-    val CONS: KoKoCons get() = KoKoCons()
 
     val TRUE: KoKoBool get() = KoKoBool(true)
     val FALSE: KoKoBool get() = KoKoBool(false)
 
-    val PLUS: KoKoAst get() = KoKoId("+")
-    val MINUS: KoKoAst get() = KoKoId("-")
-    val MULT: KoKoAst get() = KoKoId("*")
     val DIV: KoKoAst get() = KoKoId("/")
-    val MODULUS: KoKoAst get() = KoKoId("%")
-    val POW: KoKoAst get() = KoKoId("^")
-    val ERROR: KoKoAst get() = KoKoId("??")
 
-    fun PROGRAM(stmts: MutableList < KoKoAst > ): KoKoProgram {
-        return KoKoProgram(stmts)
+    fun PROGRAM(statements: MutableList<KoKoAst>): KoKoProgram {
+        return KoKoProgram(statements)
     }
 
     fun LET(id: KoKoAst, expr: KoKoAst): KoKoAst {
@@ -46,13 +29,13 @@ interface KoKoEmiter {
         return KoKoId(oper)
     }
 
-    fun OPERATION(oper: KoKoAst, operands: MutableList < KoKoAst > ): KoKoAst {
+    fun OPERATION(oper: KoKoAst, operands: MutableList<KoKoAst>): KoKoAst {
         return KoKoOperation(oper, operands)
     }
 
     fun BI_OPERATION(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoAst {
         val id = oper as KoKoId
-        when(id.getValue()) {
+        when (id.getValue()) {
             "+" -> return KoKoPLUS(oper, left, right)
             "-" -> return KoKoMINUS(oper, left, right)
             "*" -> return KoKoMULT(oper, left, right)
@@ -65,7 +48,7 @@ interface KoKoEmiter {
 
     fun BOOL_OPERATION(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoAst {
         val id = oper as KoKoId
-        return when(id.getValue()) { //I think we can put all the operators in a hash or list and use contains. Chen: I agree
+        return when (id.getValue()) {
             "<", ">", "<=", ">=", "==", "!=", "||", "&&" -> {
                 KoKoBoolOperation(oper, left, right)
             }
@@ -90,7 +73,7 @@ interface KoKoEmiter {
         return KoKoId(value)
     }
 
-    fun LIST(expressions: List < KoKoAst > , nat: Boolean): KoKoList { //Arguments with expressions 
+    fun LIST(expressions: List<KoKoAst>, nat: Boolean): KoKoList { //Arguments with expressions
         return KoKoList(expressions, nat)
     }
 
@@ -106,7 +89,7 @@ interface KoKoEmiter {
         return KoKoListPat(head, rest)
     }
 
-    fun CASE(lambdas: List < KoKoAst > ): KoKoCase {
+    fun CASE(lambdas: List<KoKoAst>): KoKoCase {
         return KoKoCase(lambdas)
     }
 

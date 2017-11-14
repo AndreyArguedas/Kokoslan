@@ -1,3 +1,3 @@
 package kokoslan.kotlin.exception
 
-class KoKoFailException() : RuntimeException("*** KoKoFail exception!!!!! ***")
+class KoKoFailException(msg: String = "*** KoKoFail exception!!!!! ***") : RuntimeException(msg)

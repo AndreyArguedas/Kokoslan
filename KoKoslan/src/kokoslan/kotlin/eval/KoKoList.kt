@@ -7,32 +7,27 @@
 
 package kokoslan.kotlin.eval
 
-import java.util.*;
-import java.io.*;
+import java.util.*
+import java.io.*
 import kokoslan.kotlin.ast.*
-import kokoslan.kotlin.exception.*
 
 
-/*  Lists of KoKoAst objects
-    KoKoAst : Generates code with PrintStream,
-    and can evaluate context and pass it to kokovalues
- */
-class KoKoList(var list : List<KoKoAst>? = null, var kokoNativeList: Boolean = false) : ArrayList<KoKoAst>(list), KoKoAst{
+class KoKoList(var list : List<KoKoAst>? = null, private var kokoNativeList: Boolean = false) : ArrayList<KoKoAst>(list), KoKoAst{
     
     override fun genCode(Out : PrintStream){
         if(this.size == 0) return
-        if(kokoNativeList == true)
+        if(kokoNativeList)
             Out.print("[ ")
-        this.get(0).genCode(Out)
+        this[0].genCode(Out)
         this.drop(1)
             .forEach{Out.print(", "); it.genCode(Out);}
-        if(kokoNativeList == true)
+        if(kokoNativeList)
             Out.print("] ")
     }
 
     override fun eval(ctx : KoKoContext) : KoKoValue? {
         val res = KoKoListValue()
-        for(i in 0 .. this.size-1) res.add(this.get(i).eval(ctx))
+        (0 until this.size).mapTo(res) { this[it].eval(ctx) }
         return res
     }
 

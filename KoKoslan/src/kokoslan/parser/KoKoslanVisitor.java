@@ -154,13 +154,6 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitListValueExpr(KoKoslanParser.ListValueExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code InnerCaseExpr}
-	 * labeled alternative in {@link KoKoslanParser#value_expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInnerCaseExpr(KoKoslanParser.InnerCaseExprContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code EvaluableLambdaExpr}
 	 * labeled alternative in {@link KoKoslanParser#value_expr}.
 	 * @param ctx the parse tree

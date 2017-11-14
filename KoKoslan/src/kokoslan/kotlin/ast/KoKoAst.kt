@@ -9,7 +9,6 @@ package kokoslan.kotlin.ast
 
 import java.io.*
 import kokoslan.kotlin.eval.*
-import kokoslan.kotlin.exception.*
 
 interface KoKoAst {
    fun genCode() {

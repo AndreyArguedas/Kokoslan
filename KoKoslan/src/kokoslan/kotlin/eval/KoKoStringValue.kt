@@ -7,7 +7,4 @@
 
 package kokoslan.kotlin.eval
 
-import kokoslan.kotlin.ast.*
-import kokoslan.kotlin.exception.*
-
-class KoKoStringValue(value : String) : KoKoAtomValue<String>(value){}
+class KoKoStringValue(val value : String) : KoKoAtomValue<String>(value)
