@@ -313,7 +313,7 @@ class KoKoCompiler(private var outputFile: String? = null) : KoKoslanBaseVisitor
     }
 
     override fun visitList_body_pat(ctx: KoKoslanParser.List_body_patContext): KoKoAst {
-        val pattern: KoKoAst = visit(ctx.pattern(0))
+        val pattern: KoKoAst = visit(ctx.part_expr(0))
         val rest: KoKoAst = visit(ctx.rest_body_pat())
         return LIST_PAT(pattern, rest)
     }

@@ -1,8 +1,4 @@
 
-let map = \f. {
-        [] -> []
-	  | [x | r] -> [ f(x) | map(f)(r) ]
+let map = \f . { [] -> [] | [ x | r ] -> [ f(x) | map( f )( r ) ] }
 
-}
-
-map(\x.x*x)([1,2,3])
+map( \x. x * x )( [ 1 , 2 , 3 ] )

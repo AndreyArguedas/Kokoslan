@@ -75,8 +75,11 @@ data class KoKoCall(private var head: KoKoAst, private var args: KoKoList = KoKo
         val vv = this.head.eval(ctx) //A closure is expected
         if (vv is KoKoLambdaValue)
             return beta_reduction(vv, args[0].eval(ctx)!!)
+        if (vv is KoKoCaseValue)
+            return case_beta_reduction(vv, args[0].eval(ctx)!!)
         return vv //There's not more closure inside the chain of calls
     }
+
 
     private fun beta_reduction(closure: KoKoLambdaValue, valueOfArg: KoKoValue): KoKoValue? {
         if (closure.pattern is KoKoListPat && valueOfArg is KoKoListValue) {
