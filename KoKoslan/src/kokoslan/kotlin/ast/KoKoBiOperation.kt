@@ -30,6 +30,9 @@ open class KoKoBiOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoO
                 "+" -> KoKoNumValue(lv.getValue() + rv.getValue())
                 "-" -> KoKoNumValue(lv.getValue() - rv.getValue())
                 "*" -> KoKoNumValue(lv.getValue() * rv.getValue())
+                "/" -> KoKoNumValue(lv.getValue() / rv.getValue())
+                "%" -> KoKoNumValue(lv.getValue() % rv.getValue())
+                "^" -> KoKoNumValue(Math.pow(lv.getValue(), rv.getValue()))
                 else -> throw KoKoEvalException("KoKoBiOperation unimplemented operator")
             }
 

@@ -10,15 +10,21 @@ package kokoslan.kotlin.ast
 import java.io.*
 import kokoslan.kotlin.eval.*
 
-class KoKoTest(private val condition : KoKoAst, private val successExpr : KoKoAst, private var failExpr : KoKoAst) : KoKoAst{
+class KoKoTest(private val condition: KoKoAst, private val successExpr: KoKoAst, private var failExpr: KoKoAst) : KoKoAst {
 
-    fun getCondition() : KoKoAst { return this.condition }
+    private fun getCondition(): KoKoAst {
+        return this.condition
+    }
 
-    fun getSuccessExpr() : KoKoAst { return this.successExpr }
+    private fun getSuccessExpr(): KoKoAst {
+        return this.successExpr
+    }
 
-    fun getFailExpr() : KoKoAst { return this.failExpr }
+    private fun getFailExpr(): KoKoAst {
+        return this.failExpr
+    }
 
-    override fun genCode(Out : PrintStream){
+    override fun genCode(Out: PrintStream) {
 
         getCondition().genCode(Out)
         Out.print(" ? ")
@@ -27,14 +33,13 @@ class KoKoTest(private val condition : KoKoAst, private val successExpr : KoKoAs
         getFailExpr().genCode(Out)
     }
 
-    override fun eval(ctx : KoKoContext) : KoKoValue? {
-        var cond  = getCondition().eval(ctx)
-        if(cond is KoKoBoolValue){
-            var value = when(cond.getValue()){
-                                    true -> getSuccessExpr().eval(ctx)
-                                    false -> getFailExpr().eval(ctx)
+    override fun eval(ctx: KoKoContext): KoKoValue? {
+        val cond = getCondition().eval(ctx)
+        if (cond is KoKoBoolValue) {
+            return when (cond.getValue()) {
+                true -> getSuccessExpr().eval(ctx)
+                false -> getFailExpr().eval(ctx)
             }
-            return value
         }
         return null
     }

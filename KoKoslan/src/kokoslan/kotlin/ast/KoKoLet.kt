@@ -1,34 +1,34 @@
-/** 
-   Andrey Arguedas Espinoza
-   Daniela Armas Sanchez
-   Michael Chen Wang
-   Kimberly Olivas Delgado
-*/
+/**
+Andrey Arguedas Espinoza
+Daniela Armas Sanchez
+Michael Chen Wang
+Kimberly Olivas Delgado
+ */
 
 package kokoslan.kotlin.ast
 
 import java.io.*
 import kokoslan.kotlin.eval.*
-import kokoslan.kotlin.exception.*
 
-class KoKoLet(private var id : KoKoAst, private var expr : KoKoAst) : KoKoAst {
+class KoKoLet(private var id: KoKoAst, private var expr: KoKoAst) : KoKoAst {
 
-   fun getId() : KoKoAst {return this.id}
+    fun getId(): KoKoAst {
+        return this.id
+    }
 
-   fun getExpr() : KoKoAst {return this.expr}
-   
-   override fun genCode(Out : PrintStream){
-      Out.print("let ")
-	  this.id.genCode(Out)
-	  Out.print(" = ")
-	  this.expr.genCode(Out)
-	  Out.println()
-   }
-   
-   override fun eval(ctx : KoKoContext) : KoKoValue?{
-	   val value = expr.eval(ctx)
-	   ctx.assoc(id as KoKoId, value)
-	   return value
-   }
-   
+
+    override fun genCode(Out: PrintStream) {
+        Out.print("let ")
+        this.id.genCode(Out)
+        Out.print(" = ")
+        this.expr.genCode(Out)
+        Out.println()
+    }
+
+    override fun eval(ctx: KoKoContext): KoKoValue? {
+        val value = expr.eval(ctx)
+        ctx.assoc(id as KoKoId, value)
+        return value
+    }
+
 }

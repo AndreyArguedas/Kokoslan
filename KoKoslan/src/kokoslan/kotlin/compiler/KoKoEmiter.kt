@@ -29,20 +29,16 @@ interface KoKoEmiter {
         return KoKoId(oper)
     }
 
-    fun OPERATION(oper: KoKoAst, operands: MutableList<KoKoAst>): KoKoAst {
-        return KoKoOperation(oper, operands)
-    }
-
     fun BI_OPERATION(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoAst {
         val id = oper as KoKoId
-        when (id.getValue()) {
-            "+" -> return KoKoPLUS(oper, left, right)
-            "-" -> return KoKoMINUS(oper, left, right)
-            "*" -> return KoKoMULT(oper, left, right)
-            "/" -> return KoKoDIV(oper, left, right)
-            "%" -> return KoKoMODULUS(oper, left, right)
-            "^" -> return KoKoPOW(oper, left, right)
-            else -> return KoKoBiOperation(oper, left, right)
+        return when (id.getValue()) {
+            "+" -> KoKoBiOperation(oper, left, right)
+            "-" -> KoKoBiOperation(oper, left, right)
+            "*" -> KoKoBiOperation(oper, left, right)
+            "/" -> KoKoBiOperation(oper, left, right)
+            "%" -> KoKoBiOperation(oper, left, right)
+            "^" -> KoKoBiOperation(oper, left, right)
+            else -> KoKoBiOperation(oper, left, right)
         }
     }
 
