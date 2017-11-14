@@ -32,7 +32,7 @@ data class KoKoCall(private var head: KoKoAst, private var args: KoKoList = KoKo
         if (this.head is KoKoId)
             if (this.head.toString() == "length")
                 if (!ctx.contains(KoKoId("length")))
-                    return KoKoLength().eval(this.args.first().eval(ctx)!!, ctx)
+                    return KoKoLength().eval(this.args.first().eval(ctx)!!)
 
         when ((this.head as KoKoId).getValue()) {
             "print" -> printArguments(ctx)

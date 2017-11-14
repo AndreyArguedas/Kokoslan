@@ -10,6 +10,9 @@ package kokoslan.kotlin.compiler
 import kokoslan.parser.*
 import kokoslan.kotlin.ast.*
 import kokoslan.kotlin.eval.*
+import kokoslan.kotlin.primitive.KoKoCons
+import kokoslan.kotlin.primitive.KoKoFirst
+import kokoslan.kotlin.primitive.KoKoRest
 
 import org.antlr.v4.runtime.tree.ParseTree
 
@@ -20,7 +23,7 @@ class KoKoCompiler(private var outputFile: String? = null) : KoKoslanBaseVisitor
 
     private var program: KoKoAst? = null
     private var statements: MutableList<KoKoAst> = mutableListOf()
-    private var primitives = hashSetOf("cons", "first", "rest", "length") //Primitives
+    private var primitives = mutableMapOf("cons" to KoKoCons(), "first" to KoKoFirst(), "rest" to KoKoRest())
 
     private fun getProgram(): KoKoProgram {
         return PROGRAM(statements)
@@ -282,13 +285,8 @@ class KoKoCompiler(private var outputFile: String? = null) : KoKoslanBaseVisitor
         var head: KoKoAst = visit(ctx.value_expr())
         val args: KoKoList = visit(ctx.call_args()) as KoKoList
         if (head is KoKoId) {
-            if (head.getValue() in primitives) {
-                when (head.getValue()) {
-                    "cons" -> head = LAMBDA(ID("#x"), LAMBDA(ID("#y"), LIST_PAT(ID("#x"), ID("#y")), false), true)
-                    "rest" -> head = LAMBDA(LIST_PAT(ID("#x"), ID("#y")), ID("#y"), false)
-                    "first" -> head = LAMBDA(LIST_PAT(ID("#x"), ID("#y")), ID("#x"), false)
-                }
-            }
+            if (head.getValue() in primitives)
+                head = primitives[head.getValue()]?.buildLambdaPrimitive()!!
         }
         return CALL(head, args)
     }
