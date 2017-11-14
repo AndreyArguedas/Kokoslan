@@ -1,9 +1,9 @@
 package kokoslan.kotlin.primitive
 
-import kokoslan.kotlin.eval.KoKoContext
-import kokoslan.kotlin.eval.KoKoValue
+import kokoslan.kotlin.ast.KoKoAst
+
 
 interface KoKoPrimitive {
     val name: String
-    fun eval(value: KoKoValue, ctx: KoKoContext): KoKoValue?
+    fun buildLambdaPrimitive() : KoKoAst
 }

@@ -10,26 +10,22 @@ package kokoslan.kotlin.compiler
 import kokoslan.parser.*
 import kokoslan.kotlin.ast.*
 import kokoslan.kotlin.eval.*
-import kokoslan.kotlin.exception.*
+import kokoslan.kotlin.primitive.KoKoCons
+import kokoslan.kotlin.primitive.KoKoFirst
+import kokoslan.kotlin.primitive.KoKoRest
 
-import org.antlr.v4.runtime.*
 import org.antlr.v4.runtime.tree.ParseTree
 
-import java.util.*
-import java.util.stream.*
 import java.io.*
 
-/* THIS CLASS USES WHAT PARSER GENERATED AND GIVES AN IMPLEMENTATION 
-   PLEASE DO SOME RESEARCH OF VISISTOR PATTERN FIRST
-*/
 
-class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisitor<KoKoAst>(), KoKoEmiter {
+class KoKoCompiler(private var outputFile: String? = null) : KoKoslanBaseVisitor<KoKoAst>(), KoKoEmiter {
 
-    protected var program: KoKoAst? = null
-    protected var statements: MutableList<KoKoAst> = mutableListOf<KoKoAst>()
-    protected var primitives = hashSetOf<String>("cons", "first", "rest", "length")
+    private var program: KoKoAst? = null
+    private var statements: MutableList<KoKoAst> = mutableListOf()
+    private var primitives = mutableMapOf("cons" to KoKoCons(), "first" to KoKoFirst(), "rest" to KoKoRest())
 
-    fun getProgram(): KoKoProgram {
+    private fun getProgram(): KoKoProgram {
         return PROGRAM(statements)
     }
 
@@ -86,24 +82,15 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitArrowLambda(ctx: KoKoslanParser.ArrowLambdaContext): KoKoAst {
-        var id: KoKoAst = visit(ctx.pattern(0))
-        val pattern = id
+        val id: KoKoAst = visit(ctx.pattern(0))
         var expr = if (ctx.expression() != null) visit(ctx.expression()) else visit(ctx.pattern(1))
-        /*
-        expr = TEST(BOOL_OPERATION(ID("=="), ID("#x"), pattern), expr, CALL(ID("#n"), KoKoList(listOf(ID("#x")))))
-        //val expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
-        expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
-        return expr
-        */
 
-        when (pattern) {
+        when (id) {
             is KoKoBool,
             is KoKoList,
             is KoKoNum -> {
-                expr = TEST(BOOL_OPERATION(ID("=="), ID("#x"), pattern), expr, CALL(ID("#n"), KoKoList(listOf(ID("#x")))))
-                //val expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
-                val expr = LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
-                return expr
+                expr = TEST(BOOL_OPERATION(ID("=="), ID("#x"), id), expr, CALL(ID("#n"), KoKoList(listOf(ID("#x")))))
+                return LAMBDA(ID("#x"), LAMBDA(ID("#n"), expr, false), false)
             }
             is KoKoListPat -> {
                 return LAMBDA(id, expr, false)
@@ -120,8 +107,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitCase_value(ctx: KoKoslanParser.Case_valueContext): KoKoAst {
-        val caseExpr: KoKoAst = visit(ctx.case_expr(0))
-        return caseExpr
+        return visit(ctx.case_expr(0))
     }
 
     override fun visitEvaluable_expr(ctx: KoKoslanParser.Evaluable_exprContext): KoKoAst {
@@ -142,12 +128,11 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 
     override fun visitCase_expr(ctx: KoKoslanParser.Case_exprContext): KoKoAst {
 
-        var lambdas: List<KoKoAst> = ctx.lambda_expr().mapIndexed { idx, it ->
-            val lmda = visit(it)
-            LET(ID("case_$idx"), lmda)
+        val lambdas: List<KoKoAst> = ctx.lambda_expr().mapIndexed { idx, it ->
+            LET(ID("case_$idx"), visit(it))
         }
 
-        var allCases = mutableListOf<KoKoAst>(defaultExpression())
+        var allCases = mutableListOf(defaultExpression())
 
         lambdas.reversed().forEach { allCases.add(it) }
 
@@ -156,13 +141,13 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
         allCases = allCases.asReversed()
         allCases.add(mainLambda)
 
-        return CASE(allCases) //Se le da vuelta a la lista
+        return CASE(allCases)
     }
 
 
     override fun visitParentValueExpr(ctx: KoKoslanParser.ParentValueExprContext): KoKoAst {
         val operation: KoKoAst = visit(ctx.expression().part_expr(0).logic_expr())
-        return operation;
+        return operation
     }
 
 
@@ -176,9 +161,9 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 
         val operands = ctx.mult_expr().map { visit(it) }
 
-        var r: Array<KoKoAst> = arrayOf(operands.get(0))
+        val r: Array<KoKoAst> = arrayOf(operands[0])
         (1 until operands.size).forEach {
-            r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it))
+            r[0] = BI_OPERATION(operators[it - 1], r[0], operands[it])
         }
         return r[0]
     }
@@ -197,21 +182,20 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
 
         val operands = ctx.rel_expr().map { visit(it) }
 
-        var r: Array<KoKoAst> = arrayOf(operands.get(0))
+        val r: Array<KoKoAst> = arrayOf(operands[0])
         (1 until operands.size).forEach {
-            r[0] = BOOL_OPERATION(operators.get(it - 1), r[0], operands.get(it))
+            r[0] = BOOL_OPERATION(operators[it - 1], r[0], operands[it])
         }
         return r[0]
     }
 
     override fun visitRel_expr(ctx: KoKoslanParser.Rel_exprContext): KoKoAst { //Este visit soporta los NOT simples
         // Check if only one operand. Then just visit down
-        if (ctx.evaluable_expr() == null) //En este caso es que viene el not (!)
+        if (ctx.evaluable_expr() == null) //Whe a '!' expression comes
             return UNARY_OPERATION(OPERATOR("!"), visit(ctx.logic_expr()), true)
         else return visit(ctx.evaluable_expr())
 
     }
-
 
     override fun visitRel_oper(ctx: KoKoslanParser.Rel_operContext): KoKoAst {
         return OPERATOR(ctx.oper.text)
@@ -246,9 +230,9 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
             visit(it)
         }
 
-        var r: Array<KoKoAst> = arrayOf(operands.get(0))
+        val r: Array<KoKoAst> = arrayOf(operands[0])
         (1 until operands.size).forEach {
-            r[0] = BI_OPERATION(operators.get(it - 1), r[0], operands.get(it))
+            r[0] = BI_OPERATION(operators[it - 1], r[0], operands[it])
         }
         return r[0]
     }
@@ -270,9 +254,9 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
             visit(it)
         }
 
-        var r: Array<KoKoAst> = arrayOf(operands.get(0))
+        val r: Array<KoKoAst> = arrayOf(operands[0])
         (1 until operands.size).forEach {
-            r[0] = BOOL_OPERATION(operators.get(it - 1), r[0], operands.get(it))
+            r[0] = BOOL_OPERATION(operators[it - 1], r[0], operands[it])
         }
         return r[0]
     }
@@ -301,25 +285,8 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
         var head: KoKoAst = visit(ctx.value_expr())
         val args: KoKoList = visit(ctx.call_args()) as KoKoList
         if (head is KoKoId) {
-            if (head.getValue() in primitives) {
-                when (head.getValue()) {
-                    "cons" -> head = LAMBDA(ID("#x"), LAMBDA(ID("#y"), LIST_PAT(ID("#x"), ID("#y")), false), true)
-                    "rest" -> head = LAMBDA(LIST_PAT(ID("#x"), ID("#y")), ID("#y"), false)
-                    "first" -> head = LAMBDA(LIST_PAT(ID("#x"), ID("#y")), ID("#x"), false)
-                /*
-                "length"-> head = LAMBDA(ID("#l"),
-                                         TEST(BOOL_OPERATION(ID("=="), ID("#l"), LIST(true)),
-                                              NUM(0.0),
-                                              BI_OPERATION(OPERATOR("+"),
-                                                           CALL(ID("length"),
-                                                                LIST(listOf(CALL(ID("rest"),
-                                                                                 LIST(listOf(ID("#l")),
-                                                                                      false))),
-                                                                     false)),
-                                                           NUM(1.0))), false)
-                                                           */
-                }
-            }
+            if (head.getValue() in primitives)
+                head = primitives[head.getValue()]?.buildLambdaPrimitive()!!
         }
         return CALL(head, args)
     }
@@ -331,8 +298,8 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitList_expr(ctx: KoKoslanParser.List_exprContext): KoKoAst {
-        val exprs: List<KoKoAst> = ctx.expression().map { visit(it) }
-        return LIST(exprs, false)
+        val expressions: List<KoKoAst> = ctx.expression().map { visit(it) }
+        return LIST(expressions, false)
     }
 
     override fun visitList_value(ctx: KoKoslanParser.List_valueContext): KoKoAst {
@@ -341,7 +308,7 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
     }
 
     override fun visitList_pat(ctx: KoKoslanParser.List_patContext): KoKoAst {
-        return if(ctx.list_body_pat() == null) LIST()
+        return if (ctx.list_body_pat() == null) LIST()
         else visit(ctx.list_body_pat())
     }
 
@@ -351,22 +318,24 @@ class KoKoCompiler(protected var outputFile: String? = null) : KoKoslanBaseVisit
         return LIST_PAT(pattern, rest)
     }
 
-    fun defaultExpression(): KoKoAst {
+    private fun defaultExpression(): KoKoAst {
         val myLambda = LAMBDA(ID("#x"), CALL(ID("fail"), LIST(listOf(ID("#x")), false)), false)
         return LET(ID("else_1"), myLambda)
     }
 
-    fun packLambdas(lambdas: MutableList<KoKoAst>): KoKoAst { //Y si lo hacemos iterativo para no parir con el caso base?
+    private fun packLambdas(lambdas: MutableList<KoKoAst>): KoKoAst {
         var mainCall: KoKoCall
-        val kkl = lambdas.first() as KoKoLet
-        val next = lambdas.drop(1).first() as KoKoLet
-        mainCall = KoKoCall(kkl.getId(), LIST(listOf(ID("#x")), false))
+        val kokolet = lambdas.first() as KoKoLet
+
+        mainCall = KoKoCall(kokolet.getId(), LIST(listOf(ID("#x")), false))
+
         lambdas.drop(1).toMutableList().forEach {
             it as KoKoLet
             val anotherCall = KoKoCall(it.getId(), LIST(listOf(ID("#x")), false))
             val lambda = KoKoLambda(ID("#x"), anotherCall, false)
             mainCall = KoKoCall(mainCall, LIST(listOf(lambda), false))
         }
+
         return LAMBDA(ID("#x"), mainCall, false)
     }
 }

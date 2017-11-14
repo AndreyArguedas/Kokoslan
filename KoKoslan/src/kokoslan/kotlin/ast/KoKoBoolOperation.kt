@@ -7,51 +7,44 @@
 
 package kokoslan.kotlin.ast
 
-import kokoslan.kotlin.exception.KoKoFailException
 import java.util.*
-import java.io.*
 import kokoslan.kotlin.eval.*
 import kokoslan.kotlin.exception.*
 
 class KoKoBoolOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoOperation(oper, Arrays.asList(left, right)) {
 
-    fun left(): KoKoAst {
-        return operands.get(0)
+    private fun left(): KoKoAst {
+        return operands[0]
     }
 
-    fun right(): KoKoAst {
-        return operands.get(1)
+    private fun right(): KoKoAst {
+        return operands[1]
     }
 
 	override fun eval(ctx: KoKoContext): KoKoValue{
 	   try {
 	        val operId = oper as KoKoId
-			var lv = left().eval(ctx)!!
-			var rv = right().eval(ctx)!!
+			val lv = left().eval(ctx)!!
+			val rv = right().eval(ctx)!!
 
-			when (operId.getValue()){
-				"<" ->  { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() < rv.getValue())}
-                ">" ->  { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() > rv.getValue())}
-                "<=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() <= rv.getValue())}
-                ">=" -> { lv as KoKoNumValue; rv as KoKoNumValue; return KoKoBoolValue(lv.getValue() >= rv.getValue())}
-                "==" -> { return equals(lv, rv) }
-                "!=" -> { return notEquals(lv, rv) }
-                "||" -> { lv as KoKoBoolValue; rv as KoKoBoolValue; return KoKoBoolValue(lv.getValue() || rv.getValue())}
-                "&&" -> { lv as KoKoBoolValue; rv as KoKoBoolValue; return KoKoBoolValue(lv.getValue() && rv.getValue())}
-				else -> throw KoKoEvalException("KoKoBoolOperation unimpemented operator")
-			}
+           return when (operId.getValue()){
+               "<" ->  { lv as KoKoNumValue; rv as KoKoNumValue; KoKoBoolValue(lv.getValue() < rv.getValue())  }
+               ">" ->  { lv as KoKoNumValue; rv as KoKoNumValue; KoKoBoolValue(lv.getValue() > rv.getValue())  }
+               "<=" -> { lv as KoKoNumValue; rv as KoKoNumValue; KoKoBoolValue(lv.getValue() <= rv.getValue()) }
+               ">=" -> { lv as KoKoNumValue; rv as KoKoNumValue; KoKoBoolValue(lv.getValue() >= rv.getValue()) }
+               "==" -> { equals(lv, rv) }
+               "!=" -> { notEquals(lv, rv) }
+               "||" -> { lv as KoKoBoolValue; rv as KoKoBoolValue; KoKoBoolValue(lv.getValue() || rv.getValue())}
+               "&&" -> { lv as KoKoBoolValue; rv as KoKoBoolValue; KoKoBoolValue(lv.getValue() && rv.getValue())}
+               else -> throw KoKoEvalException("KoKoBoolOperation unimpemented operator")
+           }
 	   } catch (e: Exception) {
 			throw KoKoEvalException(e.message!!)
        }
    }
-    //<
-    fun lt(lv: KoKoValue, rv: KoKoValue): KoKoBoolValue {
-        if(lv is KoKoNumValue && rv is KoKoNumValue)
-            return KoKoBoolValue(lv.getValue() < rv.getValue())
-        throw KoKoEvalException("Not implemented")
-    }
 
-    fun equals(lv: KoKoValue, rv: KoKoValue): KoKoBoolValue {
+
+    private fun equals(lv: KoKoValue, rv: KoKoValue): KoKoBoolValue {
         if(lv is KoKoNumValue && rv is KoKoNumValue)
             return KoKoBoolValue(lv.getValue() == rv.getValue())
 
@@ -64,7 +57,7 @@ class KoKoBoolOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoOper
         throw KoKoEvalException("Not implemented")
     }
 
-    fun notEquals(lv: KoKoValue, rv: KoKoValue): KoKoBoolValue {
+    private fun notEquals(lv: KoKoValue, rv: KoKoValue): KoKoBoolValue {
         if(lv is KoKoNumValue && rv is KoKoNumValue)
             return KoKoBoolValue(lv.getValue() != rv.getValue())
         if(lv is KoKoListValue && rv is KoKoListValue)

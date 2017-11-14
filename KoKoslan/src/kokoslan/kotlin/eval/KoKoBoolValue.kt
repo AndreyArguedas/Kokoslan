@@ -7,10 +7,7 @@
 
 package kokoslan.kotlin.eval
 
-import kokoslan.kotlin.ast.*
-import kokoslan.kotlin.exception.*
-
-class KoKoBoolValue(value: Boolean) : KoKoAtomValue<Boolean>(value){
+class KoKoBoolValue(var value: Boolean) : KoKoAtomValue<Boolean>(value){
     override fun getValue(): Boolean {
         return super.getValue()
     }

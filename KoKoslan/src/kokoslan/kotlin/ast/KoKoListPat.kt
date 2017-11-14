@@ -5,10 +5,6 @@ import java.io.PrintStream
 
 class KoKoListPat(val head : KoKoAst, val rest : KoKoAst) : KoKoAst{
 
-    /*fun getHead() : KoKoAst { return head }
-
-    fun getExpr() : KoKoAst { return this.expr }*/
-
     override fun genCode(Out : PrintStream){
         Out.print("[")
         this.head.genCode(Out)

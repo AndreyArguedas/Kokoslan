@@ -7,4 +7,4 @@
 
 package kokoslan.kotlin.exception
 
-class KoKoStackUnderflow : RuntimeException("*** Pop of an empty context ***"){}
+class KoKoStackUnderflow(msg : String = "*** Pop of an empty context ***")  : RuntimeException(msg)

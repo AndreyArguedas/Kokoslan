@@ -103,7 +103,7 @@ atomic_pat   : id | number | bool
 ;
 list_pat     : '[' list_body_pat? ']'
 ;
-list_body_pat : pattern  rest_body_pat?
+list_body_pat : pattern (',' pattern)* rest_body_pat?
 ;
 rest_body_pat : '|' (id | list_pat)
 ;

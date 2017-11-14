@@ -9,4 +9,4 @@ package kokoslan.kotlin.exception
 
 import kokoslan.kotlin.ast.*
 
-class KoKoNotFoundId(id: KoKoId) : RuntimeException("*** Id ${id.getValue()} is not defined! ***"){}
+class KoKoNotFoundId(id: KoKoId) : RuntimeException("*** Id ${id.getValue()} is not defined! ***")

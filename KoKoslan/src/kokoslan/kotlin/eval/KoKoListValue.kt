@@ -7,10 +7,7 @@
 
 package kokoslan.kotlin.eval
 
-import java.util.*;
-import java.io.*;
-import kokoslan.kotlin.ast.*
-import kokoslan.kotlin.exception.*
+import java.util.*
 
 class KoKoListValue: ArrayList<KoKoValue?>, KoKoValue{
     constructor() : super()

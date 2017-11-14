@@ -7,10 +7,8 @@
 
 package kokoslan.kotlin.ast
 
-import java.util.*
 import java.io.*
 import kokoslan.kotlin.eval.*
-import kokoslan.kotlin.exception.*
 
 class KoKoProgram(private val statements: List < KoKoAst > ): KoKoAst {
 
@@ -22,15 +20,14 @@ class KoKoProgram(private val statements: List < KoKoAst > ): KoKoAst {
 
     override fun eval(ctx: KoKoContext): KoKoValue? {
         var res: KoKoValue?
-        for (i in 0 until statements.size - 1){
-            val statemnt = statements.get(i)
-            res = statemnt.eval(ctx)
-        }
-        res = statements.get(statements.size - 1).eval(ctx)
+        (0 until statements.size - 1)
+                .map { statements.get(it) }
+                .forEach { res = it.eval(ctx) }
+        res = statements[statements.size - 1].eval(ctx)
         return res
     }
 
-    fun eval(): KoKoValue? { //El eval empieza ca
+    fun eval(): KoKoValue? {
         return eval(KoKoContext())
     }
     

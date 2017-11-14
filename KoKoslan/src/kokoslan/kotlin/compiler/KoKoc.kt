@@ -1,42 +1,36 @@
-/** 
-   Andrey Arguedas Espinoza
-   Daniela Armas Sanchez
-   Michael Chen Wang
-   Kimberly Olivas Delgado
-*/
+/**
+Andrey Arguedas Espinoza
+Daniela Armas Sanchez
+Michael Chen Wang
+Kimberly Olivas Delgado
+ */
 
-package kokoslan.kotlin.compiler;
+package kokoslan.kotlin.compiler
 
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.*
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 
-import kokoslan.parser.*;
-import kokoslan.kotlin.ast.*
-import kokoslan.kotlin.eval.*
-import kokoslan.kotlin.exception.*
+import java.io.FileInputStream
+import java.io.InputStream
+
+import kokoslan.parser.*
+
 
 const val VERSION = "KoKoc v1.3 CR EIF400.II-2017"
 const val PROMPT = ">"
 
 //@Throws(e : Exception)
-fun main(args : Array<String>){
+fun main(args: Array<String>) {
     println("\n...............................................")
     println(">>> $VERSION <<<")
     println("...............................................\n")
     // Get parameters
-    val NOMBRE: String
-//    NOMBRE = "basic/cases_formula_lambda"
-    NOMBRE = "advanced/cases_when_length_pat"
-//    NOMBRE = "own_cases/cases_middle_when"
-    var inputFile = "cases/$NOMBRE.kl"
-    var outputFile = "output/$NOMBRE.kl.out.kl"
-    /*
-    var inputFile: String ? = null
-    var outputFile: String ? = null
-    */
+
+    val NAME = "advanced/cases_when_length_pat"
+
+    var inputFile = "cases/$NAME.kl"
+    var outputFile = "output/$NAME.kl.out.kl"
+
     if (args.isNotEmpty())
         inputFile = args[0]
 

@@ -5,4 +5,4 @@ let fact  = {
 	| \#x . case_0  (#x )  (\#x . case_1  (#x ) )  (\#x . else_1  (#x ) ) 
 }
 
-fact  (10.0 ) 
+fact  (5.0 ) 

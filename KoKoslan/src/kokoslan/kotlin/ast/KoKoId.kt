@@ -8,7 +8,6 @@
 package kokoslan.kotlin.ast
 
 import kokoslan.kotlin.eval.*
-import kokoslan.kotlin.exception.*
 
 class KoKoId(value : String) : KoKoAtom<String>(value) {
 
