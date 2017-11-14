@@ -99,13 +99,13 @@ call_args    :  '(' list_expr? ')'
 // Patterns
 pattern      :  list_pat | atomic_pat
 ;
-atomic_pat   : id | number | bool 
+atomic_pat   : id | number | bool
 ;
 list_pat     : '[' list_body_pat? ']'
 ;
-list_body_pat : pattern (',' pattern)* rest_body_pat?
+list_body_pat : part_expr (',' part_expr)* rest_body_pat?
 ;
-rest_body_pat : '|' (id | list_pat)
+rest_body_pat : '|' (id | list_pat | value_expr)
 ;
 
 id : ID
