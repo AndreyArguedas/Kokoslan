@@ -1,0 +1,8 @@
+
+let fibo = {
+    0 -> 1
+  | 1 -> 1
+  | x -> fibo(x - 1) + fibo(x - 2)
+}
+
+fibo(10)

@@ -24,8 +24,10 @@ open class KoKoBiOperation(oper: KoKoAst, left: KoKoAst, right: KoKoAst) : KoKoO
     override fun eval(ctx: KoKoContext): KoKoValue {
         try {
             val operId = this.oper as KoKoId
-            val lv = left().eval(ctx) as KoKoNumValue
-            val rv = right().eval(ctx) as KoKoNumValue
+            val leftCtx = ctx.makeClone()
+            val rightCtx = ctx.makeClone()
+            val lv = left().eval(leftCtx) as KoKoNumValue
+            val rv = right().eval(rightCtx) as KoKoNumValue
             return when (operId.getValue()) {
                 "+" -> KoKoNumValue(lv.getValue() + rv.getValue())
                 "-" -> KoKoNumValue(lv.getValue() - rv.getValue())
