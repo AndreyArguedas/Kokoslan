@@ -76,6 +76,19 @@ value_expr        : '(' expression ')'              #ParentValueExpr
                   | value_expr call_args            #CallValueExpr
                   | atomic_value                    #AtomicValueExpr
                   | list_value                      #ListValueExpr
+                  | while_then_expr                 #WhileThenExpr
+;
+
+while_then_expr   : while_condition '{' while_body '}' then_expr
+;
+
+while_condition   : 'while(' evaluable_expr ')'
+;
+
+while_body        : definition+
+;
+
+then_expr         : 'then' value_expr
 ;
 
 atomic_value : id | number | bool | string
@@ -167,7 +180,7 @@ TRUE : 'true'
 ;
 FALSE : 'false'
 ;
-MUL :   '*' 
+MUL :   '*'
 ; 
 DIV :   '/' 
 ;

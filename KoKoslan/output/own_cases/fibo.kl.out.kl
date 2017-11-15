@@ -1,0 +1,9 @@
+let fibo  = { 
+	  let case_0  = \#x . \#n . #x == 0.0  ? 1.0  : #n  (#x ) 
+	| let case_1  = \#x . \#n . #x == 1.0  ? 1.0  : #n  (#x ) 
+	| let case_2  = \x . fibo  (x - 2.0 ) * 10.0 
+	| let else_1  = \#x . fail  (#x ) 
+	| \#x . case_0  (#x )  (\#x . case_1  (#x ) )  (\#x . case_2  (#x ) )  (\#x . else_1  (#x ) ) 
+}
+
+fibo  (5.0 ) 

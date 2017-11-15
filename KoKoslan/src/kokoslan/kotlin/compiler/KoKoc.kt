@@ -8,8 +8,6 @@ Kimberly Olivas Delgado
 package kokoslan.kotlin.compiler
 
 import org.antlr.v4.runtime.*
-
-
 import java.io.FileInputStream
 import java.io.InputStream
 
@@ -26,7 +24,7 @@ fun main(args: Array<String>) {
     println("...............................................\n")
     // Get parameters
 
-    val NAME = "middle/cases_recursive_dec"
+    val NAME = "own_cases/bool_lambda"
 
     var inputFile = "cases/$NAME.kl"
     var outputFile = "output/$NAME.kl.out.kl"

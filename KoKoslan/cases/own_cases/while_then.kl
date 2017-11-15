@@ -1,0 +1,9 @@
+let n = 10
+let s = 0
+let f = while( n > 0 ){
+    let s = s + n
+    let n = n - 1
+}
+then s
+
+f + 4

@@ -161,12 +161,43 @@ public interface KoKoslanVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEvaluableLambdaExpr(KoKoslanParser.EvaluableLambdaExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code WhileThenExpr}
+	 * labeled alternative in {@link KoKoslanParser#value_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileThenExpr(KoKoslanParser.WhileThenExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code AtomicValueExpr}
 	 * labeled alternative in {@link KoKoslanParser#value_expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAtomicValueExpr(KoKoslanParser.AtomicValueExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#while_then_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhile_then_expr(KoKoslanParser.While_then_exprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#while_condition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhile_condition(KoKoslanParser.While_conditionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#while_body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhile_body(KoKoslanParser.While_bodyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KoKoslanParser#then_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitThen_expr(KoKoslanParser.Then_exprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link KoKoslanParser#atomic_value}.
 	 * @param ctx the parse tree
