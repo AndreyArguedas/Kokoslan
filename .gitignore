@@ -10,3 +10,4 @@ KoKoslan/**/*.class
 
 #Ignore Meta-inf
 KoKoslan/classes/META-INF
+/KoKoslanSandbox/nbproject/private/
