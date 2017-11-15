@@ -6,10 +6,12 @@
 package Servlets;
 
 import com.google.gson.Gson;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,47 +49,32 @@ public class SandboxServlet extends HttpServlet {
         try {
             String json; //Json para manejar las operaciones
             
-            String inputFile = null,
-            outputFile = null;
-
-            InputStream is = System.in;
-
-            if (inputFile != null) {
-                is = new FileInputStream(inputFile);
-                System.out.println(">>> KoKoc Reading from " + inputFile + " <<<");
-            } else {
-                System.out.println(">>> KoKoc Reading from console (enter CTRL-Z+ENTER to finish <<<");
-            }
-            // Setup Lexer/Parser
-            //ANTLRInputStream input = new ANTLRInputStream(is);
-            CharStream input = (CharStream) CharStreams.fromStream(is);
-            KoKoslanLexer lexer = new KoKoslanLexer((org.antlr.v4.runtime.CharStream) input);
-            CommonTokenStream tokens = new CommonTokenStream((TokenSource) lexer);
-            KoKoslanParser parser = new KoKoslanParser((TokenStream) tokens);
-
-            // Parse, Compile and Generate code
-            // Starting point is rule (context) 'program' (See grammar KoKoslan.g4)
-            KoKoslanParser.ProgramContext tree = parser.program();
-
-            KoKoCompiler compiler = new KoKoCompiler(outputFile);
-            compiler.compile(tree);
-
-            System.err.println(">>> KoKoc is writing to " + outputFile + " <<<");
-            
-
-
             String accion = request.getParameter("accion"); //CRUD
 
             switch (accion) {
-                case "getResult":
+                case "postSandbox":
+                    String myProgram = request.getParameter("program");
+                    String inputFile = null,
+                     outputFile = null;
+
+                    InputStream is = new ByteArrayInputStream(myProgram.getBytes(StandardCharsets.UTF_8.name()));
+
+                    // Setup Lexer/Parser
+                    //ANTLRInputStream input = new ANTLRInputStream(is);
+                    CharStream input = (CharStream) CharStreams.fromStream(is);
+                    KoKoslanLexer lexer = new KoKoslanLexer((org.antlr.v4.runtime.CharStream) input);
+                    CommonTokenStream tokens = new CommonTokenStream((TokenSource) lexer);
+                    KoKoslanParser parser = new KoKoslanParser((TokenStream) tokens);
+
+                    // Parse, Compile and Generate code
+                    // Starting point is rule (context) 'program' (See grammar KoKoslan.g4)
+                    KoKoslanParser.ProgramContext tree = parser.program();
+
+                    KoKoCompiler compiler = new KoKoCompiler(outputFile);
+                    compiler.compile(tree);
+                    compiler.genCode();
                     KoKoValue finalValue = compiler.eval();
                     json = new Gson().toJson(finalValue);
-                    out.print(json);
-                    break;
-
-                case "post":
-                    String myProgram = request.getParameter("program");
-                    //json = new Gson().toJson();
                     out.print(json);
                     break;
  
