@@ -1,4 +1,0 @@
-let y  = 5.0 
-let f  = x  -> x  (10.0 ) 
-let g  = x  -> y + 1.0 
-f  (g ) 

@@ -1,4 +1,0 @@
-let rr  = x  -> y  -> x * y + y 
-let a  = rr  (10.0 ) 
-let b  = a  (10.0 ) 
-print  (b + 1.0 ) 

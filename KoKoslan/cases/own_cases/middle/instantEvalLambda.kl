@@ -5,6 +5,6 @@
    Kimberly Olivas Delgado
 */
 
-let x = 60
-let y = 2
-x % 31
+let foofoo = (\x. x * 2) (666 + 333)
+
+foofoo + 1 - 1

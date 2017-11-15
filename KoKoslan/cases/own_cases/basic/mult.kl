@@ -5,6 +5,7 @@
    Kimberly Olivas Delgado
 */
 
-let jojojojo = (\x. x * 2) (666 + 333)
+let x = 6
+5 * (x + 1) + 3 + (9 * 10) 
 
-jojojojo + 1 - 1
+/* expected = 128 */

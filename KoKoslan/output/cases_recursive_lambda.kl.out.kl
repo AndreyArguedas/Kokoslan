@@ -1,3 +1,0 @@
-let y  = 666.0 
-let dec  = x  -> x == 0.0  ? 0.0  : dec  (x - 1.0 ) + 2.0 * dec  (x - 1.0 ) 
-dec  (y ) 

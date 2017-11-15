@@ -1,5 +1,0 @@
-let y  = 666.0 
-let x  = 33.0 
-let f  = x  -> x  (y ) 
-let g  = x  -> x + y 
-f  (g ) 

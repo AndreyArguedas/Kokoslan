@@ -1,8 +1,0 @@
-let filterOrLess100  = \f . { 
-	  let case_0  = \#x . \#n . #x ==  ?  : #n  (#x ) 
-	| let case_1  = \[x |r ]. [f  (x ) == true  ? x  : x - 100.0 |filterOrLess100  (f )  (r ) ]
-	| let else_1  = \#x . fail  (#x ) 
-	| \#x . case_0  (#x )  (\#x . case_1  (#x ) )  (\#x . else_1  (#x ) ) 
-}
-
-filterOrLess100  (\x . x % 2.0 == 0.0 )  ([ 1.0 , 2.0 , 3.0 ] ) 

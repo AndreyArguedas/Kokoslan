@@ -1,3 +1,0 @@
-let x  = 9.0 
-let f  = y  -> y + x 
-x 

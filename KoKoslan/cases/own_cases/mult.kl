@@ -1,9 +1,0 @@
-/* 
-   Andrey Arguedas Espinoza
-   Daniela Armas Sanchez
-   Michael Chen Wang
-   Kimberly Olivas Delgado
-*/
-
-let x = 6
-5 * (x + 1) + 3 + (9 * 10) /* expected = 128 */

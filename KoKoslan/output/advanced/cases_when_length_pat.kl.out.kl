@@ -1,9 +1,0 @@
-let list  = [ 1.0 , 2.0 , 3.0 ] 
-let length  = { 
-	  let case_0  = \#x . \#n . #x ==  ? 0.0  : #n  (#x ) 
-	| let case_1  = \[x |r ]. 1.0 + length  (r ) 
-	| let else_1  = \#x . fail  (#x ) 
-	| \#x . case_0  (#x )  (\#x . case_1  (#x ) )  (\#x . else_1  (#x ) ) 
-}
-
-length  (list ) 

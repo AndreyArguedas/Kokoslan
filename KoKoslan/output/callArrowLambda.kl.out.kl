@@ -1,4 +1,0 @@
-let f  = x  -> x * x 
-let a  =  ( x  -> x * x  ) 6666.0 
-let b  = { x  -> x * x , y  -> y } 
-666.0 
