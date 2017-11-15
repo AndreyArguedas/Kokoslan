@@ -79,11 +79,7 @@ data class KoKoCall(private var head: KoKoAst, private var args: KoKoList = KoKo
             return case_beta_reduction(vv, args[0], ctx)
         return vv //There's not more closure inside the chain of calls
     }
-
-    private fun calculateValueofArgs(arg: KoKoAst): KoKoValue? {
-        return null
-    }
-
+    
 
     private fun beta_reduction(closure: KoKoLambdaValue, valueOfArg: KoKoValue): KoKoValue? {
         if (closure.pattern is KoKoListPat && valueOfArg is KoKoListValue) {

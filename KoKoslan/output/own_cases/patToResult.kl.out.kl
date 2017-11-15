@@ -1,0 +1,7 @@
+let d  = { 
+	  let case_0  = \#x . \#n . #x ==  ? 0.0  : #n  (#x ) 
+	| let else_1  = \#x . fail  (#x ) 
+	| \#x . case_0  (#x )  (\#x . else_1  (#x ) ) 
+}
+
+d  () 
