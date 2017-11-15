@@ -1,0 +1,3 @@
+let sum = \x. length(x) == 0 ? 0 : first(x) + sum(rest(x))
+
+sum([1, 90, 123])

@@ -1,3 +1,5 @@
-let filter = \f . { [] -> [] | [ x | r ] -> [ f(x) | filter(f)(r) ] }
+let filterOrLess100 = \f . { [] -> [] | 
+                    [ x | r ] -> [ f(x) == true ? x : x - 100 | filterOrLess100(f)(r) ] 
+                  }
 
-filter(\x. x % 2 == 0)([1 , 2 , 3])
+filterOrLess100(\x. (x % 2) == 0)([1 , 2 , 3])

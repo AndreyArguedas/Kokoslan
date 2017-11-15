@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
     println("...............................................\n")
     // Get parameters
 
-    val NAME = "own_cases/cases_middle_double_list_pat"
+    val NAME = "own_cases/patToResult"
 
     var inputFile = "cases/$NAME.kl"
     var outputFile = "output/$NAME.kl.out.kl"
