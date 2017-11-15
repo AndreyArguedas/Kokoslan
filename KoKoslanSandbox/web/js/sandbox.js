@@ -14,8 +14,8 @@ function runCase() {
     $.ajax({
         url: 'SandboxServlet',
         data: {
-            action: 'postSandbox',
-            text: $("#inputTxt").val()
+            accion: 'postSandbox',
+            program: $("#inputTxt").val()
         },
         error: function() {
             showMessage();

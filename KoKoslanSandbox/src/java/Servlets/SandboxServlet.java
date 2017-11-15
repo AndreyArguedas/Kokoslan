@@ -6,12 +6,9 @@
 package Servlets;
 
 import com.google.gson.Gson;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
+import java.io.StringReader;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +17,10 @@ import kokoslan.kotlin.compiler.KoKoCompiler;
 import kokoslan.kotlin.eval.KoKoValue;
 import kokoslan.parser.KoKoslanLexer;
 import kokoslan.parser.KoKoslanParser;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.TokenSource;
-import org.antlr.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.TokenSource;
 import org.antlr.v4.runtime.TokenStream;
 
 /**
@@ -56,12 +52,15 @@ public class SandboxServlet extends HttpServlet {
                     String myProgram = request.getParameter("program");
                     String inputFile = null,
                      outputFile = null;
+                    
+                    StringReader reader = new StringReader(myProgram);
 
-                    InputStream is = new ByteArrayInputStream(myProgram.getBytes(StandardCharsets.UTF_8.name()));
-
+                    //InputStream is = new ByteArrayInputStream(myProgram.getBytes(StandardCharsets.UTF_8));
+                    //InputStream is = IOUtils.toInputStream(source, "UTF-");
                     // Setup Lexer/Parser
                     //ANTLRInputStream input = new ANTLRInputStream(is);
-                    CharStream input = (CharStream) CharStreams.fromStream(is);
+                    CharStream input = (CharStream) CharStreams.fromReader(reader);
+                    //CharStream input = (CharStream) CharStreams.fromStream(is, StandardCharsets.UTF_8);
                     KoKoslanLexer lexer = new KoKoslanLexer((org.antlr.v4.runtime.CharStream) input);
                     CommonTokenStream tokens = new CommonTokenStream((TokenSource) lexer);
                     KoKoslanParser parser = new KoKoslanParser((TokenStream) tokens);
