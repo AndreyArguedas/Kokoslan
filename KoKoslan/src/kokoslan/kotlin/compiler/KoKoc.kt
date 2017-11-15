@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
     println("...............................................\n")
     // Get parameters
 
-    val NAME = "own_cases/fibo"
+    val NAME = "own_cases/while_then"
 
     var inputFile = "cases/$NAME.kl"
     var outputFile = "output/$NAME.kl.out.kl"

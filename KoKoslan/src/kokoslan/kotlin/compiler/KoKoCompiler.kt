@@ -338,4 +338,28 @@ class KoKoCompiler(private var outputFile: String? = null) : KoKoslanBaseVisitor
 
         return LAMBDA(ID("#x"), mainCall, false)
     }
+
+    override fun visitWhileThenExpr(ctx : KoKoslanParser.WhileThenExprContext) : KoKoAst {
+        return visit(ctx.while_then_expr())
+    }
+
+    override fun visitWhile_then_expr(ctx : KoKoslanParser.While_then_exprContext) : KoKoAst {
+        val whileCondition =  visit(ctx.while_condition())
+        val whileBody = visit(ctx.while_body())
+        val then_expr = visit(ctx.then_expr())
+        return WHILE_THEN(whileCondition, whileBody, then_expr)
+    }
+
+    override fun visitWhile_condition(ctx : KoKoslanParser.While_conditionContext) : KoKoAst {
+        return visit(ctx.evaluable_expr())
+    }
+
+    override fun visitWhile_body(ctx : KoKoslanParser.While_bodyContext) : KoKoAst {
+        return LIST(ctx.definition().map{ visit(it) }, false)
+    }
+
+    override fun visitThen_expr(ctx : KoKoslanParser.Then_exprContext) : KoKoAst {
+        return visit(ctx.value_expr())
+    }
+
 }

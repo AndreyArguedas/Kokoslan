@@ -97,4 +97,8 @@ interface KoKoEmiter {
         return KoKoTest(condition, success, fail)
     }
 
+    fun WHILE_THEN(whileCondition : KoKoAst, body : KoKoAst, whileThen : KoKoAst) : KoKoAst{
+        return KoKoWhileThen(whileCondition, body, whileThen)
+    }
+
 }
