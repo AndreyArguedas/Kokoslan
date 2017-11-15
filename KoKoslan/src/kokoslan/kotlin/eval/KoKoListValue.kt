@@ -24,4 +24,8 @@ class KoKoListValue: ArrayList<KoKoValue?>, KoKoValue{
     fun getFirst() : KoKoValue?{
         return this.firstOrNull()
     }
+
+    fun getClone() : KoKoListValue = this.clone() as KoKoListValue
+
+    fun dropFirst() : KoKoListValue = KoKoListValue(this.getClone().drop(1))
 }

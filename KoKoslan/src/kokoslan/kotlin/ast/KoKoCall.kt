@@ -87,12 +87,38 @@ data class KoKoCall(private var head: KoKoAst, private var args: KoKoList = KoKo
 
     private fun beta_reduction(closure: KoKoLambdaValue, valueOfArg: KoKoValue): KoKoValue? {
         if (closure.pattern is KoKoListPat && valueOfArg is KoKoListValue) {
-            closure.ctx.assoc(closure.pattern.head as KoKoId, valueOfArg.getFirst())
-            closure.ctx.assoc(closure.pattern.rest as KoKoId, valueOfArg.getRest())
+            manageKoKoListPat(closure, valueOfArg)
         } else
             closure.ctx.set(closure.pattern.toString(), valueOfArg)
-
         return closure.expr.eval(closure.ctx)
+    }
+
+    private fun manageKoKoListPat(closure: KoKoLambdaValue, valueOfArg: KoKoValue) {
+        if (closure.pattern is KoKoListPat && valueOfArg is KoKoListValue) {
+
+            val valOfArg = manageKoKoListPatPart(closure.ctx, closure.pattern.head, valueOfArg)!!
+            manageKoKoListPatPart(closure.ctx, closure.pattern.rest, valOfArg, false)
+
+        }
+    }
+
+    private fun manageKoKoListPatPart(ctx: KoKoContext, part: KoKoAst, valueOfArg: KoKoValue, isFirst: Boolean = true): KoKoValue? {
+        valueOfArg as KoKoListValue
+        when(part) {
+            is KoKoId -> {
+                if(isFirst) {
+                    ctx.assoc(part, valueOfArg.getFirst())
+                    return valueOfArg.dropFirst()
+                } else {
+                    ctx.assoc(part, valueOfArg)
+                }
+            }
+            is KoKoListPat -> {
+                val valOfArg = manageKoKoListPatPart(ctx, part.head, valueOfArg)!!
+                manageKoKoListPatPart(ctx, part.rest, valOfArg, false)
+            }
+        }
+        return null
     }
 
     private fun case_beta_reduction(closure: KoKoCaseValue, arg: KoKoAst, ctx: KoKoContext): KoKoValue? {
