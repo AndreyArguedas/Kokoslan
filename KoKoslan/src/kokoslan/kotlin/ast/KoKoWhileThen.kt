@@ -25,13 +25,13 @@ class KoKoWhileThen(private val whileCondition: KoKoAst, private val body: KoKoA
     }
 
     override fun genCode(Out: PrintStream) {
-
         Out.print("while(")
         getCondition().genCode(Out)
-        Out.print("){")
+        Out.println(") {")
         getBody().genCode(Out)
         Out.print("}")
         getThen().genCode(Out)
+        Out.println()
     }
 
     override fun eval(ctx: KoKoContext): KoKoValue? {

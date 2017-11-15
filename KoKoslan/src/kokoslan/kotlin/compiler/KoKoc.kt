@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
     println("...............................................\n")
     // Get parameters
 
-    val NAME = "own_cases/bool_lambda"
+    val NAME = "own_cases/cases_middle_double_list_pat"
 
     var inputFile = "cases/$NAME.kl"
     var outputFile = "output/$NAME.kl.out.kl"

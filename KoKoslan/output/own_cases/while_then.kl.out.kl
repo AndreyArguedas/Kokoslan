@@ -1,6 +1,8 @@
 let n  = 10.0 
 let s  = 0.0 
-let f  = while(n > 0.0 ){let s  = s + n 
+let f  = while(n > 0.0 ) {
+let s  = s + n 
 , let n  = n - 1.0 
 }s 
+
 f + 4.0 
