@@ -24,6 +24,8 @@ class KoKoContext (private var parent: KoKoContext? = null) : HashMap<String, Ko
 		return r
 	}
 
+	fun makeClone(): KoKoContext = this.clone() as KoKoContext
+
 	fun assoc(id: KoKoId, value: KoKoValue?){
 		put(id.getValue(), value)
 	}

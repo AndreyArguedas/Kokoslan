@@ -1,0 +1,8 @@
+
+let fibo = \x. {
+        0 -> 1
+      | 1 -> 1
+      | y -> fibo(y - 1) + fibo(y - 2)
+}
+
+fibo(10)
