@@ -1,4 +1,0 @@
-let list = [1,2,3,4]
-length(list)
-/*first(list)
-length( cons(first(list))(rest(list)) )*/

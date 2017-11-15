@@ -1,7 +1,0 @@
-let list = [1,2,3,4]
-
-rest(list)
-
-/**
-    Expected: [2,3,4]
-*/

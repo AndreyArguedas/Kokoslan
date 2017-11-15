@@ -1,3 +1,10 @@
+/* 
+   Andrey Arguedas Espinoza
+   Daniela Armas Sanchez
+   Michael Chen Wang
+   Kimberly Olivas Delgado
+*/
+
 let filterOrLess100 = \f . { [] -> [] | 
                     [ x | r ] -> [ f(x) == true ? x : x - 100 | filterOrLess100(f)(r) ] 
                   }

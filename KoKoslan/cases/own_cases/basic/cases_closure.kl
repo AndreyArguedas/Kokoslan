@@ -5,6 +5,12 @@
    Kimberly Olivas Delgado
 */
 
-let jojojojo = (\x. x * 2) (666 + 333)
+let y = 5
 
-jojojojo + 1 - 1
+let f = \x. x(10)
+
+let g = \x. y + 1 
+
+f(g)
+
+/*  */

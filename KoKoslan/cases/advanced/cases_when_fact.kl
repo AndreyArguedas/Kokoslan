@@ -5,3 +5,7 @@ let fact = {
 }
 
 fact(5)
+
+/**
+ *Works for 400
+ */

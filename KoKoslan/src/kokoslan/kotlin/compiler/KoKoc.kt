@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
     println("...............................................\n")
     // Get parameters
 
-    val NAME = "own_cases/patToResult"
+    val NAME = "advanced/cases_when_map"
 
     var inputFile = "cases/$NAME.kl"
     var outputFile = "output/$NAME.kl.out.kl"

@@ -5,6 +5,10 @@
    Kimberly Olivas Delgado
 */
 
-let x = 60
-let div = 3
-x / div / 2 * 10
+let fibo = {
+    0 -> 1
+  | 1 -> 1
+  | x -> fibo(x - 1) + fibo(x - 2)
+}
+
+fibo(10)

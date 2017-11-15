@@ -1,3 +1,0 @@
-let x = false
-let y = !!false
-x || y && x || y

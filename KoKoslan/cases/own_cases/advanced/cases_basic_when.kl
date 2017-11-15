@@ -5,6 +5,9 @@
    Kimberly Olivas Delgado
 */
 
-let jojojojo = (\x. x * 2) (666 + 333)
+let f = \0. true
+let g = \5. true
 
-jojojojo + 1 - 1
+f(0) == g(5)
+
+/*//Expected: true*/

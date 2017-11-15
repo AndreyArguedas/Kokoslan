@@ -5,6 +5,6 @@
    Kimberly Olivas Delgado
 */
 
-let x = 666
-let y = 999
-x - 100 + y 
+let f = \x.\y. x + 1 + length(y) * (45 - 9)
+
+f(10)([8, [156], [1, 100], []])

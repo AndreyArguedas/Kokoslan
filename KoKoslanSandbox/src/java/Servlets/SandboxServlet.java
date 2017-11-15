@@ -55,12 +55,8 @@ public class SandboxServlet extends HttpServlet {
                     
                     StringReader reader = new StringReader(myProgram);
 
-                    //InputStream is = new ByteArrayInputStream(myProgram.getBytes(StandardCharsets.UTF_8));
-                    //InputStream is = IOUtils.toInputStream(source, "UTF-");
-                    // Setup Lexer/Parser
-                    //ANTLRInputStream input = new ANTLRInputStream(is);
                     CharStream input = (CharStream) CharStreams.fromReader(reader);
-                    //CharStream input = (CharStream) CharStreams.fromStream(is, StandardCharsets.UTF_8);
+                    
                     KoKoslanLexer lexer = new KoKoslanLexer((org.antlr.v4.runtime.CharStream) input);
                     CommonTokenStream tokens = new CommonTokenStream((TokenSource) lexer);
                     KoKoslanParser parser = new KoKoslanParser((TokenStream) tokens);
