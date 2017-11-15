@@ -1,0 +1,62 @@
+body {
+    font-family: 'Lucida Sans Unicode';
+}
+
+.navbar .navbar-brand {
+    font-family: 'Barlow';
+    font-size: 200%;
+    color: #ffffff !important;
+}
+
+#mainContainer {
+    margin-top: 100px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border-radius: 25px;
+    padding: 25px;
+    padding-left: 40px;
+    height: 100%;
+}
+
+#inputTxt {
+    height: 100%;
+    margin-top: 15px;
+    min-height: 300px;
+}
+
+#run {
+    float: right;
+}
+
+
+/* 
+#evalDiv {
+    background-color: yellow;
+}
+
+#outputDiv {
+    background-color: blue;
+} */
+
+textarea {
+    box-sizing: border-box;
+    height: 100px;
+    width: 100%;
+    resize: none;
+    font-family: 'Lucida Console';
+    border-radius: 10px;
+    box-shadow: -1px 4px 46px -3px rgba(0, 0, 0, 0.27);
+    min-height: 150px;
+}
+
+.global-header-logo {
+    transition: 0.3s all;
+    position: relative;
+    top: 12px;
+    float: left;
+    width: 103px;
+    height: 22px;
+    /*background: url(kotlin.png) no-repeat;*/
+    font-size: 0;
+    text-decoration: none;
+}
