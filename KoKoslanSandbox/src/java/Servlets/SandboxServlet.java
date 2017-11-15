@@ -49,11 +49,11 @@ public class SandboxServlet extends HttpServlet {
         try {
             String json; //Json para manejar las operaciones
             
-            String accion = request.getParameter("accion"); //CRUD
+            String accion = request.getParameter("accion");
 
             switch (accion) {
                 case "postSandbox":
-                    String myProgram = request.getParameter("program");
+                    String myProgram = request.getParameter("programa");
                     String inputFile = null,
                      outputFile = null;
 
