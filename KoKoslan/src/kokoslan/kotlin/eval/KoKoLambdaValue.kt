@@ -9,4 +9,4 @@ package kokoslan.kotlin.eval
 
 import kokoslan.kotlin.ast.*
 
-class KoKoLambdaValue(val pattern : KoKoAst, val expr : KoKoAst, var ctx : KoKoContext) : KoKoValue
+class KoKoLambdaValue(val pattern : KoKoAst, val expr : KoKoAst, val ctx : KoKoContext) : KoKoValue

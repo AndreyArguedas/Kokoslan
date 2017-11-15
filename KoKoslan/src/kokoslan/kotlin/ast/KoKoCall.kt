@@ -59,7 +59,7 @@ data class KoKoCall(private var head: KoKoAst, private var args: KoKoList = KoKo
                     return beta_reduction(closure, valueOfArg)
                 } else if (closure is KoKoCaseValue) {
                     val tempCaseValue = this.head.eval(ctx)
-                    return case_beta_reduction(tempCaseValue as KoKoCaseValue, args[0].eval(ctx)!!)
+                    return case_beta_reduction(tempCaseValue as KoKoCaseValue, arg, ctx)
                 }
             }
         }
@@ -76,8 +76,12 @@ data class KoKoCall(private var head: KoKoAst, private var args: KoKoList = KoKo
         if (vv is KoKoLambdaValue)
             return beta_reduction(vv, args[0].eval(ctx)!!)
         if (vv is KoKoCaseValue)
-            return case_beta_reduction(vv, args[0].eval(ctx)!!)
+            return case_beta_reduction(vv, args[0], ctx)
         return vv //There's not more closure inside the chain of calls
+    }
+
+    private fun calculateValueofArgs(arg: KoKoAst): KoKoValue? {
+        return null
     }
 
 
@@ -91,10 +95,11 @@ data class KoKoCall(private var head: KoKoAst, private var args: KoKoList = KoKo
         return closure.expr.eval(closure.ctx)
     }
 
-    private fun case_beta_reduction(closure: KoKoCaseValue, valueOfArg: KoKoValue): KoKoValue? {
+    private fun case_beta_reduction(closure: KoKoCaseValue, arg: KoKoAst, ctx: KoKoContext): KoKoValue? {
+        val valueOfArg = arg.eval(ctx)!!
         val newClosureAst = closure.call as KoKoLambda
-        val newClosure = newClosureAst.eval(closure.ctx)
-        return beta_reduction(newClosure as KoKoLambdaValue, valueOfArg)
+        val newClosure = newClosureAst.eval(closure.ctx) as KoKoLambdaValue
+        return beta_reduction(newClosure, valueOfArg)
     }
 
     private fun printArguments(ctx: KoKoContext) {
