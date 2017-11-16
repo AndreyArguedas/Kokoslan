@@ -32,12 +32,7 @@ interface KoKoEmiter {
     fun BI_OPERATION(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoAst {
         val id = oper as KoKoId
         return when (id.getValue()) {
-            "+" -> KoKoBiOperation(oper, left, right)
-            "-" -> KoKoBiOperation(oper, left, right)
-            "*" -> KoKoBiOperation(oper, left, right)
-            "/" -> KoKoBiOperation(oper, left, right)
-            "%" -> KoKoBiOperation(oper, left, right)
-            "^" -> KoKoBiOperation(oper, left, right)
+            "+", "-", "*", "/", "%", "^" -> KoKoBiOperation(oper, left, right)
             else -> KoKoBiOperation(oper, left, right)
         }
     }
@@ -45,9 +40,7 @@ interface KoKoEmiter {
     fun BOOL_OPERATION(oper: KoKoAst, left: KoKoAst, right: KoKoAst): KoKoAst {
         val id = oper as KoKoId
         return when (id.getValue()) {
-            "<", ">", "<=", ">=", "==", "!=", "||", "&&" -> {
-                KoKoBoolOperation(oper, left, right)
-            }
+            "<", ">", "<=", ">=", "==", "!=", "||", "&&" -> KoKoBoolOperation(oper, left, right)
             else -> KoKoBiOperation(oper, left, right)
         }
     }
