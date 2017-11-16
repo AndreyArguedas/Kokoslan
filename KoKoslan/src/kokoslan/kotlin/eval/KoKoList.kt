@@ -15,10 +15,13 @@ import kokoslan.kotlin.ast.*
 class KoKoList(var list : List<KoKoAst>? = null, private var kokoNativeList: Boolean = false) : ArrayList<KoKoAst>(list), KoKoAst{
     
     override fun genCode(Out : PrintStream){
-        if(this.size == 0) return
+        if(this.size == 0) {
+            if(kokoNativeList) Out.print("[ ]")
+            return
+        }
         if(kokoNativeList)
             Out.print("[ ")
-        this[0].genCode(Out)
+        this[0]?.genCode(Out)
         this.drop(1)
             .forEach{Out.print(", "); it.genCode(Out);}
         if(kokoNativeList)

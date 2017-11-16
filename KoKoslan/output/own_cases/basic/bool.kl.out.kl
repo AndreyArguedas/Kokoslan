@@ -1,0 +1,11 @@
+let a  = 666.0 
+let b  = 666.0 
+let c  = 90.0 
+let d  = 5.0 
+let i  = print  (a > b ) 
+let g  = print  (a < b ) 
+let f  = print  (c <= b ) 
+let r  = print  (d >= a ) 
+let l  = print  (a == b ) 
+let n  = print  (a != b ) 
+print  ("Finished" ) 

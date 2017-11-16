@@ -298,7 +298,7 @@ class KoKoCompiler(private var outputFile: String? = null) : KoKoslanBaseVisitor
     }
 
     override fun visitList_value(ctx: KoKoslanParser.List_valueContext): KoKoAst {
-        return if (ctx.list_expr() == null) LIST()
+        return if (ctx.list_expr() == null) LIST(true)
         else LIST(ctx.list_expr().expression(0).part_expr().map { visit(it) }, true)
     }
 
