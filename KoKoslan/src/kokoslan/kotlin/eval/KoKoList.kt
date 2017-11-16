@@ -16,7 +16,7 @@ class KoKoList(var list : List<KoKoAst>? = null, private var kokoNativeList: Boo
     
     override fun genCode(Out : PrintStream){
         if(this.size == 0) {
-            if(kokoNativeList) Out.print("[ ]")
+            if(kokoNativeList) Out.print("[ ] ")
             return
         }
         if(kokoNativeList)

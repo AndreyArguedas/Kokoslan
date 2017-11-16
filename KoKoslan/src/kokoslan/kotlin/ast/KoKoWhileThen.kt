@@ -29,7 +29,7 @@ class KoKoWhileThen(private val whileCondition: KoKoAst, private val body: KoKoA
         getCondition().genCode(Out)
         Out.println(") {")
         getBody().genCode(Out)
-        Out.print("}")
+        Out.print("} then ")
         getThen().genCode(Out)
         Out.println()
     }
