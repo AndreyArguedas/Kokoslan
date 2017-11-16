@@ -5,6 +5,13 @@
   @since 2017
 */
 
+/*
+    Andrey Arguedas Espinoza
+    Daniela Armas Sanchez
+    Michael Chen Wang
+    Kimberly Olivas Delgado
+*/
+
 grammar KoKoslan;
 
 

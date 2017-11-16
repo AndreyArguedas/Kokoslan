@@ -1,3 +1,10 @@
+/**
+Andrey Arguedas Espinoza
+Daniela Armas Sanchez
+Michael Chen Wang
+Kimberly Olivas Delgado
+ */
+
 package kokoslan.kotlin.ast
 
 import kokoslan.kotlin.eval.*
@@ -13,9 +20,9 @@ class KoKoListPat(val head : KoKoAst, val rest : KoKoAst) : KoKoAst{
         Out.print("]")
     }
 
-    override fun eval(ctx : KoKoContext) : KoKoValue? { //La idea es no evaluar una lambda hasta que no le hagan call
-        var headValue = this.head.eval(ctx)
-        var restValue = this.rest.eval(ctx)
+    override fun eval(ctx : KoKoContext) : KoKoValue? {
+        val headValue = this.head.eval(ctx)
+        val restValue = this.rest.eval(ctx)
         val l = restValue as KoKoListValue
         l.add(0, headValue)
         return KoKoListValue(l)

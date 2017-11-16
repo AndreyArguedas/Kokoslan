@@ -1,0 +1,8 @@
+let d  = { 
+	  let case_0  = \#x . \#n . #x ==  ? 0.0  : #n  (#x ) 
+	| let case_1  = \[x |r ]. length  (r ) 
+	| let else_1  = \#x . fail  (#x ) 
+	| \#x . case_0  (#x )  (\#x . case_1  (#x ) )  (\#x . else_1  (#x ) ) 
+}
+
+d  ([ 8.0 , 92.0 , 187.0 ] ) 

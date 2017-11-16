@@ -7,4 +7,4 @@
 let x = 4
 let y = x++       //y = 4, x = 5
 let z = x + y++   //z = 9, y = 5
-println(z)
+print(z)

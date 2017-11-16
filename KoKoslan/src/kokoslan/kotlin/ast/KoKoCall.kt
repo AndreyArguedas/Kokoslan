@@ -35,7 +35,7 @@ data class KoKoCall(private var head: KoKoAst, private var args: KoKoList = KoKo
                     return KoKoLength().eval(this.args.first().eval(ctx)!!)
 
         when ((this.head as KoKoId).getValue()) {
-            "print" -> printArguments(ctx)
+            "print" -> return printArguments(ctx)
             "fail" -> throw KoKoFailException()
             else -> {
                 val closure = ctx.find(this.head as KoKoId)
@@ -44,14 +44,10 @@ data class KoKoCall(private var head: KoKoAst, private var args: KoKoList = KoKo
                 val valueOfArg: KoKoValue
 
                 if (closure is KoKoLambdaValue) {
-                    if (arg is KoKoLambda) {
+                    if (arg is KoKoLambda || arg is KoKoBiOperation || arg is KoKoBoolOperation || arg is KoKoList) {
                         valueOfArg = arg.eval(closure.ctx)!!
                     } else if (arg is KoKoCall) {
                         valueOfArg = arg.eval(ctx)!!
-                    } else if (arg is KoKoBiOperation) {
-                        valueOfArg = arg.eval(closure.ctx)
-                    } else if (arg is KoKoList) {
-                        valueOfArg = arg.eval(closure.ctx)!!
                     } else if (ctx.contains(KoKoId(arg.toString())))
                         valueOfArg = ctx.find(KoKoId(arg.toString()))
                     else
@@ -124,8 +120,9 @@ data class KoKoCall(private var head: KoKoAst, private var args: KoKoList = KoKo
         return beta_reduction(newClosure, valueOfArg)
     }
 
-    private fun printArguments(ctx: KoKoContext) {
+    private fun printArguments(ctx: KoKoContext): KoKoValue? {
         args.forEach { println(it.eval(ctx)) }
+        return KoKoStringValue("")
     }
 
 }
