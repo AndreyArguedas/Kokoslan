@@ -1,8 +1,0 @@
-let compose  = \f . \g . { 
-	  let case_0  = \#x . \#n . #x ==  ?  : #n  (#x ) 
-	| let case_1  = \[x |r ]. [f  (g  (x ) ) |compose  (f )  (g )  (r ) ]
-	| let else_1  = \#x . fail  (#x ) 
-	| \#x . case_0  (#x )  (\#x . case_1  (#x ) )  (\#x . else_1  (#x ) ) 
-}
-
-compose  (\x . x * 2.0 )  (\x . x + 100.0 )  ([ 1.0 , 2.0 , 3.0 ] ) 
